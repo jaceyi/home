@@ -1,34 +1,48 @@
 <template>
   <div class="main-nav">
     <div class="main-nav--left">
-      <div class="main-nav--item">
-        个人栈
-      </div>
+      <router-link to="/personal">
+        <i class="iconfont icon icon-personal"></i>个人栈
+      </router-link>
     </div>
     <div class="main-nav--right">
-      <div class="main-nav--item">
-        技能栈
-      </div>
-      <div class="main-nav--item">
-        留言板
-      </div>
-      <div class="main-nav--item">
-        作品集
-      </div>
-      <div class="main-nav--item">
-        技术分享
-      </div>
+      <router-link to="/ability">
+        <i class="iconfont icon icon-ability"></i>技能栈
+      </router-link>
+      <router-link to="/write">
+        <i class="iconfont icon icon-write"></i>留言板
+      </router-link>
+      <router-link to="/works">
+        <i class="iconfont icon icon-works"></i>作品集
+      </router-link>
+      <a href="#">
+        <i class="iconfont icon icon-share"></i>技术分享
+      </a>
     </div>
   </div>
 </template>
 
 <script>
+import CreateLine from '@/assets/js/line.js'
+
+const line = new CreateLine()
+
 export default {
   name: 'MainNav',
   data () {
     return {
       nav: 'MainNav'
     }
+  },
+  mounted: function () {
+    const canvasEl = document.getElementsByClassName('main-nav--left')[0]
+    line.init({
+      parent: canvasEl,
+      pointNum: 42,
+      pointDist: 60,
+      lineMax: 1,
+      isMouse: true
+    })
   }
 }
 </script>
@@ -44,8 +58,10 @@ export default {
 .main-nav--left {
   width: 300px;
   height: 300px;
+  position: relative;
 
-  .main-nav--item {
+  a {
+    display: block;
     width: 300px;
     height: 300px;
     border: 1px solid rgba(255, 255, 255, 0.77);
@@ -53,7 +69,26 @@ export default {
     color: #fff;
     font-size: 32px;
     font-weight: 400;
-    padding: 30px;
+    padding: 20px;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    transition: all 0.4s;
+    text-decoration: none;
+
+    .icon {
+      font-size: 72px;
+      margin-right: 10px;
+      transition: all 0.4s;
+    }
+    &:hover {
+      background: rgba(0,0,0,0.2);
+
+      .icon {
+        font-size: 88px;
+      }
+    }
   }
 }
 
@@ -62,17 +97,21 @@ export default {
   height: 300px;
   display: flex;
   flex-wrap: wrap;
+  position: relative;
 
-  .main-nav--item {
+  a {
+    display: block;
     width: 150px;
     height: 150px;
     border: 1px solid rgba(255, 255, 255, 0.77);
     background: rgba(0,0,0,0.1);
     border-left: 0;
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     padding: 10px 0 0 10px;
+    transition: all 0.4s;
+    text-decoration: none;
 
     &:first-child {
       border-bottom: 0;
@@ -83,6 +122,20 @@ export default {
       width: 130px;
       height: 130px;
       margin-top: 20px;
+    }
+
+    .icon {
+      font-size: 36px;
+      margin-right: 6px;
+      transition: all 0.4s;
+    }
+
+    &:hover {
+      background: rgba(0,0,0,0.2);
+
+      .icon {
+        font-size: 46px;
+      }
     }
   }
 }
