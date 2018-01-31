@@ -10,18 +10,22 @@ Vue.use(Router)
 
 const routes = [
   {
+    name: 'Personal',
     path: '/personal',
     component: Personal
   },
   {
+    name: 'Ability',
     path: '/ability',
     component: Ability
   },
   {
+    name: 'Write',
     path: '/write',
     component: Write
   },
   {
+    name: 'Works',
     path: '/works',
     component: Works
   }
