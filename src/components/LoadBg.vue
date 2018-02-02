@@ -1,21 +1,43 @@
 <template>
-  <div class="load-bg" @click="changeBgUrlNum">
-    <i class="iconfont icon icon-refresh"></i><span>换一张背景</span>
+  <div :class="`load-bg ${ isRotate ? 'rotate' : '' }`" @click="changeBgUrlNum">
+    <i class="iconfont icon icon-refresh"></i>
+    <span>换一张背景</span>
   </div>
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
 
 export default {
   name: 'LoadBg',
+  data () {
+    return {
+      isRotate: false,
+      timer: null
+    }
+  },
   methods: {
-    ...mapMutations(['changeBgUrlNum'])
+    changeBgUrlNum: function () {
+      this.isRotate = true
+      clearInterval(this.timer)
+      this.timer = setTimeout(() => {
+        this.isRotate = false
+      }, 1000)
+      this.$store.commit('changeBgUrlNum')
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+  @keyframes rotateIcon {
+    0% {
+      transform: rotate(0deg)
+    }
+    100% {
+      transform: rotate(-360deg)
+    }
+  }
+
   .load-bg {
     position: absolute;
     right: -85px;
@@ -32,10 +54,17 @@ export default {
     cursor: pointer;
 
     .icon {
-      margin-right: 10px;
+      margin-right: 5px;
+      transition: all 0.6s;
     }
     &:hover {
       right: 0;
+    }
+
+    &.rotate {
+      .icon {
+        animation: rotateIcon 0.36s linear infinite;
+      }
     }
   }
 </style>

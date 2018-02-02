@@ -3,7 +3,7 @@
     <transition name="fade">
       <transition :name="transitionName"><router-view class="container"></router-view></transition>
     </transition>
-      <transition name="fade">
+    <transition name="fade">
       <div v-if="shadowShow" @click="goHome" class="container-shadow"></div>
     </transition>
     <MainNav />
@@ -62,6 +62,10 @@ export default {
   box-sizing: border-box;
 }
 
+i {
+  display: inline-block;
+}
+
 #app {
   display: flex;
   justify-content: center;
@@ -81,16 +85,18 @@ export default {
   left: 50%;
   top: 50%;
   width: 88%;
-  max-width: 1200px;
+  max-width: 1400px;
   height: 88%;
-  background: rgba(255,255,255,0.88);
+  background: rgba(255,255,255,0.9);
   transform: translateX(-50%) translateY(-50%);
   z-index: 4;
   border-radius: 5px;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+  overflow: auto;
 }
 
 .container-shadow {
-  background: rgba(0,0,0,0.66);
+  background: rgba(255,255,255,0.5);
   width: 100%;
   height: 100%;
   position: absolute;
