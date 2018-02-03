@@ -26,7 +26,6 @@ export default {
   },
   watch: {
     '$route' (to, from) {
-      // console.log(to, from)
       const toDepth = to.path.split('/').length
       const fromDepth = from.path.split('/').length
       this.transitionName = toDepth < fromDepth ? 'container-hide' : 'container-show'
@@ -53,9 +52,8 @@ export default {
 }
 </script>
 
-<style>
-@import "//at.alicdn.com/t/font_297360_ncis5slv86pnl8fr.css";
-
+<style lang="scss">
+$mianColor: #00AEFF;
 * {
   margin: 0;
   padding: 0;
@@ -64,6 +62,52 @@ export default {
 
 i {
   display: inline-block;
+}
+
+input, textarea, button {
+  outline: none;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background: rgba(1, 136, 251, .5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: rgba(1, 136, 251, .3);
+}
+
+.img {
+  width: 100%;
+}
+
+.main-btn {
+  height: 32px;
+  min-width: 80px;
+  border: 1px solid $mianColor;
+  cursor: pointer;
+  padding: 0 20px;
+  line-height: 32px;
+  color: #000;
+  background: $mianColor;
+  border-radius: 3px;
+  transition: all 0.3s;
+
+  &:hover {
+    color: #fff;
+  }
 }
 
 #app {
@@ -87,7 +131,7 @@ i {
   width: 88%;
   max-width: 1400px;
   height: 88%;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.86);
   transform: translateX(-50%) translateY(-50%);
   z-index: 4;
   border-radius: 5px;
@@ -113,4 +157,27 @@ i {
   opacity: 0;
 }
 
+.page-head {
+  height: 60px;
+  font-size: 24px;
+  background: #fff;
+  line-height: 60px;
+  padding-left: 36px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 2;
+
+  &::after {
+    content: '';
+    display: block;
+    height: 22px;
+    width: 5px;
+    background: $mianColor;
+    position: absolute;
+    left: 20px;
+    top: 19px;
+  }
+}
 </style>

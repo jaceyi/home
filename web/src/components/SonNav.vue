@@ -104,6 +104,8 @@ export default {
       color: #fff;
       transition: all 0.6s;
       text-decoration: none;
+      display: block;
+      height: 100%;
     }
 
     &.active {

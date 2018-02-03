@@ -1,0 +1,304 @@
+<template>
+  <div>
+    <div class="page-head write-head">
+      <span>留言板</span>
+      <div class="portrait" v-if="portraitUrl" :style="`background-image: url(${portraitUrl})`"></div>
+    </div>
+    <div class="write-form">
+      <textarea class="write-form--text" v-model="contentText" name="textarea" rows="10" maxlength="1024" placeholder="请输入留言内容"></textarea>
+      <div class="write-form--box">
+        <div class="left">
+          <label>
+            昵称：<input v-model="userName" type="text" placeholder="请输入昵称" maxlength="20">
+          </label>
+          <label>
+            QQ号码：<input v-model="qqCode" type="number" placeholder="请输入QQ号码" maxlength="11" v-on:blur="getPortraitUrl">
+          </label>
+        </div>
+        <div class="right">
+          <label>
+            <input type="number" v-model="checkCode" v-on:focus="focusCheck" :placeholder="checkPlacehoder" maxlength="2">
+          </label>
+          <button class="main-btn" @click="submitWrite">提交</button>
+        </div>
+      </div>
+    </div>
+    <div class="write-list">
+      <div class="head">
+        总留言条数100条
+      </div>
+      <div class="list" v-for="write in writeList" :key="write.id">
+        <div class="left">
+          <img class="img" :src="write.img" alt="">
+        </div>
+        <div class="right">
+          <div class="list-title">
+            <h2 class="name">{{ write.name }}</h2>
+            <p class="time">{{ write.time }}</p>
+          </div>
+          <div class="list-content">
+            {{ write.content }}
+          </div>
+          <div class="list-reply" v-for="reply in write.reply" :key="reply.id">
+            <div class="name">{{ reply.name }}：</div>
+            <div class="text">{{ reply.text }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Write',
+  data () {
+    return {
+      qqCode: '',
+      portraitUrl: '',
+      userName: '',
+      contentText: '',
+      checkCode: '',
+      checkCodeTrue: '',
+      checkPlacehoder: '获取验证码',
+      writeList: [
+        {
+          id: 0,
+          img: 'http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=6498601&spec=100',
+          name: '回不去的时光',
+          time: '2018-02-30 14:30:59',
+          content: '这里面有留言内容这里面有',
+          reply: []
+        },
+        {
+          id: 1,
+          img: 'http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=6498601&spec=100',
+          name: '回不去的时光',
+          time: '2018-02-30 14:30:59',
+          content: '这里面有留言内容这里面有',
+          reply: [
+            {
+              id: 0,
+              name: 'yijic',
+              text: '这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容'
+            },
+            {
+              id: 1,
+              name: 'yijic',
+              text: '这里是回复的内容这里是回复的里是回复的内容这里是回复的内容'
+            }
+          ]
+        }
+      ]
+    }
+  },
+  methods: {
+    getPortraitUrl () {
+      const qqCode = this.qqCode
+      if (qqCode && qqCode.length >= 5 && qqCode.length <= 11) {
+        this.portraitUrl = 'http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=' + qqCode + '&spec=100'
+      }
+    },
+    focusCheck () {
+      const x = Math.floor(Math.random() * 10 + 1)
+      const y = Math.floor(Math.random() * 10 + 1)
+      const z = x + y
+      this.checkCode = ''
+      this.checkPlacehoder = x + '+' + y + '=?'
+      this.checkCodeTrue = String(z)
+    },
+    submitWrite () {
+      const name = this.userName
+      const contentText = this.contentText
+      const portraitUrl = this.portraitUrl
+
+      if (!this.checkCode) {
+        alert('请输入验证码')
+        return
+      }
+      if (this.checkCode !== this.checkCodeTrue) {
+        alert('验证码输入错误')
+        return
+      }
+      if (!name) {
+        alert('请输入昵称')
+        return
+      }
+      if (!contentText) {
+        alert('请输入留言内容')
+        return
+      }
+      this.$http.post('/writeWord', {
+        name: name,
+        img: portraitUrl,
+        content: contentText
+      })
+        .then(
+          (data) => {
+            const o = data.body
+            if (o) {
+              alert(o.msg)
+            }
+          },
+          (data) => {
+            console.log(data)
+          }
+        )
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  $borderStyle: 1px solid #CCC;
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .write-head {
+    position: relative;
+
+    .portrait {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 1px solid #ccc;
+    }
+  }
+
+  .write-form {
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .write-form--text {
+    width: 80%;
+    display: block;
+    margin: 30px auto 20px;
+    resize: none;
+    font-size: 18px;
+    padding: 5px;
+    border: $borderStyle;
+    font-family: '微软雅黑';
+  }
+
+  .write-form--box {
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+
+    input {
+      height: 32px;
+      padding: 0 5px;
+      width: 160px;
+      border: $borderStyle;
+    }
+
+    .left {
+      display: flex;
+
+      label {
+        margin-right: 20px;
+      }
+    }
+
+    .right {
+      display: flex;
+
+      input {
+        width: 120px;
+      }
+
+      label {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .write-list {
+    margin-top: 30px;
+
+    .head {
+      padding: 10px 5%;
+      font-size: 18px;
+      background: #fff;
+      border-bottom: $borderStyle;
+    }
+
+    .list {
+      min-height: 150px;
+      margin-bottom: 16px;
+      background: #fff;
+      display: flex;
+      padding: 10px 5%;
+    }
+
+    .left {
+      height: 70px;
+      width: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: $borderStyle;
+      flex-shrink: 0;
+    }
+
+    .right {
+      margin-left: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      flex-shrink: 1;
+      flex-grow: 1;
+    }
+  }
+
+  .list-title {
+    width: 100%;
+    padding: 5px 10px;
+
+    h2 {
+      font-size: 20px;
+      font-weight: 400;
+      width: 100%;
+    }
+
+    p {
+      color: #666;
+      width: 100%;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+  }
+
+  .list-content {
+    width: 100%;
+    padding: 20px 6%;
+    text-align: center;
+  }
+
+  .list-reply {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid #f3f3f3;
+
+    .name {
+      color: #333;
+      flex-shrink: 0;
+    }
+
+    .text {
+      padding: 0 5px;
+      color: #666;
+      font-size: 14px;
+    }
+  }
+</style>
