@@ -1,4 +1,4 @@
-# admin
+# my-web
 
 > A Vue.js project
 
@@ -13,6 +13,9 @@ npm run dev
 
 # build for production with minification
 npm run build
+
+# boot server at localhost:3000
+node index
 
 # build for production and view the bundle analyzer report
 npm run build --report

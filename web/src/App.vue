@@ -1,7 +1,7 @@
 <template>
   <div id="app" :style="{backgroundImage: 'url(//yijic.com/images/bg/'+ bgUrlNum +'.jpg)'}">
     <transition name="fade">
-      <transition :name="transitionName"><router-view class="container"></router-view></transition>
+      <router-view class="container"></router-view>
     </transition>
     <transition name="fade">
       <div v-if="shadowShow" @click="goHome" class="container-shadow"></div>
@@ -19,18 +19,6 @@ import LoadBg from '@/components/LoadBg'
 
 export default {
   name: 'App',
-  data () {
-    return {
-      transitionName: ''
-    }
-  },
-  watch: {
-    '$route' (to, from) {
-      const toDepth = to.path.split('/').length
-      const fromDepth = from.path.split('/').length
-      this.transitionName = toDepth < fromDepth ? 'container-hide' : 'container-show'
-    }
-  },
   computed: {
     bgUrlNum: function () {
       return this.$store.state.bgUrlNum

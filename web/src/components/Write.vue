@@ -1,47 +1,49 @@
 <template>
-  <div>
-    <div class="page-head write-head">
-      <span>留言板</span>
-      <div class="portrait" v-if="portraitUrl" :style="`background-image: url(${portraitUrl})`"></div>
-    </div>
-    <div class="write-form">
-      <textarea class="write-form--text" v-model="contentText" name="textarea" rows="10" maxlength="1024" placeholder="请输入留言内容"></textarea>
-      <div class="write-form--box">
-        <div class="left">
-          <label>
-            昵称：<input v-model="userName" type="text" placeholder="请输入昵称" maxlength="20">
-          </label>
-          <label>
-            QQ号码：<input v-model="qqCode" type="number" placeholder="请输入QQ号码" maxlength="11" v-on:blur="getPortraitUrl">
-          </label>
-        </div>
-        <div class="right">
-          <label>
-            <input type="number" v-model="checkCode" v-on:focus="focusCheck" :placeholder="checkPlacehoder" maxlength="2">
-          </label>
-          <button class="main-btn" @click="submitWrite">提交</button>
+  <div v-on:scroll="handleScroll">
+    <div class="write-container" ref="content">
+      <div class="page-head write-head">
+        <span>留言板</span>
+        <div class="portrait" v-if="portraitUrl" :style="`background-image: url(${portraitUrl})`"></div>
+      </div>
+      <div class="write-form">
+        <textarea class="write-form--text" v-model="contentText" name="textarea" rows="10" maxlength="1024" placeholder="请输入留言内容"></textarea>
+        <div class="write-form--box">
+          <div class="left">
+            <label>
+              昵称：<input v-model="userName" type="text" placeholder="请输入昵称" maxlength="20">
+            </label>
+            <label>
+              QQ号码：<input v-model="qqCode" type="number" placeholder="请输入QQ号码" maxlength="11" v-on:blur="getPortraitUrl">
+            </label>
+          </div>
+          <div class="right">
+            <label>
+              <input type="number" v-model="checkCode" v-on:focus="focusCheck" :placeholder="checkPlacehoder" maxlength="2">
+            </label>
+            <button class="main-btn" @click="handleSubmit">提交</button>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="write-list">
-      <div class="head">
-        总留言条数100条
-      </div>
-      <div class="list" v-for="write in writeList" :key="write.id">
-        <div class="left">
-          <img class="img" :src="write.img" alt="">
+      <div class="write-list">
+        <div class="head">
+          总留言条数100条
         </div>
-        <div class="right">
-          <div class="list-title">
-            <h2 class="name">{{ write.name }}</h2>
-            <p class="time">{{ write.time }}</p>
+        <div class="list" v-for="write in writeList" :key="write.id">
+          <div class="left">
+            <img class="img" :src="write.img || defaultPortraitUrl" alt="">
           </div>
-          <div class="list-content">
-            {{ write.content }}
-          </div>
-          <div class="list-reply" v-for="reply in write.reply" :key="reply.id">
-            <div class="name">{{ reply.name }}：</div>
-            <div class="text">{{ reply.text }}</div>
+          <div class="right">
+            <div class="list-title">
+              <h2 class="name">{{ write.name }}</h2>
+              <p class="time">{{ write.time }}</p>
+            </div>
+            <div class="list-content">
+              {{ write.content }}
+            </div>
+            <div class="list-reply" v-for="reply in write.reply" :key="reply.id">
+              <div class="name">{{ reply.name }}：</div>
+              <div class="text">{{ reply.text }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -56,40 +58,15 @@ export default {
     return {
       qqCode: '',
       portraitUrl: '',
+      defaultPortraitUrl: '//yijic.com/images/yi.png',
       userName: '',
       contentText: '',
       checkCode: '',
       checkCodeTrue: '',
       checkPlacehoder: '获取验证码',
-      writeList: [
-        {
-          id: 0,
-          img: 'http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=6498601&spec=100',
-          name: '回不去的时光',
-          time: '2018-02-30 14:30:59',
-          content: '这里面有留言内容这里面有',
-          reply: []
-        },
-        {
-          id: 1,
-          img: 'http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=6498601&spec=100',
-          name: '回不去的时光',
-          time: '2018-02-30 14:30:59',
-          content: '这里面有留言内容这里面有',
-          reply: [
-            {
-              id: 0,
-              name: 'yijic',
-              text: '这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容这里是回复的内容'
-            },
-            {
-              id: 1,
-              name: 'yijic',
-              text: '这里是回复的内容这里是回复的里是回复的内容这里是回复的内容'
-            }
-          ]
-        }
-      ]
+      writeList: [],
+      page: 1,
+      blocker: true
     }
   },
   methods: {
@@ -107,7 +84,19 @@ export default {
       this.checkPlacehoder = x + '+' + y + '=?'
       this.checkCodeTrue = String(z)
     },
-    submitWrite () {
+    handleScroll (e) {
+      const dom = e.target
+      const top = dom.scrollTop
+      const height = dom.offsetHeight
+      const height_ = this.$refs.content.offsetHeight
+      const top_ = height_ * (1 - height / height_) - 100
+      if (top >= top_ && this.blocker) {
+        this.blocker = false
+        this.page += 1
+        this.getWordList()
+      }
+    },
+    handleSubmit () {
       const name = this.userName
       const contentText = this.contentText
       const portraitUrl = this.portraitUrl
@@ -138,6 +127,26 @@ export default {
             const o = data.body
             if (o) {
               alert(o.msg)
+              this.writeList.unshift(o.data)
+            }
+          },
+          (data) => {
+            console.log(data)
+          }
+        )
+    },
+    getWordList () {
+      this.$http.get('/wordList?page=' + this.page)
+        .then(
+          (data) => {
+            const o = data.body
+            if (o) {
+              this.writeList = this.writeList.concat(o.data)
+              if (o.data.length) {
+                this.blocker = true
+              } else {
+                alert('已经加载完全部内容')
+              }
             }
           },
           (data) => {
@@ -145,6 +154,9 @@ export default {
           }
         )
     }
+  },
+  mounted () {
+    this.getWordList()
   }
 }
 </script>
@@ -243,8 +255,8 @@ export default {
     }
 
     .left {
-      height: 70px;
-      width: 70px;
+      height: 60px;
+      width: 60px;
       border-radius: 50%;
       overflow: hidden;
       border: $borderStyle;

@@ -16,8 +16,7 @@ const connection = mysql.createConnection({
 
 connection.connect()
 
-function queryData (sheet, cb) {
-  const sql = 'SELECT * FROM ' + sheet
+function queryData (sql, cb) {
   connection.query(sql, function (err, result) {
     if (err) {
       const errMsg = {
@@ -31,18 +30,7 @@ function queryData (sheet, cb) {
   })
 }
 
-function addData (sheet, addParams, cb) {
-  let sql = 'INSERT INTO ' + sheet + '(id,'
-  let sqlTail = ') VALUES(0,'
-  let params = []
-  for (let key in addParams) {
-    sql += key + ','
-    sqlTail += '?,'
-    params.push(addParams[key])
-  }
-  sql = sql.slice(0, sql.length - 1)
-  sqlTail = sqlTail.slice(0, sqlTail.length - 1)
-  sql += sqlTail + ')'
+function addData (sql, params, cb) {
   connection.query(sql, params, function (err, result) {
     if (err) {
       const errMsg = {
@@ -56,17 +44,8 @@ function addData (sheet, addParams, cb) {
   })
 }
 
-function changeData (sheet, changeParams, cb) {
-  let sql = 'UPDATE ' + sheet + ' SET '
-  let params = []
-  for (let key in changeParams) {
-    sql += key + '=?,'
-    params.push(changeParams[key])
-  }
-  sql = sql.slice(0, sql.length - 1)
-  sql += 'WHERE Id = ?'
-
-  connection.query(sql, changeParams, function (err, result) {
+function changeData (sql, params, cb) {
+  connection.query(sql, params, function (err, result) {
     if (err) {
       const errMsg = {
         err: true,
@@ -79,9 +58,8 @@ function changeData (sheet, changeParams, cb) {
   })
 }
 
-function deleteData (sheet, deleteParams, cb) {
-  const sql = 'DELETE FROM ' + sheet + ' where id=' + deleteParams.id
-  connection.query(sql, function (err, result) {
+function deleteData (sql, params, cb) {
+  connection.query(sql, params, function (err, result) {
     if (err) {
       const errMsg = {
         err: true,
