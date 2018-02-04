@@ -1,6 +1,6 @@
 <template>
   <div class="top">
-    <div class="top-title" @click="isGoToIndex">
+    <div class="top-title" @click="handelGoToIndex">
       <img class="icon" src="../assets/images/yi.png" alt="">
       <span v-if="!isCollapse">admin</span>
     </div>
@@ -39,11 +39,11 @@ export default {
     ...mapMutations([
       'tabNavCollapse'
     ]),
-    isGoToIndex: function () {
+    handelGoToIndex: function () {
       this.dialogVisible = true
     },
     goToIndex: function () {
-      window.location.href = 'http://yijic.com'
+      window.location.href = '/'
     }
   }
 }

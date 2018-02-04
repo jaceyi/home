@@ -1,23 +1,6 @@
-module.exports = {
-  sendFile,
-  endJson
-}
+const createPublic = require('./createPublic')
+const fileUrl = './public/'
 
-const fs = require('fs')
+const myPublic = createPublic(fileUrl)
 
-function sendFile (extname, cb) {
-  fs.readFile('./node/type.json', function (err, data) {
-    if (err) {
-      console.log(err)
-      return
-    }
-    const typeJSON = JSON.parse(data)
-    const type = typeJSON[extname] || 'text/plain'
-    cb(type)
-  })
-}
-
-function endJson (res, o) {
-  res.writeHead(o.code, {'Content-type': 'application/json'})
-  res.end(JSON.stringify(o))
-}
+module.exports = myPublic

@@ -1,9 +1,11 @@
 const express = require('express')
 const app = express()
 const web = require('./node/web')
+const admin = require('./node/admin')
+const myPublic = require('./node/public')
 const fm = require('formidable')
 const db = require('./node/db')
-const publics = require('./node/public')
+const common = require('./node/common')
 
 app.get('/wordList', function (req, res) {
   const page = req.query.page
@@ -11,7 +13,7 @@ app.get('/wordList', function (req, res) {
   const sql = 'select * from word order by id desc limit ' + ((page - 1) * num) + ',' + num
   db.queryData(sql, (o) => {
     if (!o.err) {
-      publics.endJson(res, {
+      common.endJson(res, {
         code: 200,
         data: o
       })
@@ -66,6 +68,10 @@ app.post('/writeWord', function (req, res) {
       })
   })
 })
+
+app.use('/public', myPublic)
+
+app.use('/admin', admin)
 
 app.use('/', web)
 
