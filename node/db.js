@@ -6,13 +6,9 @@ module.exports = {
 }
 
 const mysql = require('mysql')
+const servetConfig = require('./server_config')
 
-const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '01.23Wsr',
-  database: 'my_web'
-})
+const connection = mysql.createConnection(servetConfig)
 
 connection.connect()
 
