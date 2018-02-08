@@ -7,7 +7,9 @@ export default new Vuex.Store({
   state: {
     bgUrlNum: Math.floor(Math.random() * 13 + 1),
     shadowShow: false,
-    activeNav: -1
+    activeNav: -1,
+    alert: false,
+    alertOptions: {}
   },
   mutations: {
     changeBgUrlNum (state) {
@@ -23,6 +25,15 @@ export default new Vuex.Store({
     },
     tabActiveNav (state, num) {
       state.activeNav = num
+    },
+    alert (state, options) {
+      state.alert = true
+      state.alertOptions = {
+        ...options
+      }
+    },
+    alertHide (state) {
+      state.alert = false
     }
   }
 })

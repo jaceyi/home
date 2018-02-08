@@ -6,6 +6,9 @@
     <transition name="fade">
       <div v-if="shadowShow" @click="goHome" class="container-shadow"></div>
     </transition>
+    <transition name="fade">
+      <Alert v-if="alert" v-bind:options="alertOptions" />
+    </transition>
     <MainNav />
     <SonNav />
     <LoadBg />
@@ -16,15 +19,22 @@
 import MainNav from '@/components/MainNav'
 import SonNav from '@/components/SonNav'
 import LoadBg from '@/components/LoadBg'
+import Alert from '@/components/Alert'
 
 export default {
   name: 'App',
   computed: {
-    bgUrlNum: function () {
+    bgUrlNum () {
       return this.$store.state.bgUrlNum
     },
-    shadowShow: function () {
+    shadowShow () {
       return this.$store.state.shadowShow
+    },
+    alert () {
+      return this.$store.state.alert
+    },
+    alertOptions () {
+      return this.$store.state.alertOptions
     }
   },
   methods: {
@@ -35,7 +45,8 @@ export default {
   components: {
     MainNav,
     SonNav,
-    LoadBg
+    LoadBg,
+    Alert
   }
 }
 </script>

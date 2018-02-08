@@ -58,7 +58,7 @@ export default {
     return {
       qqCode: '',
       portraitUrl: '',
-      defaultPortraitUrl: '//yijic.com/images/yi.png',
+      defaultPortraitUrl: '//yijic.components/images/yi.png',
       userName: '',
       contentText: '',
       checkCode: '',
@@ -96,13 +96,19 @@ export default {
         this.getWordList()
       }
     },
+    alert (options) {
+      this.$store.commit('alert', options)
+    },
     handleSubmit () {
       const name = this.userName
       const contentText = this.contentText
       const portraitUrl = this.portraitUrl
 
       if (!this.checkCode) {
-        alert('请输入验证码')
+        this.alert({
+          title: '提示',
+          content: '请输入验证码'
+        })
         return
       }
       if (this.checkCode !== this.checkCodeTrue) {
