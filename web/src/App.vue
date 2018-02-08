@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :style="{backgroundImage: 'url(/public/images/bg/'+ bgUrlNum +'.jpg)'}">
+  <div id="app" :style="{backgroundImage: 'url(//yijic.com/public/images/bg/'+ bgUrlNum +'.jpg)'}">
     <transition name="fade">
       <router-view class="container"></router-view>
     </transition>

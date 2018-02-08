@@ -35,13 +35,13 @@ app.post('/writeWord', function (req, res) {
     const content = fields.content
     const time = year + '-' + month + '-' + date + ' ' + Hours + ':' + Minute
     if (!name) {
-      publics.endJson(res, {
+      common.endJson(res, {
         code: 400,
         msg: 'name 字段不能为空'
       })
     }
     if (!content) {
-      publics.endJson(res, {
+      common.endJson(res, {
         code: 400,
         msg: 'content 字段不能为空'
       })
@@ -53,7 +53,7 @@ app.post('/writeWord', function (req, res) {
       data,
       (o) => {
         if (!o.err) {
-          publics.endJson(res, {
+          common.endJson(res, {
             code: 200,
             msg: '留言成功',
             data: {
