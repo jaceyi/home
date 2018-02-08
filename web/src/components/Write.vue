@@ -117,7 +117,7 @@ export default {
         alert('请输入留言内容')
         return
       }
-      this.$http.post('/writeWord', {
+      this.$http.post(this.$apis.writeWord, {
         name: name,
         img: portraitUrl,
         content: contentText
@@ -136,7 +136,7 @@ export default {
         )
     },
     getWordList () {
-      this.$http.get('/wordList?page=' + this.page)
+      this.$http.get(this.$apis.wordList + '?page=' + this.page)
         .then(
           (data) => {
             const o = data.body
