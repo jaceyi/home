@@ -27,7 +27,7 @@ $mianColor: #00AEFF;
 .message {
   position: absolute;
   left: 50%;
-  top: 80px;
+  top: 30vh;
   transform: translateX(-50%);
   width: 380px;
   padding: 15px 20px;

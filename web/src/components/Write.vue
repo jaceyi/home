@@ -58,7 +58,7 @@ export default {
     return {
       qqCode: '',
       portraitUrl: '',
-      defaultPortraitUrl: '//yijic.components/images/yi.png',
+      defaultPortraitUrl: '//yijic.com/public/images/noimg.png',
       userName: '',
       contentText: '',
       checkCode: '',
@@ -153,13 +153,19 @@ export default {
           .then(
             (data) => {
               const o = data.body
-              if (o) {
-                alert(o.msg)
+              this.message({
+                content: o.msg
+              })
+              this.checkCode = ''
+              if (o.code === 200) {
                 self.writeList.unshift(o.data)
               }
             },
             (data) => {
               console.log(data)
+              this.message({
+                content: '留言失败，请重试'
+              })
             }
           )
       }
@@ -174,7 +180,9 @@ export default {
               if (o.data.length) {
                 this.blocker = true
               } else {
-                alert('已经加载完全部内容')
+                this.message({
+                  content: '已经加载完全部内容'
+                })
               }
             }
           },
