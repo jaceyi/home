@@ -99,47 +99,70 @@ export default {
     alert (options) {
       this.$store.commit('alert', options)
     },
+    message (options) {
+      this.$store.commit('message', options)
+    },
     handleSubmit () {
       const name = this.userName
       const contentText = this.contentText
       const portraitUrl = this.portraitUrl
+      const self = this
 
       if (!this.checkCode) {
-        this.alert({
-          title: '提示',
+        this.message({
           content: '请输入验证码'
         })
         return
       }
       if (this.checkCode !== this.checkCodeTrue) {
-        alert('验证码输入错误')
+        this.message({
+          content: '请输入验验证码输入错误证码'
+        })
         return
       }
       if (!name) {
-        alert('请输入昵称')
+        this.message({
+          content: '请输入昵称'
+        })
         return
       }
       if (!contentText) {
-        alert('请输入留言内容')
+        this.message({
+          content: '请输入留言内容'
+        })
         return
       }
-      this.$http.post(this.$apis.writeWord, {
-        name: name,
-        img: portraitUrl,
-        content: contentText
-      })
-        .then(
-          (data) => {
-            const o = data.body
-            if (o) {
-              alert(o.msg)
-              this.writeList.unshift(o.data)
-            }
-          },
-          (data) => {
-            console.log(data)
+      if (!portraitUrl) {
+        this.alert({
+          content: '你还没有输入QQ号获取头像，请确认是否提交',
+          btns: ['确认', '取消'],
+          confirmCb: () => {
+            startRequest()
           }
-        )
+        })
+      } else {
+        startRequest()
+      }
+
+      function startRequest () {
+        self.$http.post(self.$apis.writeWord, {
+          name: name,
+          img: portraitUrl,
+          content: contentText
+        })
+          .then(
+            (data) => {
+              const o = data.body
+              if (o) {
+                alert(o.msg)
+                self.writeList.unshift(o.data)
+              }
+            },
+            (data) => {
+              console.log(data)
+            }
+          )
+      }
     },
     getWordList () {
       this.$http.get(this.$apis.wordList + '?page=' + this.page)

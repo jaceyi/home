@@ -9,7 +9,9 @@ export default new Vuex.Store({
     shadowShow: false,
     activeNav: -1,
     alert: false,
-    alertOptions: {}
+    alertOptions: {},
+    message: false,
+    messageOptions: {}
   },
   mutations: {
     changeBgUrlNum (state) {
@@ -34,6 +36,15 @@ export default new Vuex.Store({
     },
     alertHide (state) {
       state.alert = false
+    },
+    message (state, options) {
+      state.message = true
+      state.messageOptions = {
+        ...options
+      }
+    },
+    messageHide (state) {
+      state.message = false
     }
   }
 })

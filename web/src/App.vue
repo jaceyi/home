@@ -9,6 +9,9 @@
     <transition name="fade">
       <Alert v-if="alert" v-bind:options="alertOptions" />
     </transition>
+    <transition name="fade">
+      <Message v-if="message" v-bind:options="messageOptions" />
+    </transition>
     <MainNav />
     <SonNav />
     <LoadBg />
@@ -20,6 +23,7 @@ import MainNav from '@/components/MainNav'
 import SonNav from '@/components/SonNav'
 import LoadBg from '@/components/LoadBg'
 import Alert from '@/components/Alert'
+import Message from '@/components/Message'
 
 export default {
   name: 'App',
@@ -35,6 +39,12 @@ export default {
     },
     alertOptions () {
       return this.$store.state.alertOptions
+    },
+    message () {
+      return this.$store.state.message
+    },
+    messageOptions () {
+      return this.$store.state.messageOptions
     }
   },
   methods: {
@@ -46,7 +56,8 @@ export default {
     MainNav,
     SonNav,
     LoadBg,
-    Alert
+    Alert,
+    Message
   }
 }
 </script>
@@ -94,7 +105,7 @@ input, textarea, button {
 
 .main-btn {
   height: 32px;
-  min-width: 80px;
+  min-width: 60px;
   border: 1px solid $mianColor;
   cursor: pointer;
   padding: 0 20px;
@@ -149,7 +160,7 @@ input, textarea, button {
 
 }
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s;
+  transition: opacity .3s;
 }
 
 .fade-enter, .fade-leave-to {
