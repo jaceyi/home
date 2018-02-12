@@ -8,62 +8,82 @@ module.exports = {
 const mysql = require('mysql')
 const servetConfig = require('./server_config')
 
-const connection = mysql.createConnection(servetConfig)
+let connection = null
 
-connection.connect()
+const connectSql = function (cb) {
+  connection = mysql.createConnection(servetConfig)
+  connection.on('error', function (err) {
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+      connectSql()
+    }
+  })
+  if (cb) {
+    cb()
+  }
+}
+
+connectSql()
 
 function queryData (sql, cb) {
-  connection.query(sql, function (err, result) {
-    if (err) {
-      const errMsg = {
-        err: true,
-        msg: err
+  connectSql(() => {
+    connection.query(sql, function (err, result) {
+      if (err) {
+        const errMsg = {
+          err: true,
+          msg: err
+        }
+        cb(errMsg)
+        return
       }
-      cb(errMsg)
-      return
-    }
-    cb(result)
+      cb(result)
+    })
   })
 }
 
 function addData (sql, params, cb) {
-  connection.query(sql, params, function (err, result) {
-    if (err) {
-      const errMsg = {
-        err: true,
-        msg: err
+  connectSql(() => {
+    connection.query(sql, params, function (err, result) {
+      if (err) {
+        const errMsg = {
+          err: true,
+          msg: err
+        }
+        cb(errMsg)
+        return
       }
-      cb(errMsg)
-      return
-    }
-    cb(result)
+      cb(result)
+    })
   })
 }
 
 function changeData (sql, params, cb) {
-  connection.query(sql, params, function (err, result) {
-    if (err) {
-      const errMsg = {
-        err: true,
-        msg: err
+  connectSql(() => {
+    connection.query(sql, params, function (err, result) {
+      if (err) {
+        const errMsg = {
+          err: true,
+          msg: err
+        }
+        cb(errMsg)
+        return
       }
-      cb(errMsg)
-      return
-    }
-    cb(result)
+      cb(result)
+    })
   })
 }
 
 function deleteData (sql, params, cb) {
-  connection.query(sql, params, function (err, result) {
-    if (err) {
-      const errMsg = {
-        err: true,
-        msg: err
+  connectSql(() => {
+    connection.query(sql, params, function (err, result) {
+      if (err) {
+        const errMsg = {
+          err: true,
+          msg: err
+        }
+        cb(errMsg)
+        return
       }
-      cb(errMsg)
-      return
-    }
-    cb(result)
+      cb(result)
+    })
   })
 }
