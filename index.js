@@ -76,13 +76,14 @@ app.get('/setPersonal', function (req, res) {
       qqCode,
       address
     } = fields
-  if (!name || !gender || ! birthDate || ! mobile || !qqCode || !address) {
-    common.endJson(res, {
-      code: 400,
-      msg: '请将内容填写完整'
-    })
-  }
-  res.end('OK')
+    if (!name || !gender || ! birthDate || ! mobile || !qqCode || !address) {
+      common.endJson(res, {
+        code: 400,
+        msg: '请将内容填写完整'
+      })
+    }
+    res.end('OK')
+  })
 })
 
 app.use('/public', myPublic)
