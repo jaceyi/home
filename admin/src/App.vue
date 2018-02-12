@@ -59,12 +59,10 @@ export default {
 
   .container-header{
     background-color: #EEE;
-    text-align: center;
     border-bottom: 1px solid #ccc;
   }
 
   .container-main {
     background-color: #FFF;
-    text-align: center;
   }
 </style>

@@ -11,7 +11,7 @@ export default {
   data () {
     return {
       content: this.options.content || '',
-      time: this.options.time || 2000
+      time: this.options.time || 1600
     }
   },
   mounted () {

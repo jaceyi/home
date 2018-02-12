@@ -30,20 +30,16 @@ app.post('/writeWord', function (req, res) {
     const date = myDate.getDate()
     const Minute = String(myDate.getMinutes()).length > 1 ? myDate.getMinutes() : '0' + myDate.getMinutes()
     const Hours = String(myDate.getHours()).length > 1 ? myDate.getHours() : '0' + myDate.getHours()
-    const name = fields.name
-    const img = fields.img
-    const content = fields.content
+    const {
+      name,
+      img,
+      content
+    } = fields
     const time = year + '-' + month + '-' + date + ' ' + Hours + ':' + Minute
-    if (!name) {
+    if (!name || !content) {
       common.endJson(res, {
         code: 400,
-        msg: 'name 字段不能为空'
-      })
-    }
-    if (!content) {
-      common.endJson(res, {
-        code: 400,
-        msg: 'content 字段不能为空'
+        msg: '请将内容填写完整'
       })
     }
     const sql = 'insert into word(id,name,img,content,time) values(0,?,?,?,?)'
@@ -67,6 +63,26 @@ app.post('/writeWord', function (req, res) {
         }
       })
   })
+})
+
+app.get('/setPersonal', function (req, res) {
+  const form = new fm.IncomingForm()
+  form.parse(req, (err, fields) => {
+    const {
+      name,
+      gender,
+      birthDate,
+      mobile,
+      qqCode,
+      address
+    } = fields
+  if (!name || !gender || ! birthDate || ! mobile || !qqCode || !address) {
+    common.endJson(res, {
+      code: 400,
+      msg: '请将内容填写完整'
+    })
+  }
+  res.end('OK')
 })
 
 app.use('/public', myPublic)
