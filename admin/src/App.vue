@@ -53,10 +53,6 @@ export default {
     height: 100%;
   }
 
-  .container-list {
-    height: 100%;
-  }
-
   .container-header{
     background-color: #EEE;
     border-bottom: 1px solid #ccc;

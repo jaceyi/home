@@ -132,19 +132,7 @@ export default {
         })
         return
       }
-      if (!portraitUrl) {
-        this.alert({
-          content: '你还没有输入QQ号获取头像，请确认是否提交',
-          btns: ['确认', '取消'],
-          confirmCb: () => {
-            startRequest()
-          }
-        })
-      } else {
-        startRequest()
-      }
-
-      function startRequest () {
+      const startRequest = () => {
         self.$http.post(self.$apis.writeWord, {
           name: name,
           img: portraitUrl,
@@ -168,6 +156,17 @@ export default {
               })
             }
           )
+      }
+      if (!portraitUrl) {
+        this.alert({
+          content: '你还没有输入QQ号获取头像，请确认是否提交',
+          btns: ['确认', '取消'],
+          confirmCb: () => {
+            startRequest()
+          }
+        })
+      } else {
+        startRequest()
       }
     },
     getWordList () {

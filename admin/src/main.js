@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import ElementUI from 'element-ui'
+import VueResource from 'vue-resource'
 import apis from './apis'
 import 'element-ui/lib/theme-chalk/index.css'
 
@@ -13,6 +14,7 @@ Vue.config.productionTip = false
 Vue.prototype.$apis = apis
 
 Vue.use(ElementUI, { size: 'small' })
+Vue.use(VueResource)
 
 /* eslint-disable no-new */
 new Vue({

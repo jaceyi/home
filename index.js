@@ -65,7 +65,25 @@ app.post('/writeWord', function (req, res) {
   })
 })
 
-app.get('/setPersonal', function (req, res) {
+function getPersonal (req, res, cb) {
+  const sql = 'select * from personal'
+  db.queryData(sql, (o) => {
+    cb(o)
+  })
+}
+
+app.get('/getPersonal', function (req, res) {
+  getPersonal(req, res, (o) => {
+    if (!o.err) {
+      common.endJson(res, {
+        code: 200,
+        data: o
+      })
+    }
+  })
+})
+
+app.post('/setPersonal', function (req, res) {
   const form = new fm.IncomingForm()
   form.parse(req, (err, fields) => {
     const {
@@ -74,15 +92,44 @@ app.get('/setPersonal', function (req, res) {
       birthDate,
       mobile,
       qqCode,
-      address
+      address,
+      hometown
     } = fields
-    if (!name || !gender || ! birthDate || ! mobile || !qqCode || !address) {
+    if (!name || !gender || ! birthDate || ! mobile || !qqCode || !address || !hometown) {
       common.endJson(res, {
         code: 400,
         msg: '请将内容填写完整'
       })
     }
-    res.end('OK')
+    getPersonal(req, res, (o) => {
+      if (!o.err) {
+        const data = [name, gender, birthDate, mobile, qqCode, address, hometown]
+        const callback = (o_) => {
+          if (!o_.err) {
+            common.endJson(res, {
+              code: 200,
+              data: data,
+              msg: '保存成功'
+            })
+          }
+        }
+        if (o.length) {
+          const sql = 'update personal set name = ?, gender = ?, birthDate = ?, mobile = ?, qqCode = ?, address = ?, hometown = ? where id = 1'
+          db.changeData(
+            sql,
+            data,
+            callback
+          )
+        } else {
+          const sql = 'insert into personal(id, name, gender, birthDate, mobile, qqCode, address, hometown) value(0, ?, ?, ?, ?, ?, ?, ?)'
+          db.addData(
+            sql,
+            data,
+            callback
+          )
+        }
+      }
+    })
   })
 })
 

@@ -1,12 +1,13 @@
 <template>
   <div class="nav-list">
     <div class="nav-list-content">
-      <el-menu class="el-menu-vertical-demo" :router="true" :collapse="isCollapse">
+      <el-menu class="el-menu-vertical-demo" :collapse="isCollapse">
         <el-menu-item
         v-for="nav in navList"
         :class="`nav-list--item ${ nav.id === navActive ? 'is-active' : '' }`"
         :key="nav.id"
         :index="nav.path"
+        @click="gotoPath(nav.path)"
         >
           <span slot="title">{{ nav.text }}</span>
           <i :class="`iconfont icon ${nav.icon}`"></i>
@@ -65,6 +66,11 @@ export default {
     },
     navActive: function () {
       return this.$store.state.navActive
+    }
+  },
+  methods: {
+    gotoPath: function (path) {
+      this.$router.push(path)
     }
   }
 }

@@ -46,6 +46,12 @@
         <el-input v-model="address"></el-input>
       </div>
       <div class="row">
+        <label class="name-label">
+          故乡：
+        </label>
+        <el-input v-model="hometown"></el-input>
+      </div>
+      <div class="row">
         <el-button
         class="submit"
         @click="submit"
@@ -65,7 +71,8 @@ export default {
       birthDate: '',
       mobile: '',
       qqCode: '',
-      address: ''
+      address: '',
+      hometown: ''
     }
   },
   methods: {
@@ -76,10 +83,11 @@ export default {
         birthDate,
         mobile,
         qqCode,
-        address
+        address,
+        hometown
       } = this
-      if (!name || !gender || !birthDate || !mobile || !qqCode || !address) {
-        this.$alert('请见内容填写完整', '提示', {
+      if (!name || !gender || !birthDate || !mobile || !qqCode || !address || !hometown) {
+        this.$alert('请将内容填写完整', '提示', {
           confirmButtonText: '确定'
         })
         return
@@ -90,7 +98,8 @@ export default {
         birthDate,
         mobile,
         qqCode,
-        address
+        address,
+        hometown
       })
         .then(
           (data) => {
@@ -102,6 +111,28 @@ export default {
           }
         )
     }
+  },
+  mounted () {
+    this.$http.get(this.$apis.getPersonal)
+      .then(
+        (data) => {
+          const o = data.body
+          const personal = o.data
+          if (personal.length) {
+            const myPersonal = personal[0]
+            this.name = myPersonal.name
+            this.address = myPersonal.address
+            this.birthDate = myPersonal.birthDate
+            this.mobile = myPersonal.mobile
+            this.qqCode = myPersonal.qqCode
+            this.gender = myPersonal.gender
+            this.hometown = myPersonal.hometown
+          }
+        },
+        (data) => {
+          console.log(data)
+        }
+      )
   }
 }
 </script>
