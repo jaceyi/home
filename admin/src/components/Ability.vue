@@ -6,7 +6,7 @@
     <div class="form">
       <div class="row" v-for="(item, index) in abilityArr" :key="item.id">
           <el-input v-model="item.value" placeholder="请输入技能"></el-input>
-          <el-input v-model="item.number" type="number" placeholder="请输入数值"></el-input>
+          <el-slider v-model="item.number"></el-slider>
           <div class="add"
           v-if="index === abilityArr.length - 1"
           @click="addAbility"
@@ -33,17 +33,7 @@ export default {
         {
           id: 0,
           value: '',
-          number: ''
-        },
-        {
-          id: 1,
-          value: '',
-          number: ''
-        },
-        {
-          id: 2,
-          value: '',
-          number: ''
+          number: 0
         }
       ]
     }
@@ -59,6 +49,9 @@ export default {
         value: '',
         number: ''
       })
+    },
+    submit () {
+      console.log(this.abilityArr)
     }
   }
 }
@@ -82,6 +75,11 @@ export default {
 
   .el-input {
     width:240px;
+    margin-right: 20px;
+  }
+
+  .el-slider {
+    width:180px;
     margin-right: 20px;
   }
 
