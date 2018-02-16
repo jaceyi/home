@@ -1,7 +1,7 @@
 <template>
   <div class="personal">
     <div class="head">
-      个人资料
+      资料管理
     </div>
     <div class="form">
       <div class="row">
@@ -147,6 +147,7 @@ export default {
 .form {
   margin-top: 20px;
 }
+
 .row {
   display: flex;
   margin-bottom: 15px;
