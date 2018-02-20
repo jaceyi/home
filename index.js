@@ -65,6 +65,7 @@ app.post('/writeWord', function (req, res) {
   })
 })
 
+// 获取 个人信息
 function getPersonal (req, res, cb) {
   const sql = 'select * from personal'
   db.queryData(sql, (o) => {
