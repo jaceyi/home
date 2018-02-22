@@ -29,7 +29,7 @@ export default {
 </script>
 
 <style>
-  @import '//at.alicdn.com/t/font_297360_ncis5slv86pnl8fr.css';
+  @import '//at.alicdn.com/t/font_297360_za2osahb8q7low29.css';
   * {
     margin: 0;
     padding: 0;

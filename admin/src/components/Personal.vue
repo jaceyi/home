@@ -67,7 +67,7 @@ export default {
   data () {
     return {
       name: '',
-      gender: '',
+      gender: '1',
       birthDate: '',
       mobile: '',
       qqCode: '',
@@ -87,8 +87,9 @@ export default {
         hometown
       } = this
       if (!name || !gender || !birthDate || !mobile || !qqCode || !address || !hometown) {
-        this.$alert('请将内容填写完整', '提示', {
-          confirmButtonText: '确定'
+        this.$message({
+          message: '请将内容填写完整',
+          type: 'warning'
         })
         return
       }

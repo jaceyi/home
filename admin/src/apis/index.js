@@ -1,7 +1,12 @@
 const api = ''
 export default {
-  wordList: api + '/wordList',
-  writeWord: api + '/writeWord',
   getPersonal: api + '/getPersonal',
-  setPersonal: api + '/setPersonal'
+  setPersonal: api + '/setPersonal',
+  getAbility: api + '/getAbility',
+  setAbility: api + '/setAbility',
+  getWord: api + '/getWord',
+  setWord: api + '/setWord',
+  delWord: api + '/delWord',
+  getWorks: api + '/getWorks',
+  setWorks: api + '/setWorks'
 }
