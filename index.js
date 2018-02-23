@@ -7,7 +7,7 @@ const fm = require('formidable')
 const db = require('./node/db')
 const common = require('./node/common')
 
-app.get('/wordList', function (req, res) {
+app.get('/getWord', function (req, res) {
   const page = req.query.page
   const num = req.query.num || 10
   const sql = 'select * from word order by id desc limit ' + ((page - 1) * num) + ',' + num
@@ -21,7 +21,7 @@ app.get('/wordList', function (req, res) {
   })
 })
 
-app.post('/writeWord', function (req, res) {
+app.post('/setWord', function (req, res) {
   const form = new fm.IncomingForm()
   form.parse(req, (err, fields) => {
     const myDate = new Date()
@@ -65,7 +65,7 @@ app.post('/writeWord', function (req, res) {
   })
 })
 
-// 获取 个人信息
+// 获取个人信息
 function getPersonal (req, res, cb) {
   const sql = 'select * from personal'
   db.queryData(sql, (o) => {
@@ -131,6 +131,57 @@ app.post('/setPersonal', function (req, res) {
         }
       }
     })
+  })
+})
+
+function getCommonData (req, res, id) {
+  const sql = 'select * from common where id=' + id
+  db.queryData(sql, (o) => {
+    if (!o.err) {
+      const body = JSON.parse(o[0].body)
+      common.endJson(res, {
+        code: 200,
+        data: body
+      })
+    }
+  })
+}
+
+function setCommonData (req, res, body, id) {
+  const sql = 'update common set body = ? where id =' + id
+  const data = [body]
+  db.changeData(
+    sql,
+    data,
+    (o) => {
+      if (!o.err) {
+        common.endJson(res, {
+          code: 200,
+          data: body,
+          msg: '保存成功'
+        })
+      }
+    }
+  )
+}
+
+app.get('/getAbility', function (req, res) {
+  getCommonData(req, res, 1)
+})
+
+app.post('/setAbility', function (req, res) {
+  const form = new fm.IncomingForm()
+  form.parse(req, (err, fields) => {
+    const {
+      abilityList
+    } = fields
+    if (!abilityList) {
+      common.endJson(res, {
+        code: 400,
+        msg: '请将内容填写完整'
+      })
+    }
+    setCommonData(req, res, JSON.stringify(abilityList), 1)
   })
 })
 

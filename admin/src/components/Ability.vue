@@ -82,7 +82,17 @@ export default {
         .then(
           (data) => {
             const o = data.body
-            this.$message(o.msg)
+            if (o.code === 200) {
+              this.$message({
+                message: o.msg,
+                type: 'success'
+              })
+            } else {
+              this.$message({
+                message: o.msg,
+                type: 'warning'
+              })
+            }
           },
           (data) => {
             console.log(data)

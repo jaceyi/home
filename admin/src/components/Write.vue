@@ -36,7 +36,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="收货地址" :visible.sync="editLayer">
+    <el-dialog title="留言编辑" :visible.sync="editLayer">
       <el-form :model="editContent">
         <el-form-item label="昵称">
           <el-input
@@ -133,7 +133,7 @@ export default {
         )
     },
     getWordList () {
-      this.$http.get(this.$apis.wordList + '?page=' + this.page)
+      this.$http.get(this.$apis.getWord + '?page=' + this.page)
         .then(
           (data) => {
             const o = data.body
