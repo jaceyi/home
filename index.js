@@ -7,7 +7,7 @@ const fm = require('formidable')
 const db = require('./node/db')
 const common = require('./node/common')
 
-app.get('/wordList', function (req, res) {
+app.get('/getWord', function (req, res) {
   const page = req.query.page
   const num = req.query.num || 10
   const sql = 'select * from word order by id desc limit ' + ((page - 1) * num) + ',' + num
@@ -21,7 +21,7 @@ app.get('/wordList', function (req, res) {
   })
 })
 
-app.post('/writeWord', function (req, res) {
+app.post('/setWord', function (req, res) {
   const form = new fm.IncomingForm()
   form.parse(req, (err, fields) => {
     const myDate = new Date()
