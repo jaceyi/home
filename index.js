@@ -1,4 +1,5 @@
 const express = require('express')
+const fs = require('fs')
 const app = express()
 const web = require('./node/web')
 const admin = require('./node/admin')
@@ -9,6 +10,13 @@ const common = require('./node/common')
 
 app.get('/getWord', function (req, res) {
   const page = req.query.page
+  if (!page) {
+    common.endJson(res, {
+      code: 400,
+      msg: '请求参数不完整'
+    })
+    return
+  }
   const num = req.query.num || 10
   const sql = 'select * from word order by id desc limit ' + ((page - 1) * num) + ',' + num
   db.queryData(sql, (o) => {
@@ -52,6 +60,66 @@ app.post('/setWord', function (req, res) {
           common.endJson(res, {
             code: 200,
             msg: '留言成功',
+            data: {
+              id: o.insertId,
+              name: name,
+              img: img,
+              content: content,
+              time: time
+            }
+          })
+        }
+      })
+  })
+})
+
+app.delete('/delWord', function (req, res) {
+  const id = req.query.id
+  if (!id) {
+    common.endJson(res, {
+      code: 400,
+      msg: '请求参数不完整'
+    })
+    return
+  }
+  const sql = 'delete from word where id=' + id
+  db.deleteData(sql, (o) => {
+    if (!o.err) {
+      common.endJson(res, {
+        code: 200,
+        msg: '删除成功',
+        data: o
+      })
+    }
+  })
+})
+
+app.post('/editWord', function (req, res) {
+  const form = new fm.IncomingForm()
+  form.parse(req, (err, fields) => {
+    const {
+      name,
+      img,
+      content,
+      time,
+      id
+    } = fields
+    if (!name || !content) {
+      common.endJson(res, {
+        code: 400,
+        msg: '请将内容填写完整'
+      })
+    }
+    const sql = 'update word set name = ?, img = ?, content = ?, time = ? where id = ?'
+    const data = [name, img, content, time, id]
+    db.changeData(
+      sql,
+      data,
+      (o) => {
+        if (!o.err) {
+          common.endJson(res, {
+            code: 200,
+            msg: '编辑成功',
             data: {
               id: o.insertId,
               name: name,
@@ -182,6 +250,32 @@ app.post('/setAbility', function (req, res) {
       })
     }
     setCommonData(req, res, JSON.stringify(abilityList), 1)
+  })
+})
+
+app.get('/getWorks', function (req, res) {
+  
+})
+
+app.post('/setWorks', function (req, res) {
+  const form = new fm.IncomingForm()
+  form.encoding = 'utf-8'
+  form.maxFieldsSize = 1 * 1024 * 1024
+  form.keepExtensions = true
+  form.parse(req, (err, fields, files) => {
+    const {
+      name,
+      type,
+      startDate,
+      endDate,
+      link
+    } = fields
+    if (!name || !type || !startDate || !endDate) {
+      common.endJson(res, {
+        code: 400,
+        msg: '请将内容填写完整'
+      })
+    }
   })
 })
 

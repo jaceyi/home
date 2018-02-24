@@ -119,6 +119,10 @@ export default {
           },
           (data) => {
             console.log(data)
+            this.$message({
+              message: '404',
+              type: 'warning'
+            })
           }
         )
     }
@@ -128,20 +132,31 @@ export default {
       .then(
         (data) => {
           const o = data.body
-          const personal = o.data
-          if (personal.length) {
-            const myPersonal = personal[0]
-            this.name = myPersonal.name
-            this.address = myPersonal.address
-            this.birthDate = myPersonal.birthDate
-            this.mobile = myPersonal.mobile
-            this.qqCode = myPersonal.qqCode
-            this.gender = myPersonal.gender
-            this.hometown = myPersonal.hometown
+          if (o.code === 200) {
+            const personal = o.data
+            if (personal.length) {
+              const myPersonal = personal[0]
+              this.name = myPersonal.name
+              this.address = myPersonal.address
+              this.birthDate = myPersonal.birthDate
+              this.mobile = myPersonal.mobile
+              this.qqCode = myPersonal.qqCode
+              this.gender = myPersonal.gender
+              this.hometown = myPersonal.hometown
+            }
+          } else {
+            this.$message({
+              message: o.msg,
+              type: 'warning'
+            })
           }
         },
         (data) => {
           console.log(data)
+          this.$message({
+            message: '404',
+            type: 'warning'
+          })
         }
       )
   }
@@ -150,9 +165,9 @@ export default {
 
 <style lang="scss" scoped>
 .head {
+  text-align: center;
   font-size: 18px;
   font-weight: 600;
-  text-align: center;
 }
 
 .form {

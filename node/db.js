@@ -72,9 +72,9 @@ function changeData (sql, params, cb) {
   })
 }
 
-function deleteData (sql, params, cb) {
+function deleteData (sql, cb) {
   connectSql(() => {
-    connection.query(sql, params, function (err, result) {
+    connection.query(sql, function (err, result) {
       if (err) {
         const errMsg = {
           err: true,

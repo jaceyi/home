@@ -1,39 +1,126 @@
 <template>
   <div>
     <div class="head">
-      作品管理
+      <span>作品管理</span>
+      <el-button
+      class="addWorks"
+      type="primary"
+      icon="el-icon-plus"
+      @click="handleClickAdd">添加作品</el-button>
     </div>
-    <div class="form">
-      <div class="row" v-for="(item, index) in worksList" :key="index">
-        <el-input v-model="item.name" placeholder="请输入项目名称"></el-input>
-        <el-input v-model="item.link" placeholder="请输入项目链接"></el-input>
-        <el-select v-model="item.type" placeholder="请选择项目类型">
-          <el-option
-            v-for="item_ in itemTypeList"
-            :key="item_"
-            :value="item_">
-          </el-option>
-        </el-select>
-        <div class="del"
-        v-if="worksList.length !== 1"
-        @click="delWorks(index)"
-        title="点击删除技能">
-          <i class="iconfont icon icon-del"></i>
-        </div>
-        <div class="add"
-          v-if="index === worksList.length - 1"
-          @click="addWorks"
-          title="点击添加技能">
-          <i class="iconfont icon icon-add"></i>
-        </div>
+    <el-table
+      :data="worksList"
+      style="width: 100%">
+      <el-table-column
+        label="头图"
+        width="80">
+        <template slot-scope="scope">
+          <img class="img" :src="scope.row.img" alt="">
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="项目名称"
+        width="120">
+      </el-table-column>
+      <el-table-column
+        prop="startDate"
+        label="开始时间"
+        width="160">
+      </el-table-column>
+      <el-table-column
+        prop="endDate"
+        label="结束时间"
+        width="160">
+      </el-table-column>
+      <el-table-column
+        prop="link"
+        label="链接"
+        width="160">
+        <template slot-scope="scope">
+          <a :href="'//' + scope.row.link" alt="">{{ scope.row.link }}</a>
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button
+            size="mini"
+            @click="handleEdit(scope.$index, scope.row.id)">编 辑</el-button>
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row.id)">删 除</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
+    <el-dialog
+    title="添加作品"
+    :visible.sync="addLayer"
+    width="800px">
+      <el-form :model="addContent">
+        <el-form-item>
+          <label class="label">
+            <span>昵称</span>
+            <el-input
+            v-model="addContent.name"
+            class="input"></el-input>
+          </label>
+          <label class="label">
+            <span>链接</span>
+            <el-input
+            v-model="addContent.link"
+            class="input"></el-input>
+          </label>
+        </el-form-item>
+        <el-form-item>
+          <label class="label">
+            <span>类型</span>
+            <el-select v-model="addContent.type" placeholder="请选择">
+              <el-option
+                v-for="item in itemTypeList"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
+          </label>
+          <label class="label">
+            <span>时间</span>
+            <el-date-picker
+              v-model="addContent.startDate"
+              type="date"
+              placeholder="开始时间"
+              class="date">
+            </el-date-picker> -
+            <el-date-picker
+              v-model="addContent.endDate"
+              type="date"
+              placeholder="结束时间"
+              class="date">
+            </el-date-picker>
+          </label>
+        </el-form-item>
+        <el-form-item label="头图">
+          <div class="avatar-uploader">
+            <input type="file" v-on:change="handleUploadChange">
+            <img
+            v-if="addImgResult"
+            class="img"
+            :src="addImgResult">
+            <i
+            v-else-if="!addContent.img"
+            class="el-icon-plus"></i>
+          </div>
+          <div class="title">
+            图片最大大小1M
+          </div>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="addLayer = false">取 消</el-button>
+        <el-button type="primary" @click="addWorks">保 存</el-button>
       </div>
-      <div class="row">
-        <el-button
-        class="submit"
-        @click="submit"
-        type="primary">保存</el-button>
-      </div>
-    </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -42,39 +129,92 @@ export default {
   name: 'Works',
   data () {
     return {
+      addLayer: false,
       worksList: [
         {
-          name: '',
-          link: '',
-          imgs: [],
-          type: ''
+          name: '百度',
+          link: 'baidu.com',
+          imgUrl: '',
+          type: '项目',
+          startDate: '2018-2-1',
+          endDate: '2018-3-1'
         }
       ],
       itemTypeList: [
         '项目',
         '游戏'
-      ]
+      ],
+      addContent: {
+        name: '',
+        link: '',
+        imgFile: {},
+        type: '',
+        startDate: '',
+        endDate: ''
+      },
+      addImgResult: ''
     }
   },
   methods: {
+    handleUploadChange (e) {
+      const file = e.target.files[0]
+      const size = file.size
+      if (!((size / 1024 / 1024) < 1)) {
+        this.$message({
+          message: '图片过大',
+          type: 'warning'
+        })
+        return
+      }
+      const obj = new FileReader()
+      obj.readAsDataURL(file)
+      obj.onload = () => {
+        this.addImgResult = obj.result
+        this.addContent.imgFile = file
+      }
+    },
+    handleClickAdd () {
+      this.addLayer = true
+      this.addContent = {
+        name: '',
+        link: '',
+        imgFile: {},
+        type: '',
+        startDate: '',
+        endDate: ''
+      }
+    },
+    handleEdit () {
+
+    },
+    handleDelete () {
+
+    },
     addWorks () {
-      this.worksList.push(
-        {
-          name: '',
-          link: '',
-          imgs: [],
-          type: ''
-        }
-      )
-    },
-    delWorks (index) {
-      const worksList = this.worksList
-      const startArr = worksList.slice(0, index)
-      const endArr = worksList.slice(index + 1)
-      this.worksList = startArr.concat(endArr)
-    },
-    submit () {
-      this.$http.post(this.$apis.setWorks)
+      const addContent = this.addContent
+      const {
+        name,
+        type,
+        startDate,
+        endDate,
+        link,
+        imgFile
+      } = addContent
+      if (!name || !type || !startDate || !endDate) {
+        this.$message({
+          message: '请将内容填写完整',
+          type: 'warning'
+        })
+        return
+      }
+      let formData = new FormData()
+      formData.append('name', name)
+      formData.append('type', type)
+      formData.append('startDate', startDate)
+      formData.append('endDate', endDate)
+      formData.append('link', link)
+      formData.append('imgFile', imgFile)
+      this.$http.post(this.$apis.setWorks, formData, {headers: {'Content-type': 'multipart/form-data'}})
         .then(
           (data) => {
             const o = data.body
@@ -92,6 +232,10 @@ export default {
           },
           (data) => {
             console.log(data)
+            this.$message({
+              message: '404',
+              type: 'warning'
+            })
           }
         )
     }
@@ -101,15 +245,24 @@ export default {
       .then(
         (data) => {
           const o = data.body
-          if (o) {
+          if (o.code === 200) {
             const worksList = o.data
             if (worksList.length) {
               this.worksList = worksList
             }
+          } else {
+            this.$message({
+              message: o.msg,
+              type: 'warning'
+            })
           }
         },
         (data) => {
           console.log(data)
+          this.$message({
+            message: '404',
+            type: 'warning'
+          })
         }
       )
   }
@@ -118,59 +271,87 @@ export default {
 
 <style lang="scss" scoped>
 .head {
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-}
-
-.form {
-  margin-top: 20px;
-}
-
-.row {
   display: flex;
-  margin-bottom: 15px;
-  justify-content: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #DDD;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
 
-  .el-input {
-    width:240px;
-    margin-right: 20px;
+  span {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+$witdh: 120px;
+
+.avatar-uploader {
+  display: inline-block;
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  min-width: $witdh;
+  height: $witdh;
+
+  input {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    display: block;
+    position: relative;
+    z-index: 2;
   }
 
-  .el-select  {
+  .el-icon-plus {
+    position: absolute;
+    left: 0;
+    top: 0;
+    min-width: 100%;
+    height: 100%;
+    line-height: $witdh;
+    text-align: center;
+    font-size: 20px;
+  }
+
+  .img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: auto;
+    height: 100%;
+  }
+
+  &:hover {
+    border-color: #409EFF;
+  }
+}
+
+.title {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  height: $witdh;
+  margin-left: 10px;
+  color: crimson;
+}
+
+.label {
+  margin-right: 50px;
+  span {
+    margin-right: 10px;
+  }
+}
+
+.el-form-item__content {
+  .input {
+    width: 215px;
+  }
+
+  .date {
     width: 150px;
-    margin-right: 20px;
-  }
-
-  .add {
-    background:#409EFF;
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 50%;
-    margin-right: -32px;
-  }
-
-  .del {
-    background:#409EFF;
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 50%;
-    margin-right: 8px;
-  }
-
-  .submit {
-    margin-top: 10px;
-    width: 100px;
   }
 }
 </style>
