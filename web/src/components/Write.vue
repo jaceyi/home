@@ -133,7 +133,7 @@ export default {
         return
       }
       const startRequest = () => {
-        self.$http.post(self.$apis.writeWord, {
+        self.$http.post(self.$apis.setWord, {
           name: name,
           img: portraitUrl,
           content: contentText
@@ -170,7 +170,7 @@ export default {
       }
     },
     getWordList () {
-      this.$http.get(this.$apis.wordList + '?page=' + this.page)
+      this.$http.get(this.$apis.getWord + '?page=' + this.page)
         .then(
           (data) => {
             const o = data.body
