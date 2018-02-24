@@ -15,7 +15,7 @@
         label="头图"
         width="80">
         <template slot-scope="scope">
-          <img class="img" :src="scope.row.img" alt="">
+          <img class="img" :src="scope.row.imgSrc" alt="">
         </template>
       </el-table-column>
       <el-table-column
@@ -134,7 +134,7 @@ export default {
         {
           name: '百度',
           link: 'baidu.com',
-          imgUrl: '',
+          imgSrc: '',
           type: '项目',
           startDate: '2018-2-1',
           endDate: '2018-3-1'
@@ -175,6 +175,7 @@ export default {
     },
     handleClickAdd () {
       this.addLayer = true
+      this.addImgResult = ''
       this.addContent = {
         name: '',
         link: '',

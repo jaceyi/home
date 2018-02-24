@@ -276,6 +276,57 @@ app.post('/setWorks', function (req, res) {
         msg: '请将内容填写完整'
       })
     }
+    const imgFile = files.imgFile
+    if (imgFile.type !== 'image/jpeg' && imgFile.type !== 'image/png') {
+      common.endJson(res, {
+        code: 400,
+        msg: '仅支持png/jpeg格式的图片'
+      })
+      return
+    }
+    fs.readFile(imgFile.path, function (err, data) {
+      if (err) {
+        common.endJson(res, {
+          code: 400,
+          msg: '图片加载失败，请重试'
+        })
+        return
+      }
+      const time = new Date().getTime()
+      const imgSrc = time + imgFile.name
+      fs.writeFile('./files/images/' + imgSrc, data, function (err, data) {
+        if (err) {
+          common.endJson(res, {
+            code: 400,
+            msg: '图片存储失败，请重试'
+          })
+          return
+        }
+        const sql = 'insert into works(id,type,startDate,endDate,link,imgSrc) values(0,?,?,?,?,?)'
+        const sqlData = [type, startDate, endDate, link, imgSrc]
+        db.addData(
+          sql,
+          sqlData,
+          (o) => {
+            console.log(o)
+            if (!o.err) {
+              common.endJson(res, {
+                code: 200,
+                msg: '保存成功',
+                data: {
+                  id: o.insertId,
+                  name,
+                  type,
+                  startDate,
+                  endDate,
+                  link,
+                  imgSrc
+                }
+              })
+            }
+          })
+      })
+    })
   })
 })
 
