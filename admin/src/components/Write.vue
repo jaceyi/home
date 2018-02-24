@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="head">
+      <span>留言管理</span>
+    </div>
     <el-table
       :data="writeList"
       style="width: 100%">
@@ -36,7 +39,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="收货地址" :visible.sync="editLayer">
+    <el-dialog title="留言编辑" :visible.sync="editLayer">
       <el-form :model="editContent">
         <el-form-item label="昵称">
           <el-input
@@ -68,29 +71,7 @@ export default {
     return {
       editLayer: false,
       editContent: {},
-      writeList: [
-        {
-          content: 'Test',
-          id: 8,
-          img: 'http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=1047855633&spec=100',
-          name: 'Test',
-          time: '2018-2-18 21:13'
-        },
-        {
-          content: 'Test',
-          id: 7,
-          img: 'http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=1047855633&spec=100',
-          name: 'Test',
-          time: '2018-2-18 21:13'
-        },
-        {
-          content: 'Test',
-          id: 6,
-          img: 'http://q.qlogo.cn/headimg_dl?bs=qq&dst_uin=1047855633&spec=100',
-          name: 'Test',
-          time: '2018-2-18 21:13'
-        }
-      ],
+      writeList: [],
       page: 1
     }
   },
@@ -102,18 +83,43 @@ export default {
       }
     },
     handelSubmitEdit () {
-      this.editLayer = false
+      const { editContent } = this
       const submitWrite = () => {
         const writeList = this.writeList
-        const id = this.editContent.id
+        const id = editContent.id
         const index = writeList.findIndex((item) => {
           return item.id === id
         })
         const startArr = writeList.slice(0, index)
         const endArr = writeList.slice(index + 1)
-        this.writeList = startArr.concat(this.editContent, endArr)
+        this.writeList = startArr.concat(editContent, endArr)
       }
-      submitWrite()
+      this.$http.post(this.$apis.editWord, editContent)
+        .then(
+          (data) => {
+            const o = data.body
+            if (o.code === 200) {
+              this.editLayer = false
+              submitWrite()
+              this.$message({
+                message: o.msg,
+                type: 'success'
+              })
+            } else {
+              this.$message({
+                message: o.msg,
+                type: 'warning'
+              })
+            }
+          },
+          (data) => {
+            console.log(data)
+            this.$message({
+              message: '404',
+              type: 'warning'
+            })
+          }
+        )
     },
     handleDelete (index, id) {
       const deleteWrite = () => {
@@ -128,16 +134,32 @@ export default {
             const o = data.body
             if (o.code === 200) {
               deleteWrite()
+              this.$message({
+                message: o.msg,
+                type: 'success'
+              })
+            } else {
+              this.$message({
+                message: o.msg,
+                type: 'warning'
+              })
             }
+          },
+          (data) => {
+            console.log(data)
+            this.$message({
+              message: '404',
+              type: 'warning'
+            })
           }
         )
     },
     getWordList () {
-      this.$http.get(this.$apis.wordList + '?page=' + this.page)
+      this.$http.get(this.$apis.getWord + '?page=' + this.page)
         .then(
           (data) => {
             const o = data.body
-            if (o) {
+            if (o.code === 200) {
               this.writeList = this.writeList.concat(o.data)
               if (o.data.length) {
                 this.blocker = true
@@ -146,10 +168,19 @@ export default {
                   content: '已经加载完全部内容'
                 })
               }
+            } else {
+              this.$message({
+                message: o.msg,
+                type: 'warning'
+              })
             }
           },
           (data) => {
             console.log(data)
+            this.$message({
+              message: '404',
+              type: 'warning'
+            })
           }
         )
     }
@@ -161,6 +192,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.head {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #DDD;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+
+  span {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
 .img {
   height: 60px;
   width: 60px;

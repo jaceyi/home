@@ -82,10 +82,24 @@ export default {
         .then(
           (data) => {
             const o = data.body
-            this.$message(o.msg)
+            if (o.code === 200) {
+              this.$message({
+                message: o.msg,
+                type: 'success'
+              })
+            } else {
+              this.$message({
+                message: o.msg,
+                type: 'warning'
+              })
+            }
           },
           (data) => {
             console.log(data)
+            this.$message({
+              message: '404',
+              type: 'warning'
+            })
           }
         )
     }
@@ -95,15 +109,24 @@ export default {
       .then(
         (data) => {
           const o = data.body
-          if (o) {
+          if (o.code === 200) {
             const abilityList = o.data
             if (abilityList.length) {
               this.abilityList = abilityList
             }
+          } else {
+            this.$message({
+              message: o.msg,
+              type: 'warning'
+            })
           }
         },
         (data) => {
           console.log(data)
+          this.$message({
+            message: '404',
+            type: 'warning'
+          })
         }
       )
   }
@@ -112,9 +135,9 @@ export default {
 
 <style lang="scss" scoped>
 .head {
+  text-align: center;
   font-size: 18px;
   font-weight: 600;
-  text-align: center;
 }
 
 .form {

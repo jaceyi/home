@@ -7,6 +7,7 @@ export default {
   getWord: api + '/getWord',
   setWord: api + '/setWord',
   delWord: api + '/delWord',
+  editWord: api + '/editWord',
   getWorks: api + '/getWorks',
   setWorks: api + '/setWorks'
 }
