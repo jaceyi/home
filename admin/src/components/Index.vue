@@ -1,6 +1,6 @@
 <template>
   <div>
-    Index
+    欢迎光临 这里什么都没有
   </div>
 </template>
 

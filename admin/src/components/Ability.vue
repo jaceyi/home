@@ -95,11 +95,7 @@ export default {
             }
           },
           (data) => {
-            console.log(data)
-            this.$message({
-              message: '404',
-              type: 'warning'
-            })
+            this.hanbleFail(data)
           }
         )
     }
@@ -122,11 +118,7 @@ export default {
           }
         },
         (data) => {
-          console.log(data)
-          this.$message({
-            message: '404',
-            type: 'warning'
-          })
+          this.hanbleFail(data)
         }
       )
   }

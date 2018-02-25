@@ -113,46 +113,39 @@ export default {
             }
           },
           (data) => {
-            console.log(data)
-            this.$message({
-              message: '404',
-              type: 'warning'
-            })
+            this.hanbleFail(data)
           }
         )
     },
     handleDelete (index, id) {
-      const deleteWrite = () => {
-        const writeList = this.writeList
-        const startArr = writeList.slice(0, index)
-        const endArr = writeList.slice(index + 1)
-        this.writeList = startArr.concat(endArr)
-      }
-      this.$http.delete(this.$apis.delWord + '?id=' + id)
-        .then(
-          (data) => {
-            const o = data.body
-            if (o.code === 200) {
-              deleteWrite()
-              this.$message({
-                message: o.msg,
-                type: 'success'
-              })
-            } else {
-              this.$message({
-                message: o.msg,
-                type: 'warning'
-              })
+      this.$confirm('此操作将永久删除该留言, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete(this.$apis.delWord + '?id=' + id)
+          .then(
+            (data) => {
+              const o = data.body
+              if (o.code === 200) {
+                const writeList = this.writeList
+                this.writeList = this.deleteItem(writeList, index)
+                this.$message({
+                  message: o.msg,
+                  type: 'success'
+                })
+              } else {
+                this.$message({
+                  message: o.msg,
+                  type: 'warning'
+                })
+              }
+            },
+            (data) => {
+              this.hanbleFail(data)
             }
-          },
-          (data) => {
-            console.log(data)
-            this.$message({
-              message: '404',
-              type: 'warning'
-            })
-          }
-        )
+          )
+      })
     },
     getWordList () {
       this.$http.get(this.$apis.getWord + '?page=' + this.page)
@@ -176,11 +169,7 @@ export default {
             }
           },
           (data) => {
-            console.log(data)
-            this.$message({
-              message: '404',
-              type: 'warning'
-            })
+            this.hanbleFail(data)
           }
         )
     }

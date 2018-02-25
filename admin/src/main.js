@@ -16,6 +16,49 @@ Vue.prototype.$apis = apis
 Vue.use(ElementUI, { size: 'small' })
 Vue.use(VueResource)
 
+Vue.mixin({
+  methods: {
+    hanbleFail (data) {
+      // 处理请求失败
+      let msg = data.body.msg
+      if (!msg) {
+        msg = data.status
+      }
+      this.$message({
+        message: msg,
+        type: 'warning'
+      })
+    },
+    formatDate (myDate, format) {
+      // format yyyy-MM-dd hh:mm:ss
+      myDate = new Date(myDate)
+      const o = {
+        'M+': myDate.getMonth() + 1,
+        'd+': myDate.getDate(),
+        'h+': myDate.getHours(),
+        'm+': myDate.getMinutes(),
+        's+': myDate.getSeconds(),
+        'q+': Math.floor((myDate.getMonth() + 3) / 3),
+        'S': myDate.getMilliseconds()
+      }
+      if (/(y+)/.test(format)) {
+        format = format.replace(RegExp.$1, (myDate.getFullYear() + '').substr(4 - RegExp.$1.length))
+      }
+      for (var k in o) {
+        if (new RegExp('(' + k + ')').test(format)) {
+          format = format.replace(RegExp.$1, (RegExp.$1.length === 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)))
+        }
+      }
+      return format
+    },
+    deleteItem (arr, index) {
+      const startArr = arr.slice(0, index)
+      const endArr = arr.slice(index + 1)
+      return startArr.concat(endArr)
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

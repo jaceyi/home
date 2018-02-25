@@ -13,9 +13,9 @@
       style="width: 100%">
       <el-table-column
         label="头图"
-        width="80">
+        width="150">
         <template slot-scope="scope">
-          <img class="img" :src="scope.row.imgSrc" alt="">
+          <img class="table-img" :src="scope.row.imgSrc" alt="">
         </template>
       </el-table-column>
       <el-table-column
@@ -24,14 +24,19 @@
         width="120">
       </el-table-column>
       <el-table-column
+        prop="type"
+        label="项目类型"
+        width="80">
+      </el-table-column>
+      <el-table-column
         prop="startDate"
         label="开始时间"
-        width="160">
+        width="100">
       </el-table-column>
       <el-table-column
         prop="endDate"
         label="结束时间"
-        width="160">
+        width="100">
       </el-table-column>
       <el-table-column
         prop="link"
@@ -45,11 +50,11 @@
         <template slot-scope="scope">
           <el-button
             size="mini"
-            @click="handleEdit(scope.$index, scope.row.id)">编 辑</el-button>
+            @click="handleClickEdit(scope.$index)">编 辑</el-button>
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row.id)">删 除</el-button>
+            @click="handleClickDelete(scope.$index, scope.row.id)">删 除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -102,23 +107,93 @@
         </el-form-item>
         <el-form-item label="头图">
           <div class="avatar-uploader">
-            <input type="file" v-on:change="handleUploadChange">
+            <input type="file" v-on:change="handleAddUpload" accept="image/png,image/jpeg">
             <img
-            v-if="addImgResult"
+            v-if="addContent.imgSrc"
             class="img"
-            :src="addImgResult">
+            :src="addContent.imgSrc">
             <i
-            v-else-if="!addContent.img"
+            v-else-if="!addContent.imgSrc"
             class="el-icon-plus"></i>
           </div>
           <div class="title">
-            图片最大大小1M
+            <p>图片最大大小1M</p>
+            <p>仅支持 jpeg/png 格式的图片</p>
           </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addLayer = false">取 消</el-button>
         <el-button type="primary" @click="addWorks">保 存</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+    title="编辑作品"
+    :visible.sync="editLayer"
+    width="800px">
+      <el-form :model="editContent">
+        <el-form-item>
+          <label class="label">
+            <span>昵称</span>
+            <el-input
+            v-model="editContent.name"
+            class="input"></el-input>
+          </label>
+          <label class="label">
+            <span>链接</span>
+            <el-input
+            v-model="editContent.link"
+            class="input"></el-input>
+          </label>
+        </el-form-item>
+        <el-form-item>
+          <label class="label">
+            <span>类型</span>
+            <el-select v-model="editContent.type" placeholder="请选择">
+              <el-option
+                v-for="item in itemTypeList"
+                :key="item"
+                :label="item"
+                :value="item">
+              </el-option>
+            </el-select>
+          </label>
+          <label class="label">
+            <span>时间</span>
+            <el-date-picker
+              v-model="editContent.startDate"
+              type="date"
+              placeholder="开始时间"
+              class="date">
+            </el-date-picker> -
+            <el-date-picker
+              v-model="editContent.endDate"
+              type="date"
+              placeholder="结束时间"
+              class="date">
+            </el-date-picker>
+          </label>
+        </el-form-item>
+        <el-form-item label="头图">
+          <div class="avatar-uploader">
+            <input type="file" v-on:change="handleEditUpload" accept="image/png,image/jpeg">
+            <img
+            v-if="editContent.imgSrc"
+            class="img"
+            :src="editContent.imgSrc">
+            <i
+            v-else-if="!editContent.imgSrc"
+            class="el-icon-plus"></i>
+          </div>
+          <div class="title">
+            <p>图片最大大小1M</p>
+            <p>仅支持 jpeg/png 格式的图片</p>
+          </div>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="editLayer = false">取 消</el-button>
+        <el-button type="primary" @click="editWorks">保 存</el-button>
       </div>
     </el-dialog>
   </div>
@@ -129,17 +204,10 @@ export default {
   name: 'Works',
   data () {
     return {
+      page: 1,
       addLayer: false,
-      worksList: [
-        {
-          name: '百度',
-          link: 'baidu.com',
-          imgSrc: '',
-          type: '项目',
-          startDate: '2018-2-1',
-          endDate: '2018-3-1'
-        }
-      ],
+      editLayer: false,
+      worksList: [],
       itemTypeList: [
         '项目',
         '游戏'
@@ -150,15 +218,46 @@ export default {
         imgFile: {},
         type: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        imgSrc: ''
       },
-      addImgResult: ''
+      editContent: {
+        id: 0,
+        name: '',
+        link: '',
+        imgFile: {},
+        type: '',
+        startDate: '',
+        endDate: '',
+        imgSrc: ''
+      }
     }
   },
   methods: {
-    handleUploadChange (e) {
+    handleAddUpload (e) {
       const file = e.target.files[0]
+      this.uploadChange(file, (reader) => {
+        this.addContent.imgSrc = reader.result
+        this.addContent.imgFile = file
+      })
+    },
+    handleEditUpload (e) {
+      const file = e.target.files[0]
+      this.uploadChange(file, (reader) => {
+        this.editContent.imgSrc = reader.result
+        this.editContent.imgFile = file
+      })
+    },
+    uploadChange (file, cb) {
       const size = file.size
+      const type = file.type
+      if (type !== 'image/jpeg' && type !== 'image/png') {
+        this.$message({
+          message: '仅支持 jpeg/png 格式的图片',
+          type: 'warning'
+        })
+        return
+      }
       if (!((size / 1024 / 1024) < 1)) {
         this.$message({
           message: '图片过大',
@@ -166,11 +265,10 @@ export default {
         })
         return
       }
-      const obj = new FileReader()
-      obj.readAsDataURL(file)
-      obj.onload = () => {
-        this.addImgResult = obj.result
-        this.addContent.imgFile = file
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function () {
+        cb(reader)
       }
     },
     handleClickAdd () {
@@ -182,25 +280,92 @@ export default {
         imgFile: {},
         type: '',
         startDate: '',
-        endDate: ''
+        endDate: '',
+        imgSrc: ''
       }
     },
-    handleEdit () {
-
+    handleClickEdit (index) {
+      const editWork = this.worksList[index]
+      this.editLayer = true
+      this.addImgResult = editWork.imgSrc
+      this.editContent = {
+        ...editWork
+      }
     },
-    handleDelete () {
-
+    handleClickDelete (index, id) {
+      this.$confirm('此操作将永久删除该作品, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete(this.$apis.delWorks + '?id=' + id)
+          .then(
+            (data) => {
+              const o = data.body
+              if (o.code === 200) {
+                const worksList = this.worksList
+                this.worksList = this.deleteItem(worksList, index)
+                this.$message({
+                  message: o.msg,
+                  type: 'success'
+                })
+              } else {
+                this.$message({
+                  message: o.msg,
+                  type: 'warning'
+                })
+              }
+            },
+            (data) => {
+              this.hanbleFail(data)
+            }
+          )
+      })
     },
     addWorks () {
       const addContent = this.addContent
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading'
+      })
+      this.submitWorks(this.$apis.setWorks, addContent, (o) => {
+        this.addLayer = false
+        this.worksList.unshift(o.data)
+        this.$message({
+          message: o.msg,
+          type: 'success'
+        })
+      }, loading)
+    },
+    editWorks () {
+      const editContent = this.editContent
+      const loading = this.$loading({
+        lock: true,
+        text: 'Loading'
+      })
+      const index = this.worksList.findIndex((item) => {
+        return item.id === editContent.id
+      })
+      this.submitWorks(this.$apis.editWorks, editContent, (o) => {
+        this.editLayer = false
+        this.$set(this.worksList, index, o.data)
+        this.$message({
+          message: o.msg,
+          type: 'success'
+        })
+      }, loading)
+    },
+    submitWorks (api, data, cb, loading) {
       const {
         name,
         type,
         startDate,
         endDate,
         link,
-        imgFile
-      } = addContent
+        imgFile,
+        imgSrc,
+        id
+      } = data
       if (!name || !type || !startDate || !endDate) {
         this.$message({
           message: '请将内容填写完整',
@@ -211,19 +376,24 @@ export default {
       let formData = new FormData()
       formData.append('name', name)
       formData.append('type', type)
-      formData.append('startDate', startDate)
-      formData.append('endDate', endDate)
+      formData.append('startDate', this.formatDate(startDate, 'yyyy-MM-dd'))
+      formData.append('endDate', this.formatDate(endDate, 'yyyy-MM-dd'))
       formData.append('link', link)
-      formData.append('imgFile', imgFile)
-      this.$http.post(this.$apis.setWorks, formData, {headers: {'Content-type': 'multipart/form-data'}})
+      if (id) {
+        formData.append('id', id)
+      }
+      if (imgFile) {
+        formData.append('imgFile', imgFile)
+      } else {
+        formData.append('imgSrc', imgSrc)
+      }
+      this.$http.post(api, formData, {headers: {'Content-type': 'multipart/form-data'}})
         .then(
           (data) => {
             const o = data.body
+            loading.close()
             if (o.code === 200) {
-              this.$message({
-                message: o.msg,
-                type: 'success'
-              })
+              cb(o)
             } else {
               this.$message({
                 message: o.msg,
@@ -232,40 +402,37 @@ export default {
             }
           },
           (data) => {
-            console.log(data)
-            this.$message({
-              message: '404',
-              type: 'warning'
-            })
+            loading.close()
+            this.hanbleFail(data)
+          }
+        )
+    },
+    getWorksList () {
+      const page = this.page
+      this.$http.get(this.$apis.getWorks + '?page=' + page)
+        .then(
+          (data) => {
+            const o = data.body
+            if (o.code === 200) {
+              const worksList = o.data
+              if (worksList.length) {
+                this.worksList = worksList
+              }
+            } else {
+              this.$message({
+                message: o.msg,
+                type: 'warning'
+              })
+            }
+          },
+          (data) => {
+            this.hanbleFail(data)
           }
         )
     }
   },
   mounted () {
-    this.$http.get(this.$apis.getWorks)
-      .then(
-        (data) => {
-          const o = data.body
-          if (o.code === 200) {
-            const worksList = o.data
-            if (worksList.length) {
-              this.worksList = worksList
-            }
-          } else {
-            this.$message({
-              message: o.msg,
-              type: 'warning'
-            })
-          }
-        },
-        (data) => {
-          console.log(data)
-          this.$message({
-            message: '404',
-            type: 'warning'
-          })
-        }
-      )
+    this.getWorksList()
   }
 }
 </script>
@@ -282,6 +449,11 @@ export default {
     font-size: 18px;
     font-weight: 600;
   }
+}
+
+.table-img {
+  display: block;
+  width: 100%;
 }
 
 $witdh: 120px;

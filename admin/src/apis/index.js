@@ -9,5 +9,7 @@ export default {
   delWord: api + '/delWord',
   editWord: api + '/editWord',
   getWorks: api + '/getWorks',
-  setWorks: api + '/setWorks'
+  setWorks: api + '/setWorks',
+  delWorks: api + '/delWorks',
+  editWorks: api + '/editWorks'
 }

@@ -93,10 +93,11 @@ export default {
         })
         return
       }
+      const _birthDate = this.formatDate(birthDate, 'yyyy-MM-dd')
       this.$http.post(this.$apis.setPersonal, {
         name,
         gender,
-        birthDate,
+        _birthDate,
         mobile,
         qqCode,
         address,
@@ -118,11 +119,7 @@ export default {
             }
           },
           (data) => {
-            console.log(data)
-            this.$message({
-              message: '404',
-              type: 'warning'
-            })
+            this.hanbleFail(data)
           }
         )
     }
@@ -152,11 +149,7 @@ export default {
           }
         },
         (data) => {
-          console.log(data)
-          this.$message({
-            message: '404',
-            type: 'warning'
-          })
+          this.hanbleFail(data)
         }
       )
   }
