@@ -400,6 +400,7 @@ export default {
           message: '请将内容填写完整',
           type: 'warning'
         })
+        loading.close()
         return
       }
       let formData = new FormData()

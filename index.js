@@ -28,13 +28,13 @@ function judgeLevel (req, res, next) {
     next()
   } else if (session.user_id) {
     common.endJson(res, {
-      code: 401,
-      msg: '你还未登录 请先登录'
+      code: 403,
+      msg: '无权限操作'
     })
   } else {
     common.endJson(res, {
-      code: 403,
-      msg: '无权限操作'
+      code: 401,
+      msg: '你还未登录 请先登录'
     })
   }
 }
