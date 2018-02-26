@@ -98,7 +98,7 @@ export default {
       this.$http.post(this.$apis.setPersonal, {
         name,
         gender,
-        _birthDate,
+        birthDate: _birthDate,
         mobile,
         qqCode,
         address,

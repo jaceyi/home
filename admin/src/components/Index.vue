@@ -37,7 +37,6 @@ export default {
           }
         },
         (data) => {
-          this.$router.push('/login')
           this.hanbleFail(data)
         }
       )

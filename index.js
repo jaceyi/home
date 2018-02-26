@@ -12,14 +12,32 @@ const common = require('./node/common')
 
 const FilesPath = './files/images/'
 
+const secret = String(Math.random() * 999999 + 100000)
 app.use(session({
-  secret: '123456',
+  secret: secret,
   cookie: {
-    maxAge: 60000
+    maxAge: 300000
   },
   resave: false,
   saveUninitialized: false
 }))
+
+function judgeLevel (req, res, next) {
+  const session = req.session
+  if (session.user_level === 1) {
+    next()
+  } else if (session.user_id) {
+    common.endJson(res, {
+      code: 401,
+      msg: '你还未登录 请先登录'
+    })
+  } else {
+    common.endJson(res, {
+      code: 403,
+      msg: '无权限操作'
+    })
+  }
+}
 
 app.post('/login', function (req, res) {
   const form = new fm.IncomingForm()
@@ -76,7 +94,7 @@ app.get('/getLogin', function (req, res) {
     })
   } else {
     common.endJson(res, {
-      code: 400,
+      code: 401,
       msg: '你还未登录'
     })
   }
@@ -112,7 +130,7 @@ app.get('/getWord', function (req, res) {
   })
 })
 
-app.post('/setWord', function (req, res) {
+app.post('/setWord', judgeLevel, function (req, res) {
   const form = new fm.IncomingForm()
   form.parse(req, (err, fields) => {
     const myDate = new Date()
@@ -156,7 +174,7 @@ app.post('/setWord', function (req, res) {
   })
 })
 
-app.delete('/delWord', function (req, res) {
+app.delete('/delWord', judgeLevel, function (req, res) {
   const id = req.query.id
   if (!id) {
     common.endJson(res, {
@@ -177,7 +195,7 @@ app.delete('/delWord', function (req, res) {
   })
 })
 
-app.post('/editWord', function (req, res) {
+app.post('/editWord', judgeLevel, function (req, res) {
   const form = new fm.IncomingForm()
   form.parse(req, (err, fields) => {
     const {
@@ -235,7 +253,7 @@ app.get('/getPersonal', function (req, res) {
   })
 })
 
-app.post('/setPersonal', function (req, res) {
+app.post('/setPersonal', judgeLevel, function (req, res) {
   const form = new fm.IncomingForm()
   form.parse(req, (err, fields) => {
     const {
@@ -320,7 +338,7 @@ app.get('/getAbility', function (req, res) {
   getCommonData(req, res, 1)
 })
 
-app.post('/setAbility', function (req, res) {
+app.post('/setAbility', judgeLevel, function (req, res) {
   const form = new fm.IncomingForm()
   form.parse(req, (err, fields) => {
     const {
@@ -357,7 +375,7 @@ app.get('/getWorks', function (req, res) {
   })
 })
 
-app.post('/setWorks', function (req, res) {
+app.post('/setWorks', judgeLevel, function (req, res) {
   const form = new fm.IncomingForm()
   form.encoding = 'utf-8'
   form.maxFieldsSize = 1 * 1024 * 1024
@@ -436,7 +454,7 @@ app.post('/setWorks', function (req, res) {
   })
 })
 
-app.post('/editWorks', function (req, res) {
+app.post('/editWorks', judgeLevel, function (req, res) {
   const form = new fm.IncomingForm()
   form.encoding = 'utf-8'
   form.maxFieldsSize = 1 * 1024 * 1024
@@ -516,7 +534,7 @@ app.post('/editWorks', function (req, res) {
   })
 })
 
-app.delete('/delWorks', function (req, res) {
+app.delete('/delWorks', judgeLevel, function (req, res) {
   const id = req.query.id
   if (!id) {
     common.endJson(res, {

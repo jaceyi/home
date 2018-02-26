@@ -20,14 +20,18 @@ Vue.mixin({
   methods: {
     hanbleFail (data) {
       // 处理请求失败
-      let msg = data.body.msg
+      const o = data.body
+      let msg = o.msg
       if (!msg) {
-        msg = data.status
+        msg = o.status
       }
       this.$message({
         message: msg,
         type: 'warning'
       })
+      if (o.code === 401) {
+        this.$router.push('/login')
+      }
     },
     formatDate (myDate, format) {
       // format yyyy-MM-dd hh:mm:ss
