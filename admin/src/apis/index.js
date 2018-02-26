@@ -1,5 +1,7 @@
 const api = ''
 export default {
+  login: api + '/login',
+  getLogin: api + '/getLogin',
   getPersonal: api + '/getPersonal',
   setPersonal: api + '/setPersonal',
   getAbility: api + '/getAbility',

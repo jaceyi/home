@@ -1,12 +1,47 @@
 <template>
-  <div>
-    欢迎光临 这里什么都没有
-  </div>
+  <el-container>
+      <el-header class="container-header">
+        <Top />
+      </el-header>
+      <el-container>
+        <el-aside width="auto" class="container-list">
+          <NavList />
+        </el-aside>
+        <el-main class="container-main">
+          <router-view/>
+        </el-main>
+      </el-container>
+    </el-container>
 </template>
 
 <script>
+import NavList from '@/components/NavList'
+import Top from '@/components/Top'
 export default {
-  name: 'Index'
+  name: 'Index',
+  components: {
+    NavList,
+    Top
+  },
+  mounted () {
+    this.$http.get(this.$apis.getLogin)
+      .then(
+        (data) => {
+          const o = data.body
+          if (!o.code === 200) {
+            this.$message({
+              message: o.msg,
+              type: 'warning'
+            })
+            this.$router.push('/login')
+          }
+        },
+        (data) => {
+          this.$router.push('/login')
+          this.hanbleFail(data)
+        }
+      )
+  }
 }
 </script>
 

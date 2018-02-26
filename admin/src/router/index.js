@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Login from '@/components/Login'
 import Index from '@/components/Index'
 import Personal from '@/components/Personal'
 import Ability from '@/components/Ability'
@@ -9,12 +10,7 @@ import store from '@/store'
 
 Vue.use(Router)
 
-const routes = [
-  {
-    name: 'Index',
-    path: '/',
-    component: Index
-  },
+const childrenRoutes = [
   {
     name: 'Personal',
     path: '/personal',
@@ -37,15 +33,32 @@ const routes = [
   }
 ]
 
+const routes = [
+  {
+    name: 'Login',
+    path: '/login',
+    component: Login
+  },
+  {
+    name: 'Index',
+    path: '/',
+    component: Index,
+    redirect: '/personal',
+    children: childrenRoutes
+  }
+]
+
 const router = new Router({
   routes: routes
 })
 
 router.afterEach((to) => {
-  const index = routes.findIndex((route) => {
+  const index = childrenRoutes.findIndex((route) => {
     return route.path === to.path
   })
-  store.commit('tabNavActive', index)
+  if (index !== -1) {
+    store.commit('tabNavActive', index)
+  }
 })
 
 export default router

@@ -36,6 +36,7 @@
         <el-date-picker
           v-model="birthDate"
           type="date"
+          :editable="false"
           placeholder="选择日期">
         </el-date-picker>
       </div>

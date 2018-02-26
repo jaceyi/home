@@ -1,30 +1,12 @@
 <template>
   <div id="app">
-    <el-container>
-      <el-header class="container-header">
-        <Top />
-      </el-header>
-      <el-container>
-        <el-aside width="auto" class="container-list">
-          <NavList />
-        </el-aside>
-        <el-main class="container-main">
-          <router-view/>
-        </el-main>
-      </el-container>
-    </el-container>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import NavList from '@/components/NavList'
-import Top from '@/components/Top'
 export default {
-  name: 'App',
-  components: {
-    NavList,
-    Top
-  }
+  name: 'App'
 }
 </script>
 

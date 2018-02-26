@@ -1,6 +1,7 @@
 const express = require('express')
 const fs = require('fs')
 const app = express()
+const session = require('express-session')
 const web = require('./node/web')
 const admin = require('./node/admin')
 const myPublic = require('./node/public')
@@ -10,6 +11,76 @@ const db = require('./node/db')
 const common = require('./node/common')
 
 const FilesPath = './files/images/'
+
+app.use(session({
+  secret: '123456',
+  cookie: {
+    maxAge: 60000
+  },
+  resave: false,
+  saveUninitialized: false
+}))
+
+app.post('/login', function (req, res) {
+  const form = new fm.IncomingForm()
+  form.parse(req, (err, fields) => {
+    const {
+      username,
+      password
+    } = fields
+    if (!username || !password) {
+      common.endJson(res, {
+        code: 400,
+        msg: '请求参数不完整'
+      })
+      return
+    }
+    const sql = 'select * from user where username = "' + username + '" and password = "' + password + '"'
+    db.queryData(sql, (o) => {
+      if (!o.err) {
+        if (o.length) {
+          const data = o[0]
+          const user_id = data.id
+          const user_level = data.level
+          req.session.user_id = user_id
+          req.session.user_level = user_level
+          
+          common.endJson(res, {
+            code: 200,
+            data: {
+              id: user_id,
+              level: user_level
+            }
+          })
+        } else {
+          common.endJson(res, {
+            code: 400,
+            msg: '账号或密码错误'
+          })
+        }
+      }
+    })
+  })
+})
+
+app.get('/getLogin', function (req, res) {
+  const user_id = req.session.user_id
+  const user_level = req.session.user_level
+  if (user_id) {
+    common.endJson(res, {
+      code: 200,
+      data: {
+        id: user_id,
+        level: user_level
+      }
+    })
+  } else {
+    common.endJson(res, {
+      code: 400,
+      msg: '你还未登录'
+    })
+  }
+})
 
 app.get('/getWord', function (req, res) {
   const page = req.query.page

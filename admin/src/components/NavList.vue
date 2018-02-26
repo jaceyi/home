@@ -3,9 +3,9 @@
     <div class="nav-list-content">
       <el-menu class="el-menu-vertical-demo" :collapse="isCollapse">
         <el-menu-item
-        v-for="nav in navList"
-        :class="`nav-list--item ${ nav.id === navActive ? 'is-active' : '' }`"
-        :key="nav.id"
+        v-for="(nav, index) in navList"
+        :class="`nav-list--item ${ index === navActive ? 'is-active' : '' }`"
+        :key="index"
         :index="nav.path"
         @click="gotoPath(nav.path)"
         >
@@ -23,31 +23,21 @@
 <script>
 const navList = [
   {
-    id: 0,
-    path: '/',
-    icon: 'icon icon-home',
-    text: '首页'
-  },
-  {
-    id: 1,
     path: '/personal',
     icon: 'icon icon-personal',
     text: '资料管理'
   },
   {
-    id: 2,
     path: '/ability',
     icon: 'icon icon-ability',
     text: '技能管理'
   },
   {
-    id: 3,
     path: '/write',
     icon: 'icon icon-write',
     text: '留言管理'
   },
   {
-    id: 4,
     path: '/works',
     icon: 'icon icon-works',
     text: '作品管理'

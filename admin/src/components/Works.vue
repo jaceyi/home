@@ -95,12 +95,14 @@
               v-model="addContent.startDate"
               type="date"
               placeholder="开始时间"
+              :editable="false"
               class="date">
             </el-date-picker> -
             <el-date-picker
               v-model="addContent.endDate"
               type="date"
               placeholder="结束时间"
+              :editable="false"
               class="date">
             </el-date-picker>
           </label>
@@ -117,14 +119,23 @@
             class="el-icon-plus"></i>
           </div>
           <div class="title">
+            <span>推荐尺寸 800px * 400px</span>
             <p>图片最大大小1M</p>
             <p>仅支持 jpeg/png 格式的图片</p>
+            <div>
+              <el-button
+              type="danger"
+              class="el-icon-delete"
+              :disabled="!addContent.imgSrc"
+              @click="handleClickAddDel"
+              plain> 删除图片</el-button>
+            </div>
           </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="addLayer = false">取 消</el-button>
-        <el-button type="primary" @click="addWorks">保 存</el-button>
+        <el-button type="primary" @click="addWork">保 存</el-button>
       </div>
     </el-dialog>
     <el-dialog
@@ -164,12 +175,14 @@
               v-model="editContent.startDate"
               type="date"
               placeholder="开始时间"
+              :editable="false"
               class="date">
             </el-date-picker> -
             <el-date-picker
               v-model="editContent.endDate"
               type="date"
               placeholder="结束时间"
+              :editable="false"
               class="date">
             </el-date-picker>
           </label>
@@ -186,14 +199,23 @@
             class="el-icon-plus"></i>
           </div>
           <div class="title">
+            <span>推荐尺寸 800px * 400px</span>
             <p>图片最大大小1M</p>
             <p>仅支持 jpeg/png 格式的图片</p>
+            <div>
+              <el-button
+              type="danger"
+              class="el-icon-delete"
+              :disabled="!editContent.imgSrc"
+              @click="handleClickEditDel"
+              plain> 删除图片</el-button>
+            </div>
           </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="editLayer = false">取 消</el-button>
-        <el-button type="primary" @click="editWorks">保 存</el-button>
+        <el-button type="primary" @click="editWork">保 存</el-button>
       </div>
     </el-dialog>
   </div>
@@ -248,6 +270,14 @@ export default {
         this.editContent.imgFile = file
       })
     },
+    handleClickAddDel () {
+      this.addContent.imgSrc = ''
+      this.addContent.imgFile = {}
+    },
+    handleClickEditDel () {
+      this.editContent.imgSrc = ''
+      this.editContent.imgFile = {}
+    },
     uploadChange (file, cb) {
       const size = file.size
       const type = file.type
@@ -273,7 +303,6 @@ export default {
     },
     handleClickAdd () {
       this.addLayer = true
-      this.addImgResult = ''
       this.addContent = {
         name: '',
         link: '',
@@ -322,13 +351,13 @@ export default {
           )
       })
     },
-    addWorks () {
+    addWork () {
       const addContent = this.addContent
       const loading = this.$loading({
         lock: true,
         text: 'Loading'
       })
-      this.submitWorks(this.$apis.setWorks, addContent, (o) => {
+      this.submitWork(this.$apis.setWorks, addContent, (o) => {
         this.addLayer = false
         this.worksList.unshift(o.data)
         this.$message({
@@ -337,7 +366,7 @@ export default {
         })
       }, loading)
     },
-    editWorks () {
+    editWork () {
       const editContent = this.editContent
       const loading = this.$loading({
         lock: true,
@@ -346,7 +375,7 @@ export default {
       const index = this.worksList.findIndex((item) => {
         return item.id === editContent.id
       })
-      this.submitWorks(this.$apis.editWorks, editContent, (o) => {
+      this.submitWork(this.$apis.editWorks, editContent, (o) => {
         this.editLayer = false
         this.$set(this.worksList, index, o.data)
         this.$message({
@@ -355,7 +384,7 @@ export default {
         })
       }, loading)
     },
-    submitWorks (api, data, cb, loading) {
+    submitWork (api, data, cb, loading) {
       const {
         name,
         type,
@@ -382,7 +411,7 @@ export default {
       if (id) {
         formData.append('id', id)
       }
-      if (imgFile) {
+      if (imgFile && imgFile.name) {
         formData.append('imgFile', imgFile)
       } else {
         formData.append('imgSrc', imgSrc)
@@ -456,7 +485,7 @@ export default {
   width: 100%;
 }
 
-$witdh: 120px;
+$witdh: 100px;
 
 .avatar-uploader {
   display: inline-block;
@@ -469,12 +498,14 @@ $witdh: 120px;
   height: $witdh;
 
   input {
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
     opacity: 0;
     cursor: pointer;
     display: block;
-    position: relative;
     z-index: 2;
   }
 
@@ -482,7 +513,7 @@ $witdh: 120px;
     position: absolute;
     left: 0;
     top: 0;
-    min-width: 100%;
+    width: 100%;
     height: 100%;
     line-height: $witdh;
     text-align: center;
@@ -490,9 +521,6 @@ $witdh: 120px;
   }
 
   .img {
-    position: absolute;
-    left: 0;
-    top: 0;
     width: auto;
     height: 100%;
   }
@@ -508,7 +536,16 @@ $witdh: 120px;
   overflow: hidden;
   height: $witdh;
   margin-left: 10px;
-  color: crimson;
+
+  p {
+    color: crimson;
+    line-height: 1.3;
+    font-size: 12px;
+  }
+
+  div {
+    margin-top: 5px;
+  }
 }
 
 .label {
