@@ -51,15 +51,15 @@ export default {
     }
   },
   computed: {
-    isCollapse: function () {
+    isCollapse () {
       return this.$store.state.navIsCollapse
     },
-    navActive: function () {
+    navActive () {
       return this.$store.state.navActive
     }
   },
   methods: {
-    gotoPath: function (path) {
+    gotoPath (path) {
       this.$router.push(path)
     }
   }

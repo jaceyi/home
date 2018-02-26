@@ -1,22 +1,17 @@
 <template>
   <div class="top">
-    <div class="top-title" @click="handelGoToIndex">
-      <img class="icon" src="../assets/images/yi.png" alt="">
-      <span v-if="!isCollapse">admin</span>
+    <div class="left">
+      <div class="top-title" @click="handelGoToIndex">
+        <img class="icon" src="../assets/images/yi.png" alt="">
+        <span v-if="!isCollapse">admin</span>
+      </div>
+      <div class="top-option" @click="tabNavCollapse">
+        <i class="iconfont icon icon-option"></i>
+      </div>
     </div>
-    <div class="top-option" @click="tabNavCollapse">
-      <i class="iconfont icon icon-option"></i>
+    <div class="right">
+      <el-button class="logout" plain @click="handleClickLogout"> 登出</el-button>
     </div>
-    <el-dialog
-      title="提示"
-      width="26%"
-      :visible.sync="dialogVisible">
-      <span>确认返回主页？</span>
-      <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="goToIndex">确 定</el-button>
-  </span>
-    </el-dialog>
   </div>
 </template>
 
@@ -25,11 +20,6 @@ import { mapMutations } from 'vuex'
 
 export default {
   name: 'Top',
-  data () {
-    return {
-      dialogVisible: false
-    }
-  },
   computed: {
     isCollapse: function () {
       return this.$store.state.navIsCollapse
@@ -39,11 +29,38 @@ export default {
     ...mapMutations([
       'tabNavCollapse'
     ]),
-    handelGoToIndex: function () {
-      this.dialogVisible = true
+    handelGoToIndex () {
+      this.$confirm('此操作将返回首页, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.goToIndex()
+      })
     },
-    goToIndex: function () {
+    goToIndex () {
       window.location.href = '/'
+    },
+    handleClickLogout () {
+      this.$confirm('此操作将登出, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.get(this.$apis.logout)
+          .then(
+            (data) => {
+              this.$router.push('/login')
+              this.$message({
+                message: '登出成功',
+                type: 'success'
+              })
+            },
+            (data) => {
+              this.hanbleFail(data)
+            }
+          )
+      })
     }
   }
 }
@@ -52,6 +69,10 @@ export default {
 <style lang="scss" scoped>
   .top {
     margin: 0 -20px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .left {
     display: flex;
   }
   .top-title {
@@ -85,6 +106,16 @@ export default {
     .icon {
       font-size: 32px;
       color: #fff;
+    }
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+
+    .logout {
+      font-size: 16px;
+      height: 40px;
     }
   }
 </style>

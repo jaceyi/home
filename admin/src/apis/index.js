@@ -1,6 +1,7 @@
 const api = ''
 export default {
   login: api + '/login',
+  logout: api + '/logout',
   getLogin: api + '/getLogin',
   getPersonal: api + '/getPersonal',
   setPersonal: api + '/setPersonal',

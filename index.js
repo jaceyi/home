@@ -82,6 +82,15 @@ app.get('/getLogin', function (req, res) {
   }
 })
 
+app.get('/logout', function (req, res) {
+  req.session.user_id = null
+  req.session.user_level = null
+  common.endJson(res, {
+    code: 200,
+    msg: '登出成功'
+  })
+})
+
 app.get('/getWord', function (req, res) {
   const page = req.query.page
   if (!page) {
