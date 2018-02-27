@@ -3,13 +3,12 @@
     <el-popover
       ref="layer"
       placement="bottom-start"
-      width="300"
+      width="260"
       popper-class="user-info"
       trigger="click">
-      <div class="main">
-        <p>用户名：<span>{{ userInfo.name }}</span></p>
-        <p>登录账号：<span>{{ userInfo.userName }}</span></p>
-        <p>操作权限：<span>{{ userInfo.userLevel }}</span></p>
+      <div class="main" v-if="userInfo">
+        <p>用户名：<span>{{ userInfo.username }}</span></p>
+        <p>操作权限：<span>{{ userInfo.level }}</span></p>
       </div>
       <div class="footer">
         <el-button type="danger" class="logout" plain @click="handleClickLogout">登出</el-button>
@@ -27,14 +26,9 @@
 <script>
 export default {
   name: 'Top',
-  data () {
-    return {
-      userInfo: {
-        img: '//yijic.com/public/images/tx.jpg',
-        name: 'admin',
-        userName: 'yijic',
-        userLevel: 1
-      }
+  component: {
+    userInfo () {
+      return this.$store.state.userInfo
     }
   },
   methods: {

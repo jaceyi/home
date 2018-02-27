@@ -43,7 +43,7 @@
         label="链接"
         width="160">
         <template slot-scope="scope">
-          <a :href="'//' + scope.row.link" alt="">{{ scope.row.link }}</a>
+          <a :href="'//' + scope.row.link" target="_blank" alt="">{{ scope.row.link }}</a>
         </template>
       </el-table-column>
       <el-table-column label="操作">
