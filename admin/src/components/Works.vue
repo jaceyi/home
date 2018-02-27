@@ -557,14 +557,4 @@ $witdh: 120px;
     margin-right: 10px;
   }
 }
-
-.el-form-item__content {
-  .input {
-    width: 215px;
-  }
-
-  .date {
-    width: 150px;
-  }
-}
 </style>

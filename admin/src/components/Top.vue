@@ -1,8 +1,25 @@
 <template>
   <div class="top">
+    <el-popover
+      ref="layer"
+      placement="bottom-start"
+      width="300"
+      popper-class="user-info"
+      trigger="click">
+      <div class="main">
+        <p>用户名：<span>{{ userInfo.name }}</span></p>
+        <p>登录账号：<span>{{ userInfo.userName }}</span></p>
+        <p>操作权限：<span>{{ userInfo.userLevel }}</span></p>
+      </div>
+      <div class="footer">
+        <el-button type="danger" class="logout" plain @click="handleClickLogout">登出</el-button>
+      </div>
+    </el-popover>
     <div class="left"></div>
     <div class="right">
-      <el-button class="logout" plain @click="handleClickLogout"> 登出</el-button>
+      <div v-popover:layer class="user-img">
+        <img v-if="userInfo.img" :src="userInfo.img" alt="用户头像">
+      </div>
     </div>
   </div>
 </template>
@@ -10,6 +27,16 @@
 <script>
 export default {
   name: 'Top',
+  data () {
+    return {
+      userInfo: {
+        img: '//yijic.com/public/images/tx.jpg',
+        name: 'admin',
+        userName: 'yijic',
+        userLevel: 1
+      }
+    }
+  },
   methods: {
     handleClickLogout () {
       this.$confirm('此操作将登出, 是否继续?', '提示', {
@@ -53,10 +80,44 @@ export default {
     display: flex;
     align-items: center;
     padding: 0 10px;
+  }
 
+  .user-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    outline: none;
+    border: 1px solid #ccc;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .user-info {
+    .main {
+      padding-bottom: 5px;
+
+      p {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      span {
+        color: #409EFF;
+      }
+    }
+    .footer {
+      border-top: 1px solid #EEE;
+      padding-top: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
     .logout {
-      font-size: 16px;
-      height: 40px;
+      font-size: 14px;
+      padding: 8px 15px;
     }
   }
 </style>

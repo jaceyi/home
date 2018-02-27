@@ -28,7 +28,8 @@ import {
   Main,
   Loading,
   Message,
-  MessageBox
+  MessageBox,
+  Popover
 } from 'element-ui'
 
 Vue.use(VueResource)
@@ -51,6 +52,7 @@ Vue.use(Container)
 Vue.use(Aside)
 Vue.use(Header)
 Vue.use(Main)
+Vue.use(Popover)
 
 Vue.use(Loading.directive)
 
