@@ -62,6 +62,8 @@ export default {
         type: 'warning'
       }).then(() => {
         window.location.href = '/'
+      }).catch(() => {
+        return false
       })
     },
     gotoPath (path) {

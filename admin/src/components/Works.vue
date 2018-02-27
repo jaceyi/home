@@ -187,7 +187,7 @@
             </el-date-picker>
           </label>
         </el-form-item>
-        <el-form-item label="头图">
+        <el-form-item label="头图" class="row">
           <div class="avatar-uploader">
             <input type="file" v-on:change="handleEditUpload" accept="image/png,image/jpeg">
             <img
@@ -349,6 +349,8 @@ export default {
               this.hanbleFail(data)
             }
           )
+      }).catch(() => {
+        return false
       })
     },
     addWork () {
@@ -486,7 +488,7 @@ export default {
   width: 100%;
 }
 
-$witdh: 100px;
+$witdh: 120px;
 
 .avatar-uploader {
   display: inline-block;

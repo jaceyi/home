@@ -30,6 +30,8 @@ export default {
               this.hanbleFail(data)
             }
           )
+      }).catch(() => {
+        return false
       })
     }
   }
