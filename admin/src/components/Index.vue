@@ -1,17 +1,17 @@
 <template>
   <el-container>
+    <el-aside width="auto" class="container-list">
+      <NavList />
+    </el-aside>
+    <el-container>
       <el-header class="container-header">
         <Top />
       </el-header>
-      <el-container>
-        <el-aside width="auto" class="container-list">
-          <NavList />
-        </el-aside>
-        <el-main class="container-main">
-          <router-view/>
-        </el-main>
-      </el-container>
+      <el-main class="container-main">
+        <router-view/>
+      </el-main>
     </el-container>
+  </el-container>
 </template>
 
 <script>

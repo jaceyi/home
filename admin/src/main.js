@@ -12,6 +12,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false
 
 Vue.prototype.$apis = apis
+Vue.prototype.$store = store
 
 Vue.use(ElementUI, { size: 'small' })
 Vue.use(VueResource)
@@ -21,20 +22,23 @@ Vue.mixin({
     hanbleFail (data) {
       // 处理请求失败
       const o = data.body
-      let msg = o.msg
-      if (!msg) {
-        msg = o.status
-      }
-      this.$message({
-        message: msg,
-        type: 'warning'
-      })
-      if (o.code === 401) {
-        this.$router.push('/login')
+      if (typeof o === 'object') {
+        if (o.code === 401) {
+          this.$router.push('/login')
+        }
+        this.$message({
+          message: o.msg,
+          type: 'warning'
+        })
+      } else {
+        this.$message({
+          message: data.status,
+          type: 'warning'
+        })
       }
     },
     formatDate (myDate, format) {
-      // format yyyy-MM-dd hh:mm:ss
+      // 格式化时间 format yyyy-MM-dd hh:mm:ss
       myDate = new Date(myDate)
       const o = {
         'M+': myDate.getMonth() + 1,
@@ -56,6 +60,7 @@ Vue.mixin({
       return format
     },
     deleteItem (arr, index) {
+      // 删除 数组内某一个元素
       const startArr = arr.slice(0, index)
       const endArr = arr.slice(index + 1)
       return startArr.concat(endArr)
@@ -67,7 +72,6 @@ Vue.mixin({
 new Vue({
   el: '#app',
   router,
-  store,
   components: { App },
   template: '<App/>'
 })

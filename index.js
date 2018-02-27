@@ -53,13 +53,14 @@ app.post('/login', function (req, res) {
       })
       return
     }
-    const sql = 'select * from user where username = "' + username + '" and password = "' + password + '"'
-    db.queryData(sql, (o) => {
+    const sql = 'select * from user where username = ? and password = ?'
+    const data = [username, password]
+    db.queryData(sql, data, (o) => {
       if (!o.err) {
         if (o.length) {
-          const data = o[0]
-          const user_id = data.id
-          const user_level = data.level
+          const sqlData = o[0]
+          const user_id = sqlData.id
+          const user_level = sqlData.level
           req.session.user_id = user_id
           req.session.user_level = user_level
           
@@ -120,7 +121,7 @@ app.get('/getWord', function (req, res) {
   }
   const num = req.query.num || 10
   const sql = 'select * from word order by id desc limit ' + ((page - 1) * num) + ',' + num
-  db.queryData(sql, (o) => {
+  db.queryData(sql, [], (o) => {
     if (!o.err) {
       common.endJson(res, {
         code: 200,
@@ -130,21 +131,16 @@ app.get('/getWord', function (req, res) {
   })
 })
 
-app.post('/setWord', judgeLevel, function (req, res) {
+app.post('/setWord', function (req, res) {
   const form = new fm.IncomingForm()
   form.parse(req, (err, fields) => {
     const myDate = new Date()
-    const year = myDate.getFullYear()
-    const month = Number(myDate.getMonth()) + 1
-    const date = myDate.getDate()
-    const Minute = String(myDate.getMinutes()).length > 1 ? myDate.getMinutes() : '0' + myDate.getMinutes()
-    const Hours = String(myDate.getHours()).length > 1 ? myDate.getHours() : '0' + myDate.getHours()
     const {
       name,
       img,
       content
     } = fields
-    const time = year + '-' + month + '-' + date + ' ' + Hours + ':' + Minute
+    const time = common.formatDate(myDate, 'yyyy-MM-dd hh:mm:ss')
     if (!name || !content) {
       common.endJson(res, {
         code: 400,
@@ -237,7 +233,7 @@ app.post('/editWord', judgeLevel, function (req, res) {
 // 获取个人信息
 function getPersonal (req, res, cb) {
   const sql = 'select * from personal'
-  db.queryData(sql, (o) => {
+  db.queryData(sql, [], (o) => {
     cb(o)
   })
 }
@@ -305,7 +301,7 @@ app.post('/setPersonal', judgeLevel, function (req, res) {
 
 function getCommonData (req, res, id) {
   const sql = 'select * from common where id=' + id
-  db.queryData(sql, (o) => {
+  db.queryData(sql, [], (o) => {
     if (!o.err) {
       const body = JSON.parse(o[0].body)
       common.endJson(res, {
@@ -365,7 +361,7 @@ app.get('/getWorks', function (req, res) {
   }
   const num = req.query.num || 10
   const sql = 'select * from works order by id desc limit ' + ((page - 1) * num) + ',' + num
-  db.queryData(sql, (o) => {
+  db.queryData(sql, [], (o) => {
     if (!o.err) {
       common.endJson(res, {
         code: 200,
@@ -413,7 +409,9 @@ app.post('/setWorks', judgeLevel, function (req, res) {
           return
         }
         const time = new Date().getTime()
-        imgSrc = FilesPath + time + imgFile.name
+        const fileName = imgFile.name
+        const index = fileName.lastIndexOf('.')
+        imgSrc = FilesPath + time + fileName.substring(index, fileName.length)
         fs.writeFile(imgSrc, data, function (err, data) {
           if (err) {
             common.endJson(res, {
@@ -493,7 +491,9 @@ app.post('/editWorks', judgeLevel, function (req, res) {
           return
         }
         const time = new Date().getTime()
-        imgSrc = FilesPath + time + imgFile.name
+        const fileName = imgFile.name
+        const index = fileName.lastIndexOf('.')
+        imgSrc = FilesPath + time + fileName.substring(index, fileName.length)
         fs.writeFile(imgSrc, data, function (err, data) {
           if (err) {
             common.endJson(res, {

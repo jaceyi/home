@@ -1,14 +1,18 @@
 <template>
   <div class="nav-list">
+    <div class="nav-list-title" @click="handelClickGoToIndex">
+      <img class="icon" src="../assets/images/yi.png" alt="">
+      <span>admin</span>
+    </div>
     <div class="nav-list-content">
-      <el-menu class="el-menu-vertical-demo" :collapse="isCollapse">
+      <el-menu
+        :router="true"
+        default-active="/personal">
         <el-menu-item
         v-for="(nav, index) in navList"
-        :class="`nav-list--item ${ index === navActive ? 'is-active' : '' }`"
+        class="nav-list--item"
         :key="index"
-        :index="nav.path"
-        @click="gotoPath(nav.path)"
-        >
+        :index="nav.path">
           <span slot="title">{{ nav.text }}</span>
           <i :class="`iconfont icon ${nav.icon}`"></i>
         </el-menu-item>
@@ -50,15 +54,16 @@ export default {
       navList: navList
     }
   },
-  computed: {
-    isCollapse () {
-      return this.$store.state.navIsCollapse
-    },
-    navActive () {
-      return this.$store.state.navActive
-    }
-  },
   methods: {
+    handelClickGoToIndex () {
+      this.$confirm('此操作将返回首页, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        window.location.href = '/'
+      })
+    },
     gotoPath (path) {
       this.$router.push(path)
     }
@@ -71,7 +76,6 @@ export default {
     height: 100%;
     background: #f9f9f9;
     position: relative;
-    border-right: 1px solid #ccc;
 
     .icon {
       font-size: 22px;
@@ -81,12 +85,31 @@ export default {
       color: #333;
     }
   }
+  .nav-list-title {
+    height: 60px;
+    font-size: 28px;
+    line-height: 60px;
+    background: -webkit-gradient(linear, 0 0, 100% 100%, color-stop(0, #24C6DC), color-stop(1, #514A9D));
+    text-align: left;
+    padding: 0 20px;
+    cursor: pointer;
+
+    .icon {
+      height: 25px;
+      filter: invert(100%);
+    }
+
+    span {
+      padding-right: 15px;
+      color: #fff;
+    }
+  }
   .nav-list--item {
     border-bottom: 1px solid #EEE;
 
     span {
-      padding-left: 25px;
-      padding-right: 55px;
+      padding-left: 20px;
+      padding-right: 32px;
     }
   }
   .nav-list--title {

@@ -6,7 +6,6 @@ import Personal from '@/components/Personal'
 import Ability from '@/components/Ability'
 import Write from '@/components/Write'
 import Works from '@/components/Works'
-import store from '@/store'
 
 Vue.use(Router)
 
@@ -33,32 +32,21 @@ const childrenRoutes = [
   }
 ]
 
-const routes = [
-  {
-    name: 'Login',
-    path: '/login',
-    component: Login
-  },
-  {
-    name: 'Index',
-    path: '/',
-    component: Index,
-    redirect: '/personal',
-    children: childrenRoutes
-  }
-]
-
 const router = new Router({
-  routes: routes
-})
-
-router.afterEach((to) => {
-  const index = childrenRoutes.findIndex((route) => {
-    return route.path === to.path
-  })
-  if (index !== -1) {
-    store.commit('tabNavActive', index)
-  }
+  routes: [
+    {
+      name: 'Login',
+      path: '/login',
+      component: Login
+    },
+    {
+      name: 'Index',
+      path: '/',
+      component: Index,
+      redirect: '/personal',
+      children: childrenRoutes
+    }
+  ]
 })
 
 export default router

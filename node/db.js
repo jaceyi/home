@@ -24,9 +24,9 @@ const connectSql = function (cb) {
 
 connectSql()
 
-function queryData (sql, cb) {
+function queryData (sql, params, cb) {
   connectSql(() => {
-    connection.query(sql, function (err, result) {
+    connection.query(sql, params, function (err, result) {
       if (err) {
         const errMsg = {
           err: true,
