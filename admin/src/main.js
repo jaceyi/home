@@ -61,7 +61,6 @@ Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = Message
 
 Vue.prototype.$apis = apis
-Vue.prototype.$store = store
 
 Vue.config.productionTip = false
 
@@ -120,6 +119,7 @@ Vue.mixin({
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })

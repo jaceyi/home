@@ -1,18 +1,17 @@
-const store = {
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
   state: {
-    userInfo: {}
+    userinfo: {}
   },
   mutations: {
-    setUserInfo (state, userInfo) {
-      state.userInfo = userInfo
-    }
-  },
-  commit (fn, ...args) {
-    const mutation = this.mutations[fn]
-    if (mutation) {
-      mutation(this.state, args[0])
+    setUserinfo (state, userinfo) {
+      state.userinfo = userinfo
     }
   }
-}
+})
 
 export default store

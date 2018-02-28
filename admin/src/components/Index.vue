@@ -35,7 +35,7 @@ export default {
             })
             this.$router.push('/login')
           } else {
-            this.$store.commit('setUserInfo', o.data)
+            this.$store.commit('setUserinfo', o.data)
           }
         },
         (data) => {

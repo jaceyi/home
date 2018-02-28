@@ -6,9 +6,9 @@
       width="260"
       popper-class="user-info"
       trigger="click">
-      <div class="main" v-if="userInfo">
-        <p>用户名：<span>{{ userInfo.username }}</span></p>
-        <p>操作权限：<span>{{ userInfo.level }}</span></p>
+      <div class="main" v-if="userinfo.name">
+        <p>用户名：<span>{{ userinfo.name }}</span></p>
+        <p>操作权限：<span>{{ userinfo.level }}</span></p>
       </div>
       <div class="footer">
         <el-button type="danger" class="logout" plain @click="handleClickLogout">登出</el-button>
@@ -17,7 +17,7 @@
     <div class="left"></div>
     <div class="right">
       <div v-popover:layer class="user-img">
-        <img v-if="userInfo.img" :src="userInfo.img" alt="用户头像">
+        <img v-if="userinfo.img" :src="userinfo.img" alt="用户头像">
       </div>
     </div>
   </div>
@@ -27,8 +27,8 @@
 export default {
   name: 'Top',
   computed: {
-    userInfo () {
-      return this.$store.state.userInfo
+    userinfo () {
+      return this.$store.state.userinfo
     }
   },
   methods: {
