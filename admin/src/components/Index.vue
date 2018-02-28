@@ -33,8 +33,9 @@ export default {
               message: o.msg,
               type: 'warning'
             })
-            this.$store.commit('setUserInfo', o.data)
             this.$router.push('/login')
+          } else {
+            this.$store.commit('setUserInfo', o.data)
           }
         },
         (data) => {

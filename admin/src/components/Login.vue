@@ -57,7 +57,6 @@ export default {
           (data) => {
             const o = data.body
             if (o.code === 200) {
-              this.$store.commit('setUserInfo', o.data)
               this.$router.push('/')
               this.$message({
                 message: '登录成功',

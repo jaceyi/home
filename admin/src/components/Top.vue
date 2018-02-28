@@ -26,7 +26,7 @@
 <script>
 export default {
   name: 'Top',
-  component: {
+  computed: {
     userInfo () {
       return this.$store.state.userInfo
     }

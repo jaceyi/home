@@ -1,6 +1,5 @@
 const store = {
   state: {
-    navActive: 0,
     userInfo: {}
   },
   mutations: {
