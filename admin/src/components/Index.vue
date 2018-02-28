@@ -1,8 +1,10 @@
 <template>
   <el-container>
-    <el-aside width="auto" class="container-list">
-      <NavList />
-    </el-aside>
+    <transition name="left-hide">
+      <el-aside v-if="navIsShow" width="180px" class="container-list">
+        <NavList />
+      </el-aside>
+    </transition>
     <el-container>
       <el-header class="container-header">
         <Top />
@@ -22,6 +24,11 @@ export default {
   components: {
     NavList,
     Top
+  },
+  computed: {
+    navIsShow () {
+      return this.$store.state.navIsShow
+    }
   },
   mounted () {
     this.$http.get(this.$apis.getLogin)
@@ -47,5 +54,13 @@ export default {
 </script>
 
 <style scoped>
-
+.container-list {
+  flex-shrink: 0;
+}
+.left-hide-enter-active, .left-hide-leave-active {
+  transition: transform .5s;
+}
+.left-hide-enter, .left-hide-leave-to{
+  transform: translateX(-180px);
+}
 </style>

@@ -41,12 +41,14 @@
       <el-table-column
         prop="link"
         label="链接"
-        width="160">
+        width="150">
         <template slot-scope="scope">
           <a :href="'//' + scope.row.link" target="_blank" alt="">{{ scope.row.link }}</a>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column
+        min-width="160"
+        label="操作">
         <template slot-scope="scope">
           <el-button
             size="mini"

@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
-    userinfo: {}
+    userinfo: {},
+    navIsShow: true
   },
   mutations: {
     setUserinfo (state, userinfo) {
       state.userinfo = userinfo
+    },
+    tabNavShow (state) {
+      state.navIsShow = !state.navIsShow
     }
   }
 })

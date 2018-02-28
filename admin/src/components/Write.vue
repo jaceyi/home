@@ -25,9 +25,12 @@
       </el-table-column>
       <el-table-column
         prop="content"
+        min-width="180"
         label="内容">
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column
+        min-width="160"
+        label="操作">
         <template slot-scope="scope">
           <el-button
             size="mini"

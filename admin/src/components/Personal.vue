@@ -158,6 +158,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.personal {
+  min-width: 350px;
+}
 .head {
   text-align: center;
   font-size: 18px;

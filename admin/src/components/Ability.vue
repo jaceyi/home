@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="ability">
     <div class="head">
       技能管理
     </div>
@@ -126,6 +126,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.ability {
+  min-width: 500px;
+}
+
 .head {
   text-align: center;
   font-size: 18px;

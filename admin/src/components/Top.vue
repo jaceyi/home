@@ -1,5 +1,10 @@
 <template>
   <div class="top">
+    <div class="left">
+      <el-button
+      :class="`tab-nav-show  ${navIsShow ? 'el-icon-arrow-left' : 'el-icon-arrow-right'}`"
+      @click="handleClickTabNavShow"></el-button>
+    </div>
     <el-popover
       ref="layer"
       placement="bottom-start"
@@ -14,7 +19,6 @@
         <el-button type="danger" class="logout" plain @click="handleClickLogout">登出</el-button>
       </div>
     </el-popover>
-    <div class="left"></div>
     <div class="right">
       <div v-popover:layer class="user-img">
         <img v-if="userinfo.img" :src="userinfo.img" alt="用户头像">
@@ -29,9 +33,15 @@ export default {
   computed: {
     userinfo () {
       return this.$store.state.userinfo
+    },
+    navIsShow () {
+      return this.$store.state.navIsShow
     }
   },
   methods: {
+    handleClickTabNavShow () {
+      this.$store.commit('tabNavShow')
+    },
     handleClickLogout () {
       this.$confirm('此操作将登出, 是否继续?', '提示', {
         confirmButtonText: '确定',
@@ -65,6 +75,7 @@ export default {
     height: 100%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .left {
     display: flex;
@@ -113,5 +124,14 @@ export default {
       font-size: 14px;
       padding: 8px 15px;
     }
+  }
+
+  .tab-nav-show {
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    padding: 0;
+    margin-left: 10px;
+    font-size: 18px;
   }
 </style>

@@ -78,6 +78,7 @@ export default {
     height: 100%;
     background: #f9f9f9;
     position: relative;
+    width: 180px;
 
     .icon {
       font-size: 22px;
