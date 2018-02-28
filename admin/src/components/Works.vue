@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="works">
     <div class="head">
       <span>作品管理</span>
       <el-button
@@ -559,11 +559,13 @@ $witdh: 120px;
   }
 }
 
-.input {
-  width: 217px;
-}
+.works {
+  .input {
+    width: 217px;
+  }
 
-.date {
-  width: 150px;
+  .date {
+    width: 150px;
+  }
 }
 </style>
