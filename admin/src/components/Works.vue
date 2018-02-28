@@ -553,8 +553,17 @@ $witdh: 120px;
 
 .label {
   margin-right: 50px;
+
   span {
     margin-right: 10px;
   }
+}
+
+.input {
+  width: 217px;
+}
+
+.date {
+  width: 150px;
 }
 </style>

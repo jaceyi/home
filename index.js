@@ -73,7 +73,7 @@ app.post('/login', function (req, res) {
             data: {
               id: user_id,
               level: user_level,
-              name: username,
+              username: username,
               img: user_img
             }
           })
@@ -97,7 +97,7 @@ app.get('/getLogin', function (req, res) {
       data: {
         id: user_id,
         level: user_level,
-        name: req.session.username,
+        username: req.session.username,
         img: req.session.user_img
       }
     })
