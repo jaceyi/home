@@ -155,7 +155,7 @@ app.post('/setWord', function (req, res) {
         msg: '请将内容填写完整'
       })
     }
-    const sql = 'insert into word(id,name,img,content,time) values(0,?,?,?,?)'
+    const sql = 'insert into word(id, name, img, content, time) values(0, ?, ?, ?, ?)'
     const data = [name, img, content, time]
     db.addData(
       sql,
@@ -390,7 +390,8 @@ app.post('/setWorks', judgeLevel, function (req, res) {
       type,
       startDate,
       endDate,
-      link
+      link,
+      describe
     } = fields
     if (!name || !type || !startDate || !endDate) {
       common.endJson(res, {
@@ -433,9 +434,10 @@ app.post('/setWorks', judgeLevel, function (req, res) {
     } else {
       queryDB()
     }
+
     function queryDB () {
-      const sql = 'insert into works(id,type,name,startDate,endDate,link,imgSrc) values(0,?,?,?,?,?,?)'
-      const sqlData = [type, name, startDate, endDate, link, imgSrc]
+      const sql = 'insert into works(id, type, name, startDate, endDate, link, imgSrc, `describe`) values(0, ?, ?, ?, ?, ?, ?, ?)'
+      const sqlData = [type, name, startDate, endDate, link, imgSrc, describe]
       db.addData(
         sql,
         sqlData,
@@ -472,6 +474,7 @@ app.post('/editWorks', judgeLevel, function (req, res) {
       startDate,
       endDate,
       link,
+      describe,
       id
     } = fields
     let imgSrc = fields.imgSrc || ''
@@ -516,8 +519,8 @@ app.post('/editWorks', judgeLevel, function (req, res) {
       queryDb()
     }
     function queryDb () {
-      const sql = 'update works set type = ?, name = ?, startDate = ?, endDate = ?, link = ?, imgSrc = ? where id = ?'
-      const sqlData = [type, name, startDate, endDate, link, imgSrc, id]
+      const sql = 'update works set type = ?, name = ?, startDate = ?, endDate = ?, link = ?, imgSrc = ?, `describe` = ? where id = ?'
+      const sqlData = [type, name, startDate, endDate, link, imgSrc, describe, id]
       db.changeData(
         sql,
         sqlData,

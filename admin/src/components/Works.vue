@@ -47,6 +47,11 @@
         </template>
       </el-table-column>
       <el-table-column
+        prop="describe"
+        label="描述"
+        min-width="200">
+      </el-table-column>
+      <el-table-column
         min-width="160"
         label="操作">
         <template slot-scope="scope">
@@ -107,6 +112,17 @@
               :editable="false"
               class="date">
             </el-date-picker>
+          </label>
+        </el-form-item>
+        <el-form-item>
+          <label class="label">
+            <span>描述</span>
+            <el-input
+              type="textarea"
+              :rows="3"
+              placeholder="请输入内容"
+              v-model="addContent.describe">
+            </el-input>
           </label>
         </el-form-item>
         <el-form-item label="头图">
@@ -189,6 +205,17 @@
             </el-date-picker>
           </label>
         </el-form-item>
+        <el-form-item>
+          <label class="label">
+            <span>描述</span>
+            <el-input
+              type="textarea"
+              :rows="3"
+              placeholder="请输入内容"
+              v-model="editContent.describe">
+            </el-input>
+          </label>
+        </el-form-item>
         <el-form-item label="头图" class="row">
           <div class="avatar-uploader">
             <input type="file" v-on:change="handleEditUpload" accept="image/png,image/jpeg">
@@ -243,7 +270,8 @@ export default {
         type: '',
         startDate: '',
         endDate: '',
-        imgSrc: ''
+        imgSrc: '',
+        describe: ''
       },
       editContent: {
         id: 0,
@@ -253,7 +281,8 @@ export default {
         type: '',
         startDate: '',
         endDate: '',
-        imgSrc: ''
+        imgSrc: '',
+        describe: ''
       }
     }
   },
@@ -397,7 +426,8 @@ export default {
         link,
         imgFile,
         imgSrc,
-        id
+        id,
+        describe
       } = data
       if (!name || !type || !startDate || !endDate) {
         this.$message({
@@ -413,6 +443,7 @@ export default {
       formData.append('startDate', this.formatDate(startDate, 'yyyy-MM-dd'))
       formData.append('endDate', this.formatDate(endDate, 'yyyy-MM-dd'))
       formData.append('link', link)
+      formData.append('describe', describe)
       if (id) {
         formData.append('id', id)
       }
