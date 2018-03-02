@@ -1,6 +1,6 @@
 <template>
   <div v-on:scroll="handleScroll">
-    <div class="write-container" ref="content">
+    <div class="write" ref="content">
       <div class="page-head write-head">
         <span>留言板</span>
         <div class="portrait" v-if="portraitUrl" :style="`background-image: url(${portraitUrl})`"></div>
