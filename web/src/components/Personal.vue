@@ -28,6 +28,12 @@
     <div class="page-head experiences-head">
       <span>过往</span>
     </div>
+    <div class="experiences-content">
+      <div class="item" v-for="item in experiences" :key="item.id">
+        <div class="name">{{ item.name }}</div>
+        <p class="date"><span>{{ item.startDate }}</span><span>{{ item.endDate }}</span></p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -55,7 +61,7 @@ export default {
         },
         {
           id: 2,
-          name: '新华电脑软件学习',
+          name: '未英网络科技有限公司',
           startDate: '2018-01-02',
           endDate: '2018-01-02'
         }
