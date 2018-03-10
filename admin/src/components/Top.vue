@@ -56,11 +56,11 @@ export default {
                 message: '登出成功',
                 type: 'success'
               })
-            },
-            (data) => {
-              this.hanbleFail(data)
             }
           )
+          .catch((error) => {
+            this.hanbleFail(error)
+          })
       }).catch(() => {
         return false
       })

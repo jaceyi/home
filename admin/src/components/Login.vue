@@ -55,7 +55,7 @@ export default {
       })
         .then(
           (data) => {
-            const o = data.body
+            const o = data.data
             if (o.code === 200) {
               this.$router.push('/')
               this.$message({
@@ -68,11 +68,11 @@ export default {
                 type: 'warning'
               })
             }
-          },
-          (data) => {
-            this.hanbleFail(data)
           }
         )
+        .catch((error) => {
+          this.hanbleFail(error)
+        })
     }
   }
 }

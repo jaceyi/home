@@ -100,7 +100,7 @@ export default {
       this.$http.post(this.$apis.editWord, editContent)
         .then(
           (data) => {
-            const o = data.body
+            const o = data.data
             if (o.code === 200) {
               this.editLayer = false
               submitWrite()
@@ -114,11 +114,11 @@ export default {
                 type: 'warning'
               })
             }
-          },
-          (data) => {
-            this.hanbleFail(data)
           }
         )
+        .catch((error) => {
+          this.hanbleFail(error)
+        })
     },
     handleDelete (index, id) {
       this.$confirm('此操作将永久删除该留言, 是否继续?', '提示', {
@@ -129,7 +129,7 @@ export default {
         this.$http.delete(this.$apis.delWord + '?id=' + id)
           .then(
             (data) => {
-              const o = data.body
+              const o = data.data
               if (o.code === 200) {
                 const writeList = this.writeList
                 this.writeList = this.deleteItem(writeList, index)
@@ -143,11 +143,11 @@ export default {
                   type: 'warning'
                 })
               }
-            },
-            (data) => {
-              this.hanbleFail(data)
             }
           )
+          .catch((error) => {
+            this.hanbleFail(error)
+          })
       }).catch(() => {
         return false
       })
@@ -156,27 +156,20 @@ export default {
       this.$http.get(this.$apis.getWord + '?page=' + this.page)
         .then(
           (data) => {
-            const o = data.body
+            const o = data.data
             if (o.code === 200) {
               this.writeList = this.writeList.concat(o.data)
-              if (o.data.length) {
-                this.blocker = true
-              } else {
-                this.message({
-                  content: '已经加载完全部内容'
-                })
-              }
             } else {
               this.$message({
                 message: o.msg,
                 type: 'warning'
               })
             }
-          },
-          (data) => {
-            this.hanbleFail(data)
           }
         )
+        .catch((error) => {
+          this.hanbleFail(error)
+        })
     }
   },
   mounted () {

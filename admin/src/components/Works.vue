@@ -361,7 +361,7 @@ export default {
         this.$http.delete(this.$apis.delWorks + '?id=' + id)
           .then(
             (data) => {
-              const o = data.body
+              const o = data.data
               if (o.code === 200) {
                 const worksList = this.worksList
                 this.worksList = this.deleteItem(worksList, index)
@@ -375,11 +375,11 @@ export default {
                   type: 'warning'
                 })
               }
-            },
-            (data) => {
-              this.hanbleFail(data)
             }
           )
+          .catch((error) => {
+            this.hanbleFail(error)
+          })
       }).catch(() => {
         return false
       })
@@ -455,7 +455,7 @@ export default {
       this.$http.post(api, formData, {headers: {'Content-type': 'multipart/form-data'}})
         .then(
           (data) => {
-            const o = data.body
+            const o = data.data
             loading.close()
             if (o.code === 200) {
               cb(o)
@@ -465,19 +465,18 @@ export default {
                 type: 'warning'
               })
             }
-          },
-          (data) => {
-            loading.close()
-            this.hanbleFail(data)
           }
         )
+        .catch((error) => {
+          this.hanbleFail(error)
+        })
     },
     getWorksList () {
       const page = this.page
       this.$http.get(this.$apis.getWorks + '?page=' + page)
         .then(
           (data) => {
-            const o = data.body
+            const o = data.data
             if (o.code === 200) {
               const worksList = o.data
               if (worksList.length) {
@@ -489,11 +488,11 @@ export default {
                 type: 'warning'
               })
             }
-          },
-          (data) => {
-            this.hanbleFail(data)
           }
         )
+        .catch((error) => {
+          this.hanbleFail(error)
+        })
     }
   },
   mounted () {

@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     userinfo: {},
-    navIsShow: true
+    navIsShow: true,
+    navDefaultActive: '/personal'
   },
   mutations: {
     setUserinfo (state, userinfo) {
@@ -14,6 +15,9 @@ const store = new Vuex.Store({
     },
     tabNavShow (state) {
       state.navIsShow = !state.navIsShow
+    },
+    setNavDefaultActive (state, path) {
+      state.navDefaultActive = path
     }
   }
 })

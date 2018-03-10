@@ -81,7 +81,7 @@ export default {
       })
         .then(
           (data) => {
-            const o = data.body
+            const o = data.data
             if (o.code === 200) {
               this.$message({
                 message: o.msg,
@@ -93,18 +93,18 @@ export default {
                 type: 'warning'
               })
             }
-          },
-          (data) => {
-            this.hanbleFail(data)
           }
         )
+        .catch((error) => {
+          this.hanbleFail(error)
+        })
     }
   },
   mounted () {
     this.$http.get(this.$apis.getAbility)
       .then(
         (data) => {
-          const o = data.body
+          const o = data.data
           if (o.code === 200) {
             const abilityList = o.data
             if (abilityList.length) {
@@ -116,11 +116,11 @@ export default {
               type: 'warning'
             })
           }
-        },
-        (data) => {
-          this.hanbleFail(data)
         }
       )
+      .catch((error) => {
+        this.hanbleFail(error)
+      })
   }
 }
 </script>

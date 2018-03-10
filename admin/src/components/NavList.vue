@@ -7,7 +7,7 @@
     <div class="nav-list-content">
       <el-menu
         :router="true"
-        default-active="/personal">
+        :default-active="defaultActive">
         <el-menu-item
         v-for="(nav, index) in navList"
         class="nav-list--item"
@@ -52,6 +52,11 @@ export default {
   data () {
     return {
       navList: navList
+    }
+  },
+  computed: {
+    defaultActive () {
+      return this.$store.state.navDefaultActive
     }
   },
   methods: {

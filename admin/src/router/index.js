@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import store from '@/store'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Index from '@/components/Index'
@@ -47,6 +48,15 @@ const router = new Router({
       children: childrenRoutes
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  childrenRoutes.forEach((tiem) => {
+    if (tiem.path === to.path) {
+      store.commit('setNavDefaultActive', to.path)
+    }
+  })
+  next()
 })
 
 export default router

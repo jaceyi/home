@@ -96,12 +96,6 @@ export default {
         this.getWordList()
       }
     },
-    alert (options) {
-      this.$store.commit('alert', options)
-    },
-    message (options) {
-      this.$store.commit('message', options)
-    },
     handleSubmit () {
       const name = this.userName
       const contentText = this.contentText
@@ -140,7 +134,7 @@ export default {
         })
           .then(
             (data) => {
-              const o = data.body
+              const o = data.data
               this.message({
                 content: o.msg
               })
@@ -148,14 +142,13 @@ export default {
               if (o.code === 200) {
                 self.writeList.unshift(o.data)
               }
-            },
-            (data) => {
-              console.log(data)
-              this.message({
-                content: '留言失败，请重试'
-              })
             }
           )
+          .catch(() => {
+            this.message({
+              content: '留言失败，请重试'
+            })
+          })
       }
       if (!portraitUrl) {
         this.alert({
@@ -171,24 +164,24 @@ export default {
     },
     getWordList () {
       this.$http.get(this.$apis.getWord + '?page=' + this.page)
-        .then(
-          (data) => {
-            const o = data.body
-            if (o) {
-              this.writeList = this.writeList.concat(o.data)
-              if (o.data.length) {
-                this.blocker = true
-              } else {
-                this.message({
-                  content: '已经加载完全部内容'
-                })
-              }
+        .then((data) => {
+          const o = data.body
+          if (o) {
+            this.writeList = this.writeList.concat(o.data)
+            if (o.data.length) {
+              this.blocker = true
+            } else {
+              this.message({
+                content: '已经加载完全部内容'
+              })
             }
-          },
-          (data) => {
-            console.log(data)
           }
-        )
+        })
+        .catch(() => {
+          this.message({
+            content: '留言失败，请重试'
+          })
+        })
     }
   },
   mounted () {

@@ -34,7 +34,7 @@ export default {
     this.$http.get(this.$apis.getLogin)
       .then(
         (data) => {
-          const o = data.body
+          const o = data.data
           if (!o.code === 200) {
             this.$message({
               message: o.msg,
@@ -44,11 +44,11 @@ export default {
           } else {
             this.$store.commit('setUserinfo', o.data)
           }
-        },
-        (data) => {
-          this.hanbleFail(data)
         }
       )
+      .catch((error) => {
+        this.hanbleFail(error)
+      })
   }
 }
 </script>

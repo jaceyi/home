@@ -4,7 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import VueResource from 'vue-resource'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 import apis from './apis'
 import 'element-ui/lib/theme-chalk/index.css'
 import {
@@ -31,8 +32,6 @@ import {
   MessageBox,
   Popover
 } from 'element-ui'
-
-Vue.use(VueResource)
 
 Vue.use(Dialog)
 Vue.use(Menu)
@@ -62,13 +61,15 @@ Vue.prototype.$message = Message
 
 Vue.prototype.$apis = apis
 
+Vue.use(VueAxios, axios)
+
 Vue.config.productionTip = false
 
 Vue.mixin({
   methods: {
-    hanbleFail (data) {
+    hanbleFail (error) {
       // 处理请求失败
-      const o = data.body
+      const o = error.response.data
       if (typeof o === 'object') {
         if (o.code === 401) {
           this.$router.push('/login')
@@ -79,7 +80,7 @@ Vue.mixin({
         })
       } else {
         this.$message({
-          message: data.status,
+          message: error.response.status,
           type: 'warning'
         })
       }

@@ -8,9 +8,9 @@ export default new Vuex.Store({
     bgUrlNum: Math.floor(Math.random() * 13 + 1),
     shadowShow: false,
     activeNav: -1,
-    alert: false,
+    isAlert: false,
+    isMessage: false,
     alertOptions: {},
-    message: false,
     messageOptions: {}
   },
   mutations: {

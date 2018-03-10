@@ -7,10 +7,10 @@
       <div v-if="shadowShow" @click="goHome" class="container-shadow"></div>
     </transition>
     <transition name="fade">
-      <Alert v-if="alert" v-bind:options="alertOptions" />
+      <Alert v-if="isAlert" v-bind:options="alertOptions" />
     </transition>
     <transition name="fade">
-      <Message v-if="message" v-bind:options="messageOptions" />
+      <Message v-if="isMessage" v-bind:options="messageOptions" />
     </transition>
     <MainNav />
     <SonNav />
@@ -34,14 +34,14 @@ export default {
     shadowShow () {
       return this.$store.state.shadowShow
     },
-    alert () {
+    isAlert () {
       return this.$store.state.alert
+    },
+    isMessage () {
+      return this.$store.state.message
     },
     alertOptions () {
       return this.$store.state.alertOptions
-    },
-    message () {
-      return this.$store.state.message
     },
     messageOptions () {
       return this.$store.state.messageOptions
