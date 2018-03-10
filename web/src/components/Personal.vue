@@ -1,43 +1,52 @@
 <template>
   <div class="personal">
-    <div class="page-head personal-head">
-      <span>个人栈</span>
-    </div>
-    <div class="personal-content">
-      <div class="left">
-        <div class="row">
-          <p><span>姓名</span>{{ personal.name }}</p>
-          <p><span>年龄</span>{{ personal.age }}</p>
-        </div>
-        <div class="row">
-          <p><span>性别</span>{{ personal.gender === '1' ? '男' : '女' }}</p>
-          <p><span>手机号</span>易进春</p>
-        </div>
-        <div class="row">
-          <p><span>QQ</span>{{ personal.qqCode }}</p>
-          <p><span>所在地</span>{{ personal.address }}</p>
-        </div>
-        <div class="row">
-          <p><span>故乡</span>{{ personal.hometown }}</p>
-        </div>
-        <div class="row">
-          <p class="brief"><span>简介</span>{{ personal.brief }}</p>
+    <div
+    :class="`left ${ moveLeft ? 'active': '' }`"
+    v-on:mouseenter="handleMoveLeft">
+      <div class="swiper-contaoner" ref="leftSwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="info">
+              <p><span>姓名：</span>{{ personal.name }}</p>
+              <p><span>年龄：</span>{{ personal.age }}</p>
+              <p><span>性别：</span>{{ personal.gender === '1' ? '男' : '女' }}</p>
+              <p><span>电话：</span>{{ personal.mobile }}</p>
+              <p><span>QQ：</span>{{ personal.qqCode }}</p>
+              <p><span>微信：</span>{{ personal.weChat }}</p>
+              <p><span>地址：</span>{{ personal.address }}</p>
+              <p><span>故乡：</span>{{ personal.hometown }}</p>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="info">
+              <p>{{ personal.brief }}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="page-head experiences-head">
-      <span>过往</span>
-    </div>
-    <div class="experiences-content">
-      <div class="item" v-for="item in experiences" :key="item.id">
-        <div class="name">{{ item.name }}</div>
-        <p class="date"><span>{{ item.startDate }}</span><span>{{ item.endDate }}</span></p>
+    <div
+    :class="`right ${ moveRight ? 'active': '' }`"
+    v-on:mouseenter="handleMoveRight">
+      <div class="swiper-contaoner" ref="rightSwiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            one
+          </div>
+          <div class="swiper-slide">
+            two
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import {
+  bindDomSizeEvent
+} from '@/util/'
+
 export default {
   name: 'Personal',
   data () {
@@ -48,9 +57,10 @@ export default {
         gender: '1',
         mobile: '18392866863',
         qqCode: '6498601',
+        weChat: 'sg6498601',
         address: '上海 普陀',
         hometown: '陕西 西安',
-        brief: '大家好啊大家好啊大家好啊大家好啊大家好啊大家好啊大家好啊大家好啊大家好啊大家好啊大家好啊大家好啊'
+        brief: 'Design is the method of putting form and content together. Design, just as art, has multiple definitions there is no single definition. Design can be art. Design can be aesthetics. Design is so simple, that\'s why it is so complicated.'
       },
       experiences: [
         {
@@ -65,62 +75,117 @@ export default {
           startDate: '2018-01-02',
           endDate: '2018-01-02'
         }
-      ]
+      ],
+      leftSwiper: {},
+      rightSwiper: {},
+      moveLeft: true,
+      moveRight: false
     }
+  },
+  methods: {
+    handleMoveLeft () {
+      this.moveRight = false
+      this.moveLeft = true
+    },
+    handleMoveRight () {
+      this.moveLeft = false
+      this.moveRight = true
+    }
+  },
+  mounted () {
+    const leftSwiper = this.$refs.leftSwiper
+    const rightSwiper = this.$refs.rightSwiper
+
+    this.leftSwiper = new this.$Swiper(leftSwiper, {
+      loop: true,
+      effect: 'cube',
+      cubeEffect: {
+        shadow: false
+      }
+    })
+    this.rightSwiper = new this.$Swiper(rightSwiper, {
+      loop: true,
+      effect: 'cube',
+      cubeEffect: {
+        shadow: false
+      }
+    })
+    bindDomSizeEvent(leftSwiper, () => {
+      this.leftSwiper.update()
+    })
+    bindDomSizeEvent(rightSwiper, () => {
+      this.rightSwiper.update()
+    })
   }
 }
 </script>
 
 <style lang="scss" scoped>
 $mianColor: #00AEFF;
-.personal {
-  background: #fff;
-}
-.personal-content {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #EEE;
 
-  .left {
-    width: 700px;
-    padding: 60px 120px;
+.personal {
+  display: flex;
+  box-shadow: none;
+}
+
+.left {
+  flex-grow: 1;
+  width: 28%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: width 0.6s;
+
+  &.active {
+    width: 72%;
+  }
+
+  .swiper-slide {
+    position: relative;
+    background: url(../assets/images/12.jpg) no-repeat center;
+  }
+
+  .info {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
 
     p {
-      margin-bottom: 10px;
-      min-width: 50%;
-      display: flex;
+      width: 100%;
+      font-size: 14px;
+      line-height: 2;
+      color: #fff;
     }
 
     span {
-      color: #666;
-      min-width: 30px;
       display: inline-block;
-      margin-right: 10px;
-      font-size: 14px;
-      padding-top: 2px;
-    }
-
-    .row {
-      display: flex;
-    }
-
-    .brief {
-      line-height: 26px;
-      margin-top: 10px;
+      width: 70px;
     }
   }
 }
 
-.experiences-head {
-  box-shadow: none;
-  font-size: 18px;
-  padding-left: 50px;
+.right {
+  flex-grow: 1;
+  width: 28%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  transition: width 0.6s;
 
-  &::after {
-    height: 18px;
-    left: 34px;
-    top: 21px;
+  &.active {
+    width: 72%;
   }
+
+  .swiper-slide {
+    position: relative;
+    background: url(../assets/images/14.jpg) no-repeat center;
+  }
+}
+
+.swiper-contaoner {
+  width: 100%;
+  height: 100%;
+  position: relative;
 }
 </style>

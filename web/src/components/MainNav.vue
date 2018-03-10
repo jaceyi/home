@@ -1,6 +1,6 @@
 <template>
   <div class="main-nav">
-    <div class="main-nav--left">
+    <div class="main-nav--left" ref="navLeft">
       <router-link to="/personal">
         <i class="iconfont icon icon-personal"></i>个人栈
       </router-link>
@@ -35,9 +35,8 @@ export default {
     }
   },
   mounted: function () {
-    const canvasEl = document.getElementsByClassName('main-nav--left')[0]
     line.init({
-      parent: canvasEl,
+      parent: this.$refs.navLeft,
       pointNum: 42,
       pointDist: 60,
       lineMax: 1,

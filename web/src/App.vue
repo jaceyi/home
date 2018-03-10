@@ -1,6 +1,6 @@
 <template>
   <div id="app" :style="{backgroundImage: 'url(//yijic.com/public/images/bg/'+ bgUrlNum +'.jpg)'}">
-    <transition name="fade">
+    <transition name="enlarge">
       <router-view class="container"></router-view>
     </transition>
     <transition name="fade">
@@ -141,12 +141,9 @@ input, textarea, button {
   width: 88%;
   max-width: 1400px;
   height: 88%;
-  background: rgba(255,255,255,0.86);
   transform: translateX(-50%) translateY(-50%);
   z-index: 4;
-  border-radius: 5px;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
-  overflow: auto;
 }
 
 .container-shadow {
@@ -165,6 +162,16 @@ input, textarea, button {
 
 .fade-enter, .fade-leave-to {
   opacity: 0;
+}
+
+.enlarge-enter-active, .enlarge-leave-active {
+  transition: all .5s;
+}
+
+.enlarge-enter, .enlarge-leave-to {
+  opacity: 0;
+  width: 0;
+  height: 0;
 }
 
 .page-head {
