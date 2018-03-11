@@ -44,7 +44,7 @@
 
 <script>
 import {
-  bindDomSizeEvent
+  bindDomResizeEvent
 } from '@/util/'
 
 export default {
@@ -110,10 +110,10 @@ export default {
         shadow: false
       }
     })
-    bindDomSizeEvent(leftSwiper, () => {
+    bindDomResizeEvent(leftSwiper, () => {
       this.leftSwiper.update()
     })
-    bindDomSizeEvent(rightSwiper, () => {
+    bindDomResizeEvent(rightSwiper, () => {
       this.rightSwiper.update()
     })
   }
@@ -126,6 +126,7 @@ $mianColor: #00AEFF;
 .personal {
   display: flex;
   box-shadow: none;
+  background: none;
 }
 
 .left {

@@ -1,4 +1,4 @@
-export const bindDomSizeEvent = function (dom, cb) {
+export const bindDomResizeEvent = function (dom, cb) {
   // 元素大小改变 触发事件
   const child = document.createElement('div')
   child.className = 'dom-size util-child'

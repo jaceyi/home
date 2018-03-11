@@ -143,7 +143,14 @@ input, textarea, button {
   height: 88%;
   transform: translateX(-50%) translateY(-50%);
   z-index: 4;
+  background: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.3);
+}
+
+// 样式覆盖
+.works {
+  width: 1000px;
+  height: 600px;
 }
 
 .container-shadow {
