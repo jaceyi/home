@@ -23,6 +23,7 @@
             </div>
           </div>
         </div>
+        <div class="left-swiper-pagination"></div>
       </div>
     </div>
     <div
@@ -37,6 +38,7 @@
             two
           </div>
         </div>
+        <div class="right-swiper-pagination"></div>
       </div>
     </div>
   </div>
@@ -99,22 +101,38 @@ export default {
     this.leftSwiper = new this.$Swiper(leftSwiper, {
       loop: true,
       effect: 'cube',
+      mousewheel: true,
+      speed: 600,
       cubeEffect: {
         shadow: false
+      },
+      pagination: {
+        el: '.left-swiper-pagination',
+        clickable: true
       }
     })
     this.rightSwiper = new this.$Swiper(rightSwiper, {
       loop: true,
       effect: 'cube',
+      speed: 600,
+      mousewheel: true,
       cubeEffect: {
         shadow: false
+      },
+      pagination: {
+        el: '.right-swiper-pagination',
+        clickable: true
       }
     })
     bindDomResizeEvent(leftSwiper, () => {
       this.leftSwiper.update()
+      this.leftSwiper.pagination.render()
+      this.leftSwiper.pagination.update()
     })
     bindDomResizeEvent(rightSwiper, () => {
       this.rightSwiper.update()
+      this.rightSwiper.pagination.render()
+      this.rightSwiper.pagination.update()
     })
   }
 }
@@ -188,5 +206,11 @@ $mianColor: #00AEFF;
   width: 100%;
   height: 100%;
   position: relative;
+}
+
+.left-swiper-pagination, .right-swiper-pagination {
+  position: absolute;
+  z-index: 2;
+  text-align: center;
 }
 </style>

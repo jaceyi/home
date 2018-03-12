@@ -1,7 +1,7 @@
 <template>
   <div :class="'son-nav ' + (shadowShow ? 'active' : '')">
     <div v-for="nav in navArr" :key="nav.id" :class="'son-nav--item ' + (activeNav === nav.id ? 'active' : '')">
-      <a :href="nav.path">{{ nav.text }}<i :class="'iconfont icon ' + nav.icon"></i></a>
+      <router-link :to="nav.path">{{ nav.text }}<i :class="'iconfont icon ' + nav.icon"></i></router-link>
     </div>
   </div>
 </template>
@@ -12,37 +12,37 @@ const navArr = [
     id: 0,
     text: '个人栈',
     icon: 'icon-personal',
-    path: '#/personal'
+    path: '/personal'
   },
   {
     id: 1,
     text: '技能栈',
     icon: 'icon-ability',
-    path: '#/ability'
+    path: '/ability'
   },
   {
     id: 2,
     text: '留言板',
     icon: 'icon-write',
-    path: '#/write'
+    path: '/write'
   },
   {
     id: 3,
     text: '作品集',
     icon: 'icon-works',
-    path: '#/works'
+    path: '/works'
   },
   {
     id: 4,
     text: '技术分享',
     icon: 'icon-share',
-    path: '#'
+    path: '/'
   },
   {
     id: 5,
     text: 'Home',
     icon: 'icon-home',
-    path: '#/'
+    path: '/'
   }
 ]
 export default {

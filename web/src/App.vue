@@ -63,11 +63,17 @@ export default {
 </script>
 
 <style lang="scss">
-$mianColor: #00AEFF;
+$mainColor: #00AEFF;
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #FFF;
 }
 
 i {
@@ -106,12 +112,12 @@ input, textarea, button {
 .main-btn {
   height: 32px;
   min-width: 60px;
-  border: 1px solid $mianColor;
+  border: 1px solid $mainColor;
   cursor: pointer;
   padding: 0 20px;
   line-height: 32px;
   color: #000;
-  background: $mianColor;
+  background: $mainColor;
   border-radius: 3px;
   transition: all 0.3s;
 
@@ -198,10 +204,37 @@ input, textarea, button {
     display: block;
     height: 22px;
     width: 5px;
-    background: $mianColor;
+    background: $mainColor;
     position: absolute;
     left: 20px;
     top: 19px;
+  }
+}
+
+@keyframes ZoomPagination {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255,255,255,1);
+  }
+  100% {
+    box-shadow: 0px 0px 0px 12px rgba(255,255,255,0.0);
+  }
+}
+
+.swiper-container-horizontal {
+  .swiper-pagination-bullets {
+    .swiper-pagination-bullet {
+      height: 10px;
+      width: 10px;
+      margin: 0 8px;
+      background: #fff;
+      transition: all 0.5s;
+
+      &.swiper-pagination-bullet-active {
+        background: #fff;
+        box-shadow: 0 0 0 0 rgba(255,255,255,1);
+        animation: ZoomPagination 1.5s infinite;
+      }
+    }
   }
 }
 </style>

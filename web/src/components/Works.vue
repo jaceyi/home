@@ -11,9 +11,19 @@
           <div class="item-content">
             <div class="item-name">{{ item.name }}</div>
             <div class="item-date">{{ `${ item.startDate } — ${ item.endDate }` }}</div>
+            <div class="item-describe">
+              {{ item.describe }}
+            </div>
+            <div class="item-link">
+              <a :href="item.link" title="跳转到项目地址">
+                跳转到项目地址
+                <i class="icon iconfont icon-share"></i>
+              </a>
+            </div>
           </div>
         </div>
       </div>
+      <div class="swiper-pagination"></div>
     </div>
   </div>
 </template>
@@ -34,8 +44,9 @@ export default {
           startDate: '0000-00-00',
           endDate: '0000-00-00',
           imgSrc: '//yijic.com/public/images/bg/12.jpg',
-          describe: 'this is alibaba',
-          type: '游戏'
+          describe: 'Design is the method of putting form and content together. Design, just as art, has multiple definitions there is no single definition. Design can be art. Design can be aesthetics. Design is so simple, that\'s why it is so complicated.',
+          type: '游戏',
+          link: '//baidu.com'
         },
         {
           id: 2,
@@ -43,8 +54,9 @@ export default {
           startDate: '0000-00-00',
           endDate: '0000-00-00',
           imgSrc: '//yijic.com/public/images/bg/12.jpg',
-          describe: 'this is alibaba',
-          type: '游戏'
+          describe: 'Design is the method of putting form and content together. Design, just as art, has multiple definitions there is no single definition. Design can be art. Design can be aesthetics. Design is so simple, that\'s why it is so complicated.',
+          type: '游戏',
+          link: '//baidu.com'
         }
       ],
       mainSwiper: {}
@@ -55,8 +67,14 @@ export default {
 
     this.mainSwiper = new this.$Swiper(mainSwiper, {
       effect: 'coverflow',
+      speed: 800,
+      mousewheel: true,
       cubeEffect: {
         shadow: false
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true
       }
     })
 
@@ -87,12 +105,16 @@ $mianColor: #00AEFF;
   background-position: center;
 }
 
+.swiper-pagination {
+  margin-bottom: -50px;
+}
+
 .item-content {
   position: absolute;
   right: 0;
   top: 0;
   height: 100%;
-  width: 30%;
+  width: 36%;
   background: rgba(255, 255, 255, 0.8);
   padding: 80px 50px;
   transition: all 0.5s;
@@ -100,6 +122,7 @@ $mianColor: #00AEFF;
   .item-name {
     font-size: 24px;
     margin-bottom: 20px;
+    transition: all 0.5s;
   }
 
   .item-date {
@@ -107,9 +130,55 @@ $mianColor: #00AEFF;
     color: #666;
   }
 
+  .item-describe {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #333;
+    line-height: 2;
+    transition: all 0.5s;
+    height: 260px;
+    overflow: auto;
+  }
+
+  .item-link {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row-reverse;
+
+    a {
+      height: 40px;
+      line-height: 40px;
+      padding: 0 17px;
+      width: 140px;
+      border-radius: 20px;
+      background: #3CD3AD;
+      font-size: 12px;
+      transition: all 0.5s;
+    }
+
+    .icon {
+      font-size: 14px;
+      margin-left: 2px;
+    }
+  }
+
   &:hover {
     width: 60%;
     background: #fff;
+
+    .item-name {
+      font-size: 32px;
+    }
+
+    .item-describe {
+      font-size: 16px;
+    }
+
+    .item-link {
+      a {
+        background: #4CB8C4;
+      }
+    }
   }
 }
 </style>
