@@ -1,3 +1,80 @@
+<style lang="scss" scoped>
+  $mianColor: #00AEFF;
+
+  .personal {
+    display: flex;
+    box-shadow: none;
+    background: none;
+  }
+
+  .left {
+    flex-grow: 1;
+    width: 28%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    transition: width 0.6s;
+
+    &.active {
+      width: 72%;
+    }
+
+    .swiper-slide {
+      position: relative;
+      background: url(../assets/images/12.jpg) no-repeat center;
+    }
+
+    .info {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate3d(-50%, -50%, 0);
+
+      p {
+        width: 100%;
+        font-size: 14px;
+        line-height: 2;
+        color: #fff;
+      }
+
+      span {
+        display: inline-block;
+        width: 70px;
+      }
+    }
+  }
+
+  .right {
+    flex-grow: 1;
+    width: 28%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    transition: width 0.6s;
+
+    &.active {
+      width: 72%;
+    }
+
+    .swiper-slide {
+      position: relative;
+      background: url(../assets/images/14.jpg) no-repeat center;
+    }
+  }
+
+  .swiper-contaoner {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .left-swiper-pagination, .right-swiper-pagination {
+    position: absolute;
+    z-index: 2;
+    text-align: center;
+  }
+</style>
+
 <template>
   <div class="personal">
     <div
@@ -137,80 +214,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-$mianColor: #00AEFF;
-
-.personal {
-  display: flex;
-  box-shadow: none;
-  background: none;
-}
-
-.left {
-  flex-grow: 1;
-  width: 28%;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  transition: width 0.6s;
-
-  &.active {
-    width: 72%;
-  }
-
-  .swiper-slide {
-    position: relative;
-    background: url(../assets/images/12.jpg) no-repeat center;
-  }
-
-  .info {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate3d(-50%, -50%, 0);
-
-    p {
-      width: 100%;
-      font-size: 14px;
-      line-height: 2;
-      color: #fff;
-    }
-
-    span {
-      display: inline-block;
-      width: 70px;
-    }
-  }
-}
-
-.right {
-  flex-grow: 1;
-  width: 28%;
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  transition: width 0.6s;
-
-  &.active {
-    width: 72%;
-  }
-
-  .swiper-slide {
-    position: relative;
-    background: url(../assets/images/14.jpg) no-repeat center;
-  }
-}
-
-.swiper-contaoner {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.left-swiper-pagination, .right-swiper-pagination {
-  position: absolute;
-  z-index: 2;
-  text-align: center;
-}
-</style>

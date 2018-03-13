@@ -20,7 +20,8 @@ CreateLine.prototype = {
         isMouse: o.isMouse || false // 是否捕捉鼠标位置
       }
     }
-    this.initSize().move().timer()
+    clearTimeout(this.timer)
+    this.initSize().move().time()
   },
   initSize: function () {
     const parent = this.parent
@@ -44,8 +45,8 @@ CreateLine.prototype = {
     })
     return this
   },
-  timer: function () {
-    setInterval(() => {
+  time: function () {
+    this.timer = setInterval(() => {
       drawingPoint(this.canvas)
     }, 30)
   }

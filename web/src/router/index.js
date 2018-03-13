@@ -10,22 +10,22 @@ Vue.use(Router)
 
 const routes = [
   {
-    name: 'Personal',
+    name: 'personal',
     path: '/personal',
     component: Personal
   },
   {
-    name: 'Ability',
+    name: 'ability',
     path: '/ability',
     component: Ability
   },
   {
-    name: 'Write',
+    name: 'write',
     path: '/write',
     component: Write
   },
   {
-    name: 'Works',
+    name: 'works',
     path: '/works',
     component: Works
   }
@@ -36,9 +36,18 @@ const route = new Router({
 })
 
 route.afterEach((to) => {
+  if (to.name === 'ability') {
+    store.commit('setMainNavShow', false)
+  } else {
+    store.commit('setMainNavShow', true)
+  }
+
+  store.commit('setCurrentClass', to.name)
+
   const index = routes.findIndex((route) => {
     return route.path === to.path
   })
+
   if (to.path === '/' || index < 0) {
     store.commit('tabShadowShow', false)
     store.commit('tabActiveNav', -1)

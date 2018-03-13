@@ -1,3 +1,157 @@
+<style lang="scss" scoped>
+  $borderStyle: 1px solid #CCC;
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+
+  .write-head {
+    position: relative;
+
+    .portrait {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 1px solid #ccc;
+    }
+  }
+
+  .write-form {
+    background: #fff;
+    overflow: hidden;
+  }
+
+  .write-form--text {
+    width: 80%;
+    display: block;
+    margin: 30px auto 20px;
+    resize: none;
+    font-size: 18px;
+    padding: 5px;
+    border: $borderStyle;
+    font-family: '微软雅黑';
+  }
+
+  .write-form--box {
+    width: 80%;
+    margin: 20px auto;
+    display: flex;
+    justify-content: space-between;
+
+    input {
+      height: 32px;
+      padding: 0 5px;
+      width: 160px;
+      border: $borderStyle;
+    }
+
+    .left {
+      display: flex;
+
+      label {
+        margin-right: 20px;
+      }
+    }
+
+    .right {
+      display: flex;
+
+      input {
+        width: 120px;
+      }
+
+      label {
+        margin-right: 10px;
+      }
+    }
+  }
+
+  .write-list {
+    margin-top: 30px;
+
+    .head {
+      padding: 10px 5%;
+      font-size: 18px;
+      background: #fff;
+      border-bottom: $borderStyle;
+    }
+
+    .list {
+      min-height: 150px;
+      margin-bottom: 16px;
+      background: #fff;
+      display: flex;
+      padding: 10px 5%;
+    }
+
+    .left {
+      height: 60px;
+      width: 60px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: $borderStyle;
+      flex-shrink: 0;
+    }
+
+    .right {
+      margin-left: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      flex-shrink: 1;
+      flex-grow: 1;
+    }
+  }
+
+  .list-title {
+    width: 100%;
+    padding: 5px 10px;
+
+    h2 {
+      font-size: 20px;
+      font-weight: 400;
+      width: 100%;
+    }
+
+    p {
+      color: #666;
+      width: 100%;
+      margin-top: 5px;
+      font-size: 14px;
+    }
+  }
+
+  .list-content {
+    width: 100%;
+    padding: 20px 6%;
+    text-align: center;
+  }
+
+  .list-reply {
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid #f3f3f3;
+
+    .name {
+      color: #333;
+      flex-shrink: 0;
+    }
+
+    .text {
+      padding: 0 5px;
+      color: #666;
+      font-size: 14px;
+    }
+  }
+</style>
+
 <template>
   <div v-on:scroll="handleScroll">
     <div class="write" ref="content">
@@ -189,157 +343,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  $borderStyle: 1px solid #CCC;
-
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
-
-  .write-head {
-    position: relative;
-
-    .portrait {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      position: absolute;
-      top: 5px;
-      right: 5px;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border: 1px solid #ccc;
-    }
-  }
-
-  .write-form {
-    background: #fff;
-    overflow: hidden;
-  }
-
-  .write-form--text {
-    width: 80%;
-    display: block;
-    margin: 30px auto 20px;
-    resize: none;
-    font-size: 18px;
-    padding: 5px;
-    border: $borderStyle;
-    font-family: '微软雅黑';
-  }
-
-  .write-form--box {
-    width: 80%;
-    margin: 20px auto;
-    display: flex;
-    justify-content: space-between;
-
-    input {
-      height: 32px;
-      padding: 0 5px;
-      width: 160px;
-      border: $borderStyle;
-    }
-
-    .left {
-      display: flex;
-
-      label {
-        margin-right: 20px;
-      }
-    }
-
-    .right {
-      display: flex;
-
-      input {
-        width: 120px;
-      }
-
-      label {
-        margin-right: 10px;
-      }
-    }
-  }
-
-  .write-list {
-    margin-top: 30px;
-
-    .head {
-      padding: 10px 5%;
-      font-size: 18px;
-      background: #fff;
-      border-bottom: $borderStyle;
-    }
-
-    .list {
-      min-height: 150px;
-      margin-bottom: 16px;
-      background: #fff;
-      display: flex;
-      padding: 10px 5%;
-    }
-
-    .left {
-      height: 60px;
-      width: 60px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: $borderStyle;
-      flex-shrink: 0;
-    }
-
-    .right {
-      margin-left: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      flex-shrink: 1;
-      flex-grow: 1;
-    }
-  }
-
-  .list-title {
-    width: 100%;
-    padding: 5px 10px;
-
-    h2 {
-      font-size: 20px;
-      font-weight: 400;
-      width: 100%;
-    }
-
-    p {
-      color: #666;
-      width: 100%;
-      margin-top: 5px;
-      font-size: 14px;
-    }
-  }
-
-  .list-content {
-    width: 100%;
-    padding: 20px 6%;
-    text-align: center;
-  }
-
-  .list-reply {
-    display: flex;
-    width: 100%;
-    padding: 10px;
-    border-top: 1px solid #f3f3f3;
-
-    .name {
-      color: #333;
-      flex-shrink: 0;
-    }
-
-    .text {
-      padding: 0 5px;
-      color: #666;
-      font-size: 14px;
-    }
-  }
-</style>

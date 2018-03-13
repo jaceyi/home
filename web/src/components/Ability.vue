@@ -1,3 +1,7 @@
+<style scoped>
+
+</style>
+
 <template>
   <div>
     ability
@@ -6,10 +10,9 @@
 
 <script>
 export default {
-  name: 'Ability'
+  name: 'Ability',
+  mounted () {
+    this.$store.commit('changeBgUrlNum', 11)
+  }
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div :class="'son-nav ' + (shadowShow ? 'active' : '')">
+  <div class="son-nav">
     <div v-for="nav in navArr" :key="nav.id" :class="'son-nav--item ' + (activeNav === nav.id ? 'active' : '')">
       <router-link :to="nav.path">{{ nav.text }}<i :class="'iconfont icon ' + nav.icon"></i></router-link>
     </div>
@@ -55,9 +55,6 @@ export default {
   computed: {
     activeNav: function () {
       return this.$store.state.activeNav
-    },
-    shadowShow: function () {
-      return this.$store.state.shadowShow
     }
   }
 }
@@ -68,7 +65,7 @@ export default {
 .son-nav {
   position: fixed;
   top: 50%;
-  left: -36px;
+  left: 0;
   width: 36px;
   height: 228px;
   transform: translateY(-50%);
@@ -79,11 +76,6 @@ export default {
   color: #fff;
   flex-direction: column;
   z-index: 5;
-  transition: left 0.5s;
-
-  &.active {
-    left: 0;
-  }
 
   .son-nav--item {
     height: 36px;

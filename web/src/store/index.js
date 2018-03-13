@@ -11,10 +11,18 @@ export default new Vuex.Store({
     isAlert: false,
     isMessage: false,
     alertOptions: {},
-    messageOptions: {}
+    messageOptions: {},
+    currentClass: '',
+    mainNavShow: true
   },
   mutations: {
-    changeBgUrlNum (state) {
+    setCurrentClass (state, className) {
+      state.currentClass = className
+    },
+    changeBgUrlNum (state, number) {
+      if (number) {
+        state.bgUrlNum = number
+      }
       let num = state.bgUrlNum
       num += 1
       if (num === 14) {
@@ -29,22 +37,25 @@ export default new Vuex.Store({
       state.activeNav = num
     },
     alert (state, options) {
-      state.alert = true
+      state.isAlert = true
       state.alertOptions = {
         ...options
       }
     },
     alertHide (state) {
-      state.alert = false
+      state.isAlert = false
     },
     message (state, options) {
-      state.message = true
+      state.isMessage = true
       state.messageOptions = {
         ...options
       }
     },
     messageHide (state) {
-      state.message = false
+      state.isMessage = false
+    },
+    setMainNavShow (state, is) {
+      state.mainNavShow = is
     }
   }
 })

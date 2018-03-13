@@ -37,7 +37,7 @@ export default {
   mounted: function () {
     line.init({
       parent: this.$refs.navLeft,
-      pointNum: 42,
+      pointNum: 52,
       pointDist: 60,
       lineMax: 1,
       isMouse: true
