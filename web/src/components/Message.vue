@@ -1,3 +1,20 @@
+<style lang="scss" scoped>
+  $mianColor: #00AEFF;
+  .message {
+    position: absolute;
+    left: 50%;
+    top: 30vh;
+    transform: translateX(-50%);
+    width: 380px;
+    padding: 15px 20px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 5px;
+    z-index: 98;
+    text-align: center;
+    color: #fff;
+  }
+</style>
+
 <template>
   <div class="message">
     {{ content }}
@@ -21,20 +38,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-$mianColor: #00AEFF;
-.message {
-  position: absolute;
-  left: 50%;
-  top: 30vh;
-  transform: translateX(-50%);
-  width: 380px;
-  padding: 15px 20px;
-  background: rgba(0,0,0,0.5);
-  border-radius: 5px;
-  z-index: 98;
-  text-align: center;
-  color: #fff;
-}
-</style>

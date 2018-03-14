@@ -92,11 +92,11 @@
       background: none;
       box-shadow: none;
     }
+  }
 
-    &.works {
-      width: 1000px;
-      height: 600px;
-    }
+  .works {
+    width: 1000px;
+    height: 600px;
   }
 
   .container-shadow {
