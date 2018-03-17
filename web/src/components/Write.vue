@@ -333,7 +333,7 @@ export default {
         })
         .catch(() => {
           this.message({
-            content: '留言失败，请重试'
+            content: '获取留言失败，请重试'
           })
         })
     }

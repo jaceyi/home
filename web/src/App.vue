@@ -91,6 +91,7 @@
     &.ability {
       background: none;
       box-shadow: none;
+      height: 50%;
     }
   }
 

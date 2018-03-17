@@ -1,44 +1,88 @@
 <style lang="scss" scoped>
+  .ability {
+    display: flex;
+    color: #fff;
+    justify-content: space-around;
+  }
 
+  .ability-item {
+    height: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+
+    .line {
+      height: 0%;
+      width: 30px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 15px 15px 0 0;
+    }
+
+    span {
+      margin-bottom: 20px;
+    }
+  }
 </style>
 
 <template>
-  <div ref="canvasFather">
-    ability
+  <div class="ability">
+    <div
+      class="ability-item"
+      v-for="item in abilityList"
+      :key="item.id"
+    >
+      <div class="line" :style="`height:${ item.value }%`"></div>
+      <span>{{ item.name }}</span>
+    </div>
   </div>
 </template>
 
 <script>
-import LineFlashing from '../assets/js/LineFlashing'
-import {
-  bindDomResizeEvent
-} from '../util/'
-
 export default {
   name: 'Ability',
   data () {
     return {
-      LineFlashing: {}
+      abilityList: [
+        {
+          id: 1,
+          name: 'JavaScript',
+          value: 66
+        },
+        {
+          id: 2,
+          name: 'Vue',
+          value: 88
+        },
+        {
+          id: 3,
+          name: 'React',
+          value: 77
+        },
+        {
+          id: 4,
+          name: 'Photoshop',
+          value: 77
+        },
+        {
+          id: 5,
+          name: 'HTML&CSS',
+          value: 66
+        },
+        {
+          id: 6,
+          name: 'jQuery',
+          value: 66
+        },
+        {
+          id: 7,
+          name: 'Node.js',
+          value: 66
+        }
+      ]
     }
   },
   mounted () {
     this.$store.commit('changeBgUrlNum', 11)
-    const canvasFather = this.$refs.canvasFather
-
-    this.LineFlashing = new LineFlashing(canvasFather, {
-      className: 'canvas'
-    })
-
-    this.LineFlashing.init([
-      {
-        name: 'JavaScript',
-        value: 55
-      }
-    ])
-
-    bindDomResizeEvent(canvasFather, () => {
-      this.LineFlashing.initSize()
-    })
   }
 }
 </script>
