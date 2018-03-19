@@ -52,7 +52,7 @@ export default {
     border-radius: 16px 0 0 16px;
     transition: right 0.4s;
     cursor: pointer;
-    z-index: 9;
+    z-index: 2;
 
     .icon {
       margin-right: 5px;

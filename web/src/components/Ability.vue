@@ -3,6 +3,7 @@
     display: flex;
     color: #fff;
     justify-content: space-around;
+    border-bottom: 3px solid rgba(255,255,255,0.5);
   }
 
   .ability-item {
@@ -13,9 +14,8 @@
 
     .line {
       height: 0%;
-      width: 30px;
-      background: rgba(255,255,255,0.4);
-      border-radius: 15px 15px 0 0;
+      width: 40px;
+      background: rgba(255,255,255,0.5);
     }
 
     span {
