@@ -86,7 +86,7 @@
             <div class="info">
               <p><span>姓名：</span>{{ personal.name }}</p>
               <p><span>年龄：</span>{{ personal.age }}</p>
-              <p><span>性别：</span>{{ personal.gender === '1' ? '男' : '女' }}</p>
+              <p><span>性别：</span>{{ personal.gender && (Number(personal.gender) === 1 ? '男' : '女') }}</p>
               <p><span>电话：</span>{{ personal.mobile }}</p>
               <p><span>QQ：</span>{{ personal.qqCode }}</p>
               <p><span>微信：</span>{{ personal.weChat }}</p>
@@ -130,17 +130,7 @@ export default {
   name: 'Personal',
   data () {
     return {
-      personal: {
-        name: '易进春',
-        age: '20',
-        gender: '1',
-        mobile: '18392866863',
-        qqCode: '6498601',
-        weChat: 'sg6498601',
-        address: '上海 普陀',
-        hometown: '陕西 西安',
-        brief: 'Design is the method of putting form and content together. Design, just as art, has multiple definitions there is no single definition. Design can be art. Design can be aesthetics. Design is so simple, that\'s why it is so complicated.'
-      },
+      personal: {},
       experiences: [
         {
           id: 1,
@@ -172,6 +162,20 @@ export default {
     }
   },
   mounted () {
+    this.$http.get(this.$apis.getPersonal)
+      .then(
+        (data) => {
+          const o = data.data
+          this.personal = {
+            ...o.data[0],
+            brief: 'Design is the method of putting form and content together. Design, just as art, has multiple definitions there is no single definition. Design can be art. Design can be aesthetics. Design is so simple, that\'s why it is so complicated.'
+          }
+        }
+      )
+      .catch((error) => {
+        console.log(error)
+      })
+
     const leftSwiper = this.$refs.leftSwiper
     const rightSwiper = this.$refs.rightSwiper
 

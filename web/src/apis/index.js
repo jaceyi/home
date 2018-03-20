@@ -1,5 +1,6 @@
 const api = ''
 export default {
   getWord: api + '/getWord',
-  setWord: api + '/setWord'
+  setWord: api + '/setWord',
+  getPersonal: api + '/getPersonal'
 }
