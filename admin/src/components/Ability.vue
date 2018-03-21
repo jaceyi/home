@@ -5,16 +5,16 @@
     </div>
     <div class="form">
       <div class="row" v-for="(item, index) in abilityList" :key="index">
-          <el-input v-model="item.value" placeholder="请输入技能"></el-input>
-          <el-slider v-model="item.number"></el-slider>
+          <el-input v-model="item.name" placeholder="请输入技能"></el-input>
+          <el-slider v-model="item.value"></el-slider>
           <div class="del"
-          v-if="abilityList.length !== 1"
+          v-show="abilityList.length !== 1"
           @click="delAbility(index)"
           title="点击删除技能">
             <i class="iconfont icon icon-del"></i>
           </div>
           <div class="add"
-          v-if="index === abilityList.length - 1"
+          v-show="index === abilityList.length - 1"
           @click="addAbility"
           title="点击添加技能">
             <i class="iconfont icon icon-add"></i>
@@ -37,8 +37,8 @@ export default {
     return {
       abilityList: [
         {
-          value: '',
-          number: 0
+          name: '',
+          value: 0
         }
       ]
     }
@@ -54,8 +54,8 @@ export default {
         return
       }
       this.abilityList.push({
-        value: '',
-        number: 0
+        name: '',
+        value: 0
       })
     },
     delAbility (index) {
@@ -67,7 +67,7 @@ export default {
     submit () {
       const abilityList = this.abilityList
       const isNull = abilityList.find((item) => {
-        return !item.value || !item.number
+        return !item.name || !item.value
       })
       if (isNull) {
         this.$message({

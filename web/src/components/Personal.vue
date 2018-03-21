@@ -85,7 +85,7 @@
           <div class="swiper-slide">
             <div class="info">
               <p><span>姓名：</span>{{ personal.name }}</p>
-              <p><span>年龄：</span>{{ personal.age }}</p>
+              <p><span>年龄：</span>{{ age }}</p>
               <p><span>性别：</span>{{ personal.gender && (Number(personal.gender) === 1 ? '男' : '女') }}</p>
               <p><span>电话：</span>{{ personal.mobile }}</p>
               <p><span>QQ：</span>{{ personal.qqCode }}</p>
@@ -108,11 +108,8 @@
     v-on:mouseenter="handleMoveRight">
       <div class="swiper-contaoner" ref="rightSwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            one
-          </div>
-          <div class="swiper-slide">
-            two
+          <div class="swiper-slide" v-for="item in experiences" :key="item.id">
+            {{ item.name }}
           </div>
         </div>
         <div class="right-swiper-pagination"></div>
@@ -134,13 +131,7 @@ export default {
       experiences: [
         {
           id: 1,
-          name: '新华电脑软件学习',
-          startDate: '2018-01-02',
-          endDate: '2018-01-02'
-        },
-        {
-          id: 2,
-          name: '未英网络科技有限公司',
+          name: 'Test',
           startDate: '2018-01-02',
           endDate: '2018-01-02'
         }
@@ -161,6 +152,16 @@ export default {
       this.moveRight = true
     }
   },
+  computed: {
+    age () {
+      const birthDate = this.personal.birthDate
+      if (birthDate) {
+        const oldYear = new Date(birthDate).getFullYear()
+        const yeay = new Date().getFullYear()
+        return yeay - oldYear
+      }
+    }
+  },
   mounted () {
     this.$http.get(this.$apis.getPersonal)
       .then(
@@ -168,7 +169,7 @@ export default {
           const o = data.data
           this.personal = {
             ...o.data[0],
-            brief: 'Design is the method of putting form and content together. Design, just as art, has multiple definitions there is no single definition. Design can be art. Design can be aesthetics. Design is so simple, that\'s why it is so complicated.'
+            brief: '你好啊，欢迎来访我的个人网站。'
           }
         }
       )
@@ -180,7 +181,6 @@ export default {
     const rightSwiper = this.$refs.rightSwiper
 
     this.leftSwiper = new this.$Swiper(leftSwiper, {
-      loop: true,
       effect: 'cube',
       mousewheel: true,
       speed: 600,
@@ -193,7 +193,6 @@ export default {
       }
     })
     this.rightSwiper = new this.$Swiper(rightSwiper, {
-      loop: true,
       effect: 'cube',
       speed: 600,
       mousewheel: true,

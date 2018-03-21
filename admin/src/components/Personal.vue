@@ -31,6 +31,12 @@
       </div>
       <div class="row">
         <label class="name-label">
+          微信：
+        </label>
+        <el-input v-model="weChat"></el-input>
+      </div>
+      <div class="row">
+        <label class="name-label">
           出生日期：
         </label>
         <el-date-picker
@@ -72,6 +78,7 @@ export default {
       birthDate: '',
       mobile: '',
       qqCode: '',
+      weChat: '',
       address: '',
       hometown: ''
     }
@@ -84,16 +91,11 @@ export default {
         birthDate,
         mobile,
         qqCode,
+        weChat,
         address,
         hometown
       } = this
-      if (!name || !gender || !birthDate || !mobile || !qqCode || !address || !hometown) {
-        this.$message({
-          message: '请将内容填写完整',
-          type: 'warning'
-        })
-        return
-      }
+
       const _birthDate = this.formatDate(birthDate, 'yyyy-MM-dd')
       this.$http.post(this.$apis.setPersonal, {
         name,
@@ -101,6 +103,7 @@ export default {
         birthDate: _birthDate,
         mobile,
         qqCode,
+        weChat,
         address,
         hometown
       })
@@ -139,6 +142,7 @@ export default {
               this.birthDate = myPersonal.birthDate
               this.mobile = myPersonal.mobile
               this.qqCode = myPersonal.qqCode
+              this.weChat = myPersonal.weChat
               this.gender = myPersonal.gender
               this.hometown = myPersonal.hometown
             }

@@ -105,15 +105,13 @@
           v-for="item in worksList"
           :key="item.id"
           class="swiper-slide works-item"
-          :style="`background-image: url(${ item.imgSrc })`"
+          :style="`background-image: url(${ item.imgSrc ? '//yijic.com' + item.imgSrc : defaultImgSrc })`"
         >
           <div class="item-content">
             <div class="item-name">{{ item.name }}</div>
             <div class="item-date">{{ `${ item.startDate } — ${ item.endDate }` }}</div>
-            <div class="item-describe">
-              {{ item.describe }}
-            </div>
-            <div class="item-link">
+            <div class="item-describe" v-html="item.describe"></div>
+            <div v-if="item.link" class="item-link">
               <a :href="item.link" title="跳转到项目地址">
                 跳转到项目地址
                 <i class="icon iconfont icon-share"></i>
@@ -136,32 +134,42 @@ export default {
   name: 'Works',
   data () {
     return {
-      worksList: [
-        {
-          id: 1,
-          name: '阿里巴巴',
-          startDate: '0000-00-00',
-          endDate: '0000-00-00',
-          imgSrc: '//yijic.com/public/images/bg/12.jpg',
-          describe: 'Design is the method of putting form and content together. Design, just as art, has multiple definitions there is no single definition. Design can be art. Design can be aesthetics. Design is so simple, that\'s why it is so complicated.',
-          type: '游戏',
-          link: '//baidu.com'
-        },
-        {
-          id: 2,
-          name: '腾讯',
-          startDate: '0000-00-00',
-          endDate: '0000-00-00',
-          imgSrc: '//yijic.com/public/images/bg/12.jpg',
-          describe: 'Design is the method of putting form and content together. Design, just as art, has multiple definitions there is no single definition. Design can be art. Design can be aesthetics. Design is so simple, that\'s why it is so complicated.',
-          type: '游戏',
-          link: '//baidu.com'
-        }
-      ],
-      mainSwiper: {}
+      defaultImgSrc: '//yijic.com/public/images/bg/12.jpg',
+      worksList: [],
+      mainSwiper: {},
+      page: 1
+    }
+  },
+  watch: {
+    worksList () {
+      this.$nextTick(() => {
+        this.mainSwiper.update()
+      })
     }
   },
   mounted () {
+    this.$http.get(this.$apis.getWorks + '?page=' + this.page)
+      .then(
+        (data) => {
+          const o = data.data
+          if (o.code === 200) {
+            const worksList = o.data
+            if (worksList.length) {
+              this.worksList = worksList
+            }
+          } else {
+            this.message({
+              content: o.msg
+            })
+          }
+        }
+      )
+      .catch(() => {
+        this.message({
+          content: '获取作品列表失败，请重试'
+        })
+      })
+
     const mainSwiper = this.$refs.mainSwiper
 
     this.mainSwiper = new this.$Swiper(mainSwiper, {

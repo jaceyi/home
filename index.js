@@ -16,7 +16,7 @@ const secret = String(Math.random() * 999999 + 100000)
 app.use(session({
   secret: secret,
   cookie: {
-    maxAge: 300000
+    maxAge: 600000
   },
   resave: false,
   saveUninitialized: false
@@ -266,18 +266,14 @@ app.post('/setPersonal', judgeLevel, function (req, res) {
       birthDate,
       mobile,
       qqCode,
+      weChat,
       address,
       hometown
     } = fields
-    if (!name || !gender || ! birthDate || ! mobile || !qqCode || !address || !hometown) {
-      common.endJson(res, {
-        code: 400,
-        msg: '请将内容填写完整'
-      })
-    }
+
     getPersonal(req, res, (o) => {
       if (!o.err) {
-        const data = [name, gender, birthDate, mobile, qqCode, address, hometown]
+        const data = [name, gender, birthDate, mobile, qqCode, weChat, address, hometown]
         const callback = (o_) => {
           if (!o_.err) {
             common.endJson(res, {
@@ -288,14 +284,14 @@ app.post('/setPersonal', judgeLevel, function (req, res) {
           }
         }
         if (o.length) {
-          const sql = 'update personal set name = ?, gender = ?, birthDate = ?, mobile = ?, qqCode = ?, address = ?, hometown = ? where id = 1'
+          const sql = 'update personal set name = ?, gender = ?, birthDate = ?, mobile = ?, qqCode = ?, weChat = ?, address = ?, hometown = ? where id = 1'
           db.changeData(
             sql,
             data,
             callback
           )
         } else {
-          const sql = 'insert into personal(id, name, gender, birthDate, mobile, qqCode, address, hometown) value(0, ?, ?, ?, ?, ?, ?, ?)'
+          const sql = 'insert into personal(id, name, gender, birthDate, mobile, qqCode, weChat, address, hometown) value(0, ?, ?, ?, ?, ?, ?, ?, ?)'
           db.addData(
             sql,
             data,
@@ -536,7 +532,8 @@ app.post('/editWorks', judgeLevel, function (req, res) {
                 startDate,
                 endDate,
                 link,
-                imgSrc
+                imgSrc,
+                describe
               }
             })
           }

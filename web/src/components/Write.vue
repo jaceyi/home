@@ -179,9 +179,6 @@
         </div>
       </div>
       <div class="write-list">
-        <div class="head">
-          总留言条数100条
-        </div>
         <div class="list" v-for="write in writeList" :key="write.id">
           <div class="left">
             <img class="img" :src="write.img || defaultPortraitUrl" alt="">
@@ -319,16 +316,21 @@ export default {
     getWordList () {
       this.$http.get(this.$apis.getWord + '?page=' + this.page)
         .then((data) => {
-          const o = data.body
+          const o = data.data
           if (o) {
-            this.writeList = this.writeList.concat(o.data)
-            if (o.data.length) {
+            const list = o.data
+            this.writeList = this.writeList.concat(list)
+            if (list.length) {
               this.blocker = true
             } else {
               this.message({
                 content: '已经加载完全部内容'
               })
             }
+          } else {
+            this.message({
+              content: o.msg
+            })
           }
         })
         .catch(() => {

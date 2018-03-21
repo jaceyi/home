@@ -42,47 +42,33 @@ export default {
   name: 'Ability',
   data () {
     return {
-      abilityList: [
-        {
-          id: 1,
-          name: 'JavaScript',
-          value: 66
-        },
-        {
-          id: 2,
-          name: 'Vue',
-          value: 88
-        },
-        {
-          id: 3,
-          name: 'React',
-          value: 77
-        },
-        {
-          id: 4,
-          name: 'Photoshop',
-          value: 77
-        },
-        {
-          id: 5,
-          name: 'HTML&CSS',
-          value: 66
-        },
-        {
-          id: 6,
-          name: 'jQuery',
-          value: 66
-        },
-        {
-          id: 7,
-          name: 'Node.js',
-          value: 66
-        }
-      ]
+      abilityList: []
     }
   },
   mounted () {
     this.$store.commit('changeBgUrlNum', 11)
+
+    this.$http.get(this.$apis.getAbility)
+      .then(
+        (data) => {
+          const o = data.data
+          if (o.code === 200) {
+            const abilityList = o.data
+            if (abilityList.length) {
+              this.abilityList = abilityList
+            }
+          } else {
+            this.message({
+              content: o.msg
+            })
+          }
+        }
+      )
+      .catch(() => {
+        this.message({
+          content: '获取技能列表失败，请重试'
+        })
+      })
   }
 }
 </script>
