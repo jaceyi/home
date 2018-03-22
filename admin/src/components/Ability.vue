@@ -1,3 +1,76 @@
+<style lang="scss" scoped>
+.ability {
+  min-width: 500px;
+}
+
+.head {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.form {
+  margin-top: 20px;
+}
+
+.row {
+  display: flex;
+  margin-bottom: 15px;
+  justify-content: center;
+
+  .el-input {
+    width:240px;
+    margin-right: 20px;
+  }
+
+  .el-slider {
+    width:180px;
+    margin-right: 20px;
+  }
+
+  .add {
+    background:#409EFF;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-right: -32px;
+  }
+
+  .del {
+    background:#409EFF;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+
+  .submit {
+    margin-top: 10px;
+    width: 100px;
+  }
+
+
+  .el-textarea {
+    width: 430px;
+  }
+}
+
+.introduce {
+  margin-top: 50px;
+}
+
+</style>
+
 <template>
   <div class="ability">
     <div class="head">
@@ -20,6 +93,17 @@
             <i class="iconfont icon icon-add"></i>
           </div>
       </div>
+      <div class="row introduce">
+        <label class="name-label">
+          描述：
+        </label>
+        <el-input
+          type="textarea"
+          :rows="2"
+          placeholder="请输入内容"
+          v-model="introduce">
+        </el-input>
+      </div>
       <div class="row">
         <el-button
         class="submit"
@@ -40,7 +124,8 @@ export default {
           name: '',
           value: 0
         }
-      ]
+      ],
+      introduce: ''
     }
   },
   methods: {
@@ -124,66 +209,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.ability {
-  min-width: 500px;
-}
-
-.head {
-  text-align: center;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.form {
-  margin-top: 20px;
-}
-
-.row {
-  display: flex;
-  margin-bottom: 15px;
-  justify-content: center;
-
-  .el-input {
-    width:240px;
-    margin-right: 20px;
-  }
-
-  .el-slider {
-    width:180px;
-    margin-right: 20px;
-  }
-
-  .add {
-    background:#409EFF;
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 50%;
-    margin-right: -32px;
-  }
-
-  .del {
-    background:#409EFF;
-    color: #fff;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 50%;
-    margin-right: 8px;
-  }
-
-  .submit {
-    margin-top: 10px;
-    width: 100px;
-  }
-}
-</style>
