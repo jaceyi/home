@@ -59,7 +59,6 @@
     width: 100px;
   }
 
-
   .el-textarea {
     width: 430px;
   }
@@ -68,7 +67,6 @@
 .introduce {
   margin-top: 50px;
 }
-
 </style>
 
 <template>

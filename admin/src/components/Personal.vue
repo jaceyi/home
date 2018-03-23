@@ -49,6 +49,9 @@
 }
 
 .work {
+  border-bottom: 1px solid #EEE;
+  padding: 20px 0;
+
   .icon {
     display: block;
     width: 32px;
@@ -178,14 +181,22 @@
       </div>
       <div class="right">
         <h2>经历</h2>
-        <div class="work" v-for="item in workList" :key="item.id">
+        <div class="work" v-for="(item, index) in workList" :key="item.id">
           <div class="row">
             <label class="name-label">
               名称：
             </label>
             <el-input v-model="item.name"></el-input>
-            <i class="iconfont icon icon-add"></i>
-            <i class="iconfont icon icon-del"></i>
+            <i
+              class="iconfont icon icon-add"
+              @click="addWork"
+              v-show="index === workList.length - 1"
+            ></i>
+            <i
+              class="iconfont icon icon-del"
+              @click="delWork(index)"
+              v-show="workList.length !== 1"
+            ></i>
           </div>
           <div class="row">
             <label class="name-label">
@@ -242,7 +253,7 @@ export default {
       hometown: '',
       introduce: '',
       workList: [{
-        id: 1,
+        id: 0,
         name: '',
         startDate: '',
         endDate: '',
@@ -293,6 +304,22 @@ export default {
         .catch((error) => {
           this.hanbleFail(error)
         })
+    },
+    addWork () {
+      const workList = this.workList
+      workList.push({
+        id: workList.length,
+        name: '',
+        startDate: '',
+        endDate: '',
+        introduce: ''
+      })
+    },
+    delWork (index) {
+      const workList = this.workList
+      const startArr = workList.slice(0, index)
+      const endArr = workList.slice(index + 1)
+      this.workList = startArr.concat(endArr)
     }
   },
   mounted () {
