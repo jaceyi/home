@@ -6,6 +6,16 @@
     border-bottom: 3px solid rgba(255,255,255,0.5);
   }
 
+  .title {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0 10%;
+    color: #fff;
+    font-size: 14px;
+  }
+
   .ability-item {
     height: 100%;
     display: flex;
@@ -26,6 +36,7 @@
 
 <template>
   <div class="ability">
+    <div class="title">{{ introduce }}</div>
     <div
       class="ability-item"
       v-for="item in abilityList"
@@ -42,7 +53,8 @@ export default {
   name: 'Ability',
   data () {
     return {
-      abilityList: []
+      abilityList: [],
+      introduce: ''
     }
   },
   mounted () {
@@ -53,10 +65,17 @@ export default {
         (data) => {
           const o = data.data
           if (o.code === 200) {
-            const abilityList = o.data
+            const myData = JSON.parse(o.data)
+            let {
+              introduce,
+              abilityList
+            } = myData
+
             if (abilityList.length) {
               this.abilityList = abilityList
             }
+
+            this.introduce = introduce || ''
           } else {
             this.message({
               content: o.msg

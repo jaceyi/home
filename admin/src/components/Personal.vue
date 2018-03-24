@@ -181,7 +181,7 @@
       </div>
       <div class="right">
         <h2>经历</h2>
-        <div class="work" v-for="(item, index) in workList" :key="item.id">
+        <div class="work" v-for="(item, index) in workList" :key="index">
           <div class="row">
             <label class="name-label">
               名称：
@@ -253,7 +253,6 @@ export default {
       hometown: '',
       introduce: '',
       workList: [{
-        id: 0,
         name: '',
         startDate: '',
         endDate: '',
@@ -271,8 +270,30 @@ export default {
         qqCode,
         weChat,
         address,
-        hometown
+        hometown,
+        introduce,
+        workList
       } = this
+
+      const isNull = workList.find((item) => {
+        return !item.name || !item.startDate || !item.endDate || !item.introduce
+      })
+
+      if (isNull) {
+        this.$message({
+          message: '请将内容填写完整',
+          type: 'warning'
+        })
+        return
+      }
+
+      const _workList = workList.map(item => {
+        return {
+          ...item,
+          startDate: this.formatDate(item.startDate, 'yyyy-MM-dd'),
+          endDate: this.formatDate(item.endDate, 'yyyy-MM-dd')
+        }
+      })
 
       const _birthDate = this.formatDate(birthDate, 'yyyy-MM-dd')
       this.$http.post(this.$apis.setPersonal, {
@@ -283,7 +304,9 @@ export default {
         qqCode,
         weChat,
         address,
-        hometown
+        hometown,
+        introduce,
+        workList: _workList
       })
         .then(
           (data) => {
@@ -307,8 +330,14 @@ export default {
     },
     addWork () {
       const workList = this.workList
+      if (workList.length >= 10) {
+        this.$message({
+          message: '太多了，不要在加了！',
+          type: 'warning'
+        })
+        return
+      }
       workList.push({
-        id: workList.length,
         name: '',
         startDate: '',
         endDate: '',
@@ -329,16 +358,20 @@ export default {
           const o = data.data
           if (o.code === 200) {
             const personal = o.data
-            if (personal.length) {
-              const myPersonal = personal[0]
-              this.name = myPersonal.name
-              this.address = myPersonal.address
-              this.birthDate = myPersonal.birthDate
-              this.mobile = myPersonal.mobile
-              this.qqCode = myPersonal.qqCode
-              this.weChat = myPersonal.weChat
-              this.gender = myPersonal.gender
-              this.hometown = myPersonal.hometown
+            const myPersonal = personal[0]
+            this.name = myPersonal.name
+            this.address = myPersonal.address
+            this.birthDate = myPersonal.birthDate
+            this.mobile = myPersonal.mobile
+            this.qqCode = myPersonal.qqCode
+            this.weChat = myPersonal.weChat
+            this.gender = myPersonal.gender
+            this.hometown = myPersonal.hometown
+            this.introduce = myPersonal.introduce
+
+            const workList = JSON.parse(myPersonal.workList)
+            if (workList.length) {
+              this.workList = workList
             }
           } else {
             this.$message({

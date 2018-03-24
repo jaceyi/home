@@ -148,7 +148,11 @@ export default {
       this.abilityList = startArr.concat(endArr)
     },
     submit () {
-      const abilityList = this.abilityList
+      const {
+        introduce,
+        abilityList
+      } = this
+
       const isNull = abilityList.find((item) => {
         return !item.name || !item.value
       })
@@ -160,7 +164,10 @@ export default {
         return
       }
       this.$http.post(this.$apis.setAbility, {
-        abilityList: abilityList
+        ability: {
+          introduce: introduce,
+          abilityList: abilityList
+        }
       })
         .then(
           (data) => {
@@ -189,10 +196,17 @@ export default {
         (data) => {
           const o = data.data
           if (o.code === 200) {
-            const abilityList = o.data
+            const myData = JSON.parse(o.data)
+            let {
+              introduce,
+              abilityList
+            } = myData
+
             if (abilityList.length) {
               this.abilityList = abilityList
             }
+
+            this.introduce = introduce || ''
           } else {
             this.$message({
               message: o.msg,

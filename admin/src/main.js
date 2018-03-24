@@ -87,6 +87,9 @@ Vue.mixin({
     },
     formatDate (myDate, format) {
       // 格式化时间 format yyyy-MM-dd hh:mm:ss
+      if (!myDate) {
+        return ''
+      }
       myDate = new Date(myDate)
       const o = {
         'M+': myDate.getMonth() + 1,

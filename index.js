@@ -251,7 +251,10 @@ app.get('/getPersonal', function (req, res) {
     if (!o.err) {
       common.endJson(res, {
         code: 200,
-        data: o
+        data: {
+          ...o,
+          workList: o.workList
+        }
       })
     }
   })
@@ -268,12 +271,14 @@ app.post('/setPersonal', judgeLevel, function (req, res) {
       qqCode,
       weChat,
       address,
-      hometown
+      hometown,
+      introduce,
+      workList
     } = fields
 
     getPersonal(req, res, (o) => {
       if (!o.err) {
-        const data = [name, gender, birthDate, mobile, qqCode, weChat, address, hometown]
+        const data = [name, gender, birthDate, mobile, qqCode, weChat, address, hometown, introduce, JSON.stringify(workList)]
         const callback = (o_) => {
           if (!o_.err) {
             common.endJson(res, {
@@ -284,14 +289,14 @@ app.post('/setPersonal', judgeLevel, function (req, res) {
           }
         }
         if (o.length) {
-          const sql = 'update personal set name = ?, gender = ?, birthDate = ?, mobile = ?, qqCode = ?, weChat = ?, address = ?, hometown = ? where id = 1'
+          const sql = 'update personal set name = ?, gender = ?, birthDate = ?, mobile = ?, qqCode = ?, weChat = ?, address = ?, hometown = ?, introduce = ?, workList = ? where id = 1'
           db.changeData(
             sql,
             data,
             callback
           )
         } else {
-          const sql = 'insert into personal(id, name, gender, birthDate, mobile, qqCode, weChat, address, hometown) value(0, ?, ?, ?, ?, ?, ?, ?, ?)'
+          const sql = 'insert into personal(id, name, gender, birthDate, mobile, qqCode, weChat, address, hometown, introduce, workList) value(0, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
           db.addData(
             sql,
             data,
@@ -307,7 +312,7 @@ function getCommonData (req, res, id) {
   const sql = 'select * from common where id=' + id
   db.queryData(sql, [], (o) => {
     if (!o.err) {
-      const body = JSON.parse(o[0].body)
+      const body = o[0].body
       common.endJson(res, {
         code: 200,
         data: body
@@ -342,15 +347,15 @@ app.post('/setAbility', judgeLevel, function (req, res) {
   const form = new fm.IncomingForm()
   form.parse(req, (err, fields) => {
     const {
-      abilityList
+      ability
     } = fields
-    if (!abilityList) {
+    if (!ability.abilityList) {
       common.endJson(res, {
         code: 400,
         msg: '请将内容填写完整'
       })
     }
-    setCommonData(req, res, JSON.stringify(abilityList), 1)
+    setCommonData(req, res, JSON.stringify(ability), 1)
   })
 })
 

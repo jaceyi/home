@@ -59,6 +59,30 @@
     .swiper-slide {
       position: relative;
       background: url(../assets/images/14.jpg) no-repeat center;
+      padding: 300px 20%;
+    }
+
+    .date {
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 32px;
+      color: #fff;
+
+      i {
+        margin: 0 10px;
+      }
+    }
+
+    .name {
+      font-size: 24px;
+      color: #fff;
+      margin-top: 20px;
+    }
+
+    .introduce {
+      margin-top: 30px;
+      color: #fff;
+      line-height: 2;
     }
   }
 
@@ -96,7 +120,7 @@
           </div>
           <div class="swiper-slide">
             <div class="info">
-              <p>{{ personal.brief }}</p>
+              <p>{{ personal.introduce }}</p>
             </div>
           </div>
         </div>
@@ -108,8 +132,13 @@
     v-on:mouseenter="handleMoveRight">
       <div class="swiper-contaoner" ref="rightSwiper">
         <div class="swiper-wrapper">
-          <div class="swiper-slide" v-for="item in experiences" :key="item.id">
-            {{ item.name }}
+          <div class="swiper-slide" v-for="(item, index) in workList" :key="index">
+            <div class="date">
+              <span>{{ item.startDate }}</span><i>-</i>
+              <span>{{ item.endDate }}</span>
+            </div>
+            <div class="name">{{ item.name }}</div>
+            <div class="introduce">{{ item.introduce }}</div>
           </div>
         </div>
         <div class="right-swiper-pagination"></div>
@@ -128,18 +157,11 @@ export default {
   data () {
     return {
       personal: {},
-      experiences: [
-        {
-          id: 1,
-          name: 'Test',
-          startDate: '2018-01-02',
-          endDate: '2018-01-02'
-        }
-      ],
       leftSwiper: {},
       rightSwiper: {},
       moveLeft: true,
-      moveRight: false
+      moveRight: false,
+      workList: []
     }
   },
   methods: {
@@ -162,15 +184,23 @@ export default {
       }
     }
   },
+  watch: {
+    workList () {
+      this.$nextTick(() => {
+        this.rightSwiper.update()
+      })
+    }
+  },
   mounted () {
     this.$http.get(this.$apis.getPersonal)
       .then(
         (data) => {
           const o = data.data
+          const workList = JSON.parse(o.data[0].workList)
           this.personal = {
-            ...o.data[0],
-            brief: '你好啊，欢迎来访我的个人网站。'
+            ...o.data[0]
           }
+          this.workList = workList
         }
       )
       .catch((error) => {
