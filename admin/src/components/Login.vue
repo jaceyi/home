@@ -1,3 +1,48 @@
+<style lang="scss" scoped>
+.login {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: url('http://yijic.com/public/images/bg/11.jpg') no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+}
+
+.form {
+  width: 420px;
+  padding: 20px 30px;
+  background: rgba(255, 255, 255, 0.88);
+  border-radius: 5px;
+
+  .title {
+    line-height: 1.2;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  p {
+    margin-bottom: 10px;
+
+    span {
+      color: #409EFF;
+    }
+  }
+
+  .text {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  .btn-box {
+    text-align: center;
+  }
+}
+</style>
+
 <template>
   <div class="login">
     <div class="form">
@@ -77,47 +122,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.login {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  background: url('http://yijic.com/public/images/bg/11.jpg') no-repeat;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form {
-  width: 420px;
-  padding: 20px 30px;
-  background: rgba(255, 255, 255, 0.88);
-  border-radius: 5px;
-
-  .title {
-    line-height: 1.2;
-    text-align: center;
-    font-weight: 600;
-    font-size: 18px;
-  }
-
-  p {
-    margin-bottom: 10px;
-
-    span {
-      color: #409EFF;
-    }
-  }
-
-  .text {
-    font-size: 14px;
-    margin-bottom: 20px;
-    color: #333;
-  }
-
-  .btn-box {
-    text-align: center;
-  }
-}
-</style>

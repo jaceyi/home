@@ -11,8 +11,8 @@
       width="260"
       popper-class="user-info"
       trigger="click">
-      <div class="main" v-if="userinfo.name">
-        <p>用户名：<span>{{ userinfo.name }}</span></p>
+      <div class="main" v-if="userinfo.username">
+        <p>用户名：<span>{{ userinfo.username }}</span></p>
         <p>操作权限：<span>{{ userinfo.level }}</span></p>
       </div>
       <div class="footer">
