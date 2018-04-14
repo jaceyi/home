@@ -8,12 +8,13 @@
 
   .title {
     position: absolute;
-    bottom: -50px;
+    top: -100px;
     left: 50%;
     transform: translateX(-50%);
     padding: 0 10%;
     color: #fff;
     font-size: 14px;
+    width: 1000px;
   }
 
   .ability-item {
