@@ -16,7 +16,7 @@ const secret = String(Math.random() * 999999 + 100000)
 app.use(session({
   secret: secret,
   cookie: {
-    maxAge: 600000
+    maxAge: 99999999
   },
   resave: false,
   saveUninitialized: false
@@ -67,7 +67,7 @@ app.post('/login', function (req, res) {
           req.session.user_level = user_level
           req.session.username = username
           req.session.user_img = user_img
-          
+
           common.endJson(res, {
             code: 200,
             data: {
@@ -454,6 +454,7 @@ app.post('/setWorks', judgeLevel, function (req, res) {
                 startDate,
                 endDate,
                 link,
+                describe,
                 imgSrc
               }
             })

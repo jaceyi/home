@@ -468,6 +468,7 @@ export default {
           }
         )
         .catch((error) => {
+          loading.close()
           this.hanbleFail(error)
         })
     },
