@@ -59,22 +59,22 @@ app.post('/login', function (req, res) {
       if (!o.err) {
         if (o.length) {
           const sqlData = o[0]
-          const user_id = sqlData.id
-          const user_level = sqlData.level
+          const userId = sqlData.id
+          const userLevel = sqlData.level
           const username = sqlData.username
-          const user_img = sqlData.img
-          req.session.user_id = user_id
-          req.session.user_level = user_level
+          const userImg = sqlData.img
+          req.session.user_id = userId
+          req.session.user_level = userLevel
           req.session.username = username
-          req.session.user_img = user_img
+          req.session.user_img = userImg
 
           common.endJson(res, {
             code: 200,
             data: {
-              id: user_id,
-              level: user_level,
+              id: userId,
+              level: userLevel,
               username: username,
-              img: user_img
+              img: userImg
             }
           })
         } else {
@@ -89,14 +89,13 @@ app.post('/login', function (req, res) {
 })
 
 app.get('/getLogin', function (req, res) {
-  const user_id = req.session.user_id
-  const user_level = req.session.user_level
-  if (user_id) {
+  const userId = req.session.user_id
+  if (userId) {
     common.endJson(res, {
       code: 200,
       data: {
-        id: user_id,
-        level: user_level,
+        id: userId,
+        level: req.session.user_level,
         username: req.session.username,
         img: req.session.user_img
       }

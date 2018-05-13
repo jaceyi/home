@@ -347,7 +347,6 @@ export default {
     handleClickEdit (index) {
       const editWork = this.worksList[index]
       this.editLayer = true
-      this.addImgResult = editWork.imgSrc
       this.editContent = {
         ...editWork
       }
