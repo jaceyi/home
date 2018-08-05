@@ -1,5 +1,5 @@
 const createPublic = require('./createPublic')
-const fileUrl = './web/dist/'
+const fileUrl = './'
 
 const web = createPublic(fileUrl)
 
