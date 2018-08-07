@@ -80,6 +80,7 @@ a {
 }
 
 .home {
+  position: relative;
   width: 80vw;
   height: 80vh;
   display: flex;
@@ -201,6 +202,36 @@ a {
 
 .home__main_footer span:last-child {
   border: 0;
+}
+
+.home__menu {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.3s;
+  display: none;
+}
+
+.home__menu:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 0 0 50% 0;
+}
+
+.home__menu i {
+  width: 16px;
+  height: 16px;
+  margin: 2px;
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.home__menu i:nth-child(4) {
+  border-radius: 0 0 50% 0;
 }
 
 @media screen and (max-width: 1080px) {
