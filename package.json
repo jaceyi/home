@@ -5,15 +5,14 @@
   "author": "Jace <yijinchun@outlook.com>",
   "private": true,
   "scripts": {
-    "ts": "ts-node src/index.ts"
+    "server": "ts-node src/index.ts"
   },
   "devDependencies": {
-    "nodemon": "^1.18.3",
-    "ts-loader": "^4.4.2",
     "ts-node": "^7.0.0",
     "typescript": "^3.0.1"
   },
   "dependencies": {
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "socket.io": "^2.1.1"
   }
 }
