@@ -12,9 +12,10 @@
   喜欢钻研和挑战，沉迷代码无法自拔~" />
   <title>yi个程序猿 - 易进春的个人网站【Web前端开发】</title>
   <link rel="shortcut icon" type="image/x-icon" href="http://yijic.com/public/images/favicon.ico" />
-  <link rel="stylesheet" href="./public/style//animate.css">
-  <link rel="stylesheet" href="./public/style/main.css">
-  <script src="./public/js/vue.min.js"></script>
+  <link rel="stylesheet" href="../style/animate.css">
+  <link rel="stylesheet" href="../style/main.css">
+  <link rel="stylesheet" href="./style.css">
+  <script src="../js/vue.min.js"></script>
 </head>
 
 <body>
@@ -23,7 +24,7 @@
     <div class="container container__index">
       <div class="index animated" :class="{zoomOut: !indexState}" v-if="indexShowState">
         <div class="index__avatar" @click="handleClickAvatar">
-          <img class="img" src="./public/images//tx.jpg" alt="Avatar">
+          <img class="img" src="../images//tx.jpg" alt="Avatar">
         </div>
         <div class="index__text">
           <a href="javascript:;" class="index__text_item active">Home</a>&nbsp;·&nbsp;
@@ -37,7 +38,7 @@
         <div class="home__main">
           <header class="home__main_header">
             <div class="home__logo">
-              <img class="img" src="http://yijic.com/public/images/favicon.ico" alt="">
+              <img class="img" src="../images/favicon.ico" alt="">
             </div>
             <nav class="home__nav">
               <a href="javascript:;" class="home__nav_item active">Home</a>
@@ -99,7 +100,7 @@
       </div>
     </div>
   </div>
-  <script src="./public/js/index.js"></script>
+  <script src="./index.js"></script>
 </body>
 
 </html>

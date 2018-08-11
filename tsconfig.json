@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "sourceMap": true,
-    "allowUnreachableCode": true
+    "target": "es2018",
+    "module": "commonjs",
+    "outDir": "dist",
+    "sourceMap": true
   },
   "include": [
-    "./ts/**/*"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules"

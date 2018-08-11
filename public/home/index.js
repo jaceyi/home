@@ -2,8 +2,8 @@ var vm = new Vue({
   el: '#app',
   data: {
     indexState: true,
-    indexShowState: false,
-    homeShowState: true
+    indexShowState: true,
+    homeShowState: false
   },
 
   methods: {
