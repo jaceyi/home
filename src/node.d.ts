@@ -1,3 +1,3 @@
-declare module 'fs' {
-  export function readFile(urlStr: string, callback: object);
-}
+declare module 'fs';
+declare module 'http';
+declare module 'socket.io';

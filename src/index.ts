@@ -1,9 +1,13 @@
 /// <reference path="node.d.ts"/>
 
-import * as express from 'express';
 import {readFile} from 'fs';
+import * as express from 'express';
+import * as http from 'http';
+import * as socket from 'socket.io';
 
 const app = express();
+const h = http.Server(app);
+const io = socket(h);
 
 app.use('/', express.static('index'));
 app.use('/public', express.static('public'));
@@ -18,4 +22,13 @@ app.use(function(req, res) {
   });
 });
 
-app.listen(3000);
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('chat message', function(info){
+    io.emit('chat message', info);
+  });
+});
+
+h.listen(3000, function(){
+  console.log('listening on *:3000');
+});
