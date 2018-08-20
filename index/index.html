@@ -68,19 +68,24 @@
         </div>
         <div class="home__img">
           <div class="chat__container">
-            <!--<div class="chat__header">当前在线人数：1人</div>-->
-            <div class="chat__context_container">
+            <div class="chat__header" v-text="'当前在线人数：' + userNumber + '人'"></div>
+            <div class="chat__context_container" ref="chatContainer">
               <div class="chat__context">
                 <div class="chat__context_row" v-for="item in chatMessageList">
                   <div class="chat__context_item">
-                    <div class="chat__context_info">Name：{{item.userName}}</div>
-                    <div class="chat__context_text">{{item.message}}</div>
+                    <div class="chat__context_info"v-text="'Name：' + item.userName"></div>
+                    <div class="chat__context_text" v-text="item.message"></div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="chat__input_box">
+            <div class="chat__input_box" v-if="inputShowState">
               <input type="text" class="chat__input" v-model="chatValue" placeholder="输入聊天内容 按回车发送" v-on:keyup.13="submitChatInfo">
+              <p class="chat__input_title">当前昵称：<span v-text="userName" v-on:click="handleClickInputTitle"></span></p>
+            </div>
+            <div class="chat__input_box" v-else>
+              <input type="text" class="chat__input" v-model="userName" placeholder="请输入昵称 按回车保存" v-on:keyup.13="saveChatInfo">
+              <p class="chat__input_title animated fadeIn" v-if="userName">请输入昵称 按回车保存</p>
             </div>
           </div>
         </div>

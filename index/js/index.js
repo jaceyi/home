@@ -7,11 +7,14 @@ var vm = new Vue({
     indexShowState: true,
     homeShowState: false,
     chatValue: '',
-    chatMessageList: []
+    chatMessageList: [],
+    userNumber: 0,
+    userName: '',
+    inputShowState: false
   },
 
   methods: {
-    handleClickAvatar() {
+    handleClickAvatar: function() {
       this.indexState = false;
 
       var self = this;
@@ -21,15 +24,28 @@ var vm = new Vue({
       }, 500)
     },
 
-    submitChatInfo() {
+    submitChatInfo: function() {
       var chatValue = this.chatValue;
+      var userName = this.userName;
+
       if (chatValue.length) {
         socket.emit('chat message', {
           message: chatValue,
-          userName: 'Jace'
+          userName: userName
         });
         this.chatValue = '';
       }
+    },
+
+    saveChatInfo: function() {
+      var userName = this.userName;
+      if (userName) {
+        this.inputShowState = true;
+      }
+    },
+
+    handleClickInputTitle: function () {
+      this.inputShowState = false;
     }
   },
 
@@ -37,7 +53,15 @@ var vm = new Vue({
     var self = this;
 
     socket.on('chat message', function(info){
-      self.chatMessageList.push(info)
+      self.chatMessageList.push(info);
+      self.$nextTick(function () {
+        var chatContainer = self.$refs.chatContainer;
+        chatContainer.scrollTop = chatContainer.offsetHeight;
+      })
+    });
+
+    socket.on('updateUserNumber', function(info){
+      self.userNumber = info.userNumber
     });
   }
 });

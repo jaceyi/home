@@ -3,11 +3,11 @@
 import {readFile} from 'fs';
 import * as express from 'express';
 import * as http from 'http';
-import * as socket from 'socket.io';
+import chat from './modules/chat';
 
 const app = express();
 const h = http.Server(app);
-const io = socket(h);
+chat(h);
 
 app.use('/', express.static('index'));
 app.use('/public', express.static('public'));
@@ -19,13 +19,6 @@ app.use(function(req, res) {
       res.status(404).end(JSON.stringify(error));
     }
     res.status(404).end(data);
-  });
-});
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('chat message', function(info){
-    io.emit('chat message', info);
   });
 });
 

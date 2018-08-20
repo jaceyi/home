@@ -279,11 +279,23 @@ a {
   height: 36px;
 }
 
+.chat__input_title {
+  margin-top: 8px;
+  margin-left: 10px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+}
+
+.chat__input_title span {
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+}
+
 .chat__input {
   height: 100%;
   width: 100%;
   border-radius: 18px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.15);
   outline: none;
   border: 0;
   padding: 8px 15px;
