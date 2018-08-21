@@ -10,7 +10,8 @@ var vm = new Vue({
     chatMessageList: [],
     userNumber: 0,
     userName: '',
-    inputShowState: false
+    inputShowState: false,
+    storage: {}
   },
 
   methods: {
@@ -41,22 +42,28 @@ var vm = new Vue({
       var userName = this.userName;
       if (userName) {
         this.inputShowState = true;
+        this.storage.setItem('userName', this.userName);
       }
     },
 
-    handleClickInputTitle: function () {
+    handleClickUserName: function () {
       this.inputShowState = false;
     }
   },
 
   mounted() {
     var self = this;
+    this.storage = window.localStorage;
+    var userName = this.storage.getItem('userName');
+    if (userName) {
+      this.userName = userName;
+      this.inputShowState = true;
+    }
 
     socket.on('chat message', function(info){
       self.chatMessageList.push(info);
       self.$nextTick(function () {
-        var chatContainer = self.$refs.chatContainer;
-        chatContainer.scrollTop = chatContainer.offsetHeight;
+        self.$refs.chatContainer.scrollTop = self.$refs.chatContext.offsetHeight;
       })
     });
 
