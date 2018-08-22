@@ -11,7 +11,8 @@ var vm = new Vue({
     userNumber: 0,
     userName: '',
     inputShowState: false,
-    storage: {}
+    storage: {},
+    userId: ''
   },
 
   methods: {
@@ -27,22 +28,28 @@ var vm = new Vue({
 
     submitChatInfo: function() {
       var chatValue = this.chatValue;
-      var userName = this.userName;
 
       if (chatValue.length) {
         socket.emit('chat message', {
           message: chatValue,
-          userName: userName
+          userName: this.userName,
+          userId: this.userId
         });
         this.chatValue = '';
       }
     },
 
-    saveChatInfo: function() {
+    saveUserInfo: function() {
       var userName = this.userName;
       if (userName) {
         this.inputShowState = true;
         this.storage.setItem('userName', this.userName);
+        var userId = this.storage.getItem('userId');
+        if (!userId) {
+          var _userId = String(Math.floor(Math.random() * 8999990 + 1000000));
+          this.userId = userId;
+          this.storage.setItem('userId', _userId);
+        }
       }
     },
 
@@ -55,12 +62,17 @@ var vm = new Vue({
     var self = this;
     this.storage = window.localStorage;
     var userName = this.storage.getItem('userName');
-    if (userName) {
+    var userId = this.storage.getItem('userId');
+    if (userName && userId) {
       this.userName = userName;
+      this.userId = userId;
       this.inputShowState = true;
     }
 
     socket.on('chat message', function(info){
+      if (info.userId === self.userId) {
+        info.active = true;
+      }
       self.chatMessageList.push(info);
       self.$nextTick(function () {
         self.$refs.chatContainer.scrollTop = self.$refs.chatContext.offsetHeight;

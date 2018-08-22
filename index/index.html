@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
   <meta charset="UTF-8">
@@ -71,7 +71,7 @@
             <div class="chat__header" v-text="'当前在线人数：' + userNumber + '人'"></div>
             <div class="chat__context_container" ref="chatContainer">
               <div class="chat__context" ref="chatContext">
-                <div class="chat__context_row" v-for="item in chatMessageList">
+                <div class="chat__context_row" v-for="item in chatMessageList" :key="item.userId" :class="{active: item.active}">
                   <div class="chat__context_item">
                     <div class="chat__context_info"v-text="'Name：' + item.userName"></div>
                     <div class="chat__context_text" v-text="item.message"></div>
@@ -84,7 +84,7 @@
               <p class="chat__input_title">当前昵称：<span v-text="userName" v-on:click="handleClickUserName"></span></p>
             </div>
             <div class="chat__input_box" v-else>
-              <input type="text" class="chat__input" v-model="userName" placeholder="请输入昵称 按回车保存" v-on:keyup.13="saveChatInfo">
+              <input type="text" class="chat__input" v-model="userName" placeholder="请输入昵称 按回车保存" v-on:keyup.13="saveUserInfo">
               <p class="chat__input_title animated fadeIn" v-if="userName">请输入昵称 按回车保存</p>
             </div>
           </div>
