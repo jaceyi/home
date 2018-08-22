@@ -34,7 +34,7 @@
     </div>
     <div class="container container__home" v-if="homeShowState">
       <div class="home animated zoomIn">
-        <div class="home__main">
+        <div class="home__main" v-on:click="handleClickMainBox">
           <header class="home__main_header">
             <div class="home__logo">
               <img class="img" src="../public/images/favicon.ico" alt="">
@@ -65,10 +65,13 @@
             <span title="Email：yijinchun@outlook.com">Email：yijinchun@outlook.com</span>
             <span title="微博：yi个程序猿">微博：yi个程序猿</span>
           </footer>
+          <div class="icon__message" v-on:click="handleClickMessageBtn">
+            <img class="img" src="../public/images/icon__message.png" alt="">
+          </div>
         </div>
-        <div class="home__img">
+        <div class="home__img" :class="{active: imgBoxShowState}">
           <div class="chat__container">
-            <div class="chat__header" v-text="'当前在线人数：' + userNumber + '人'"></div>
+            <div class="chat__header" v-text="'当前在线人数：' + userCount + '人'"></div>
             <div class="chat__context_container" ref="chatContainer">
               <div class="chat__context" ref="chatContext">
                 <div class="chat__context_row" v-for="item in chatMessageList" :key="item.userId" :class="{active: item.active}">

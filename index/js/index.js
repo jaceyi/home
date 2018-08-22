@@ -8,25 +8,26 @@ var vm = new Vue({
     homeShowState: false,
     chatValue: '',
     chatMessageList: [],
-    userNumber: 0,
+    userCount: 0,
     userName: '',
     inputShowState: false,
     storage: {},
-    userId: ''
+    userId: '',
+    imgBoxShowState: false
   },
 
   methods: {
-    handleClickAvatar: function() {
+    handleClickAvatar: function () {
       this.indexState = false;
 
       var self = this;
-      setTimeout(function() {
+      setTimeout(function () {
         self.indexShowState = false;
         self.homeShowState = true;
       }, 500)
     },
 
-    submitChatInfo: function() {
+    submitChatInfo: function () {
       var chatValue = this.chatValue;
 
       if (chatValue.length) {
@@ -39,7 +40,7 @@ var vm = new Vue({
       }
     },
 
-    saveUserInfo: function() {
+    saveUserInfo: function () {
       var userName = this.userName;
       if (userName) {
         this.inputShowState = true;
@@ -55,6 +56,15 @@ var vm = new Vue({
 
     handleClickUserName: function () {
       this.inputShowState = false;
+    },
+
+    handleClickMessageBtn: function (e) {
+      e.stopPropagation();
+      this.imgBoxShowState = true;
+    },
+
+    handleClickMainBox: function () {
+      this.imgBoxShowState = false;
     }
   },
 
@@ -69,7 +79,7 @@ var vm = new Vue({
       this.inputShowState = true;
     }
 
-    socket.on('chat message', function(info){
+    socket.on('chat message', function (info) {
       if (info.userId === self.userId) {
         info.active = true;
       }
@@ -79,8 +89,8 @@ var vm = new Vue({
       })
     });
 
-    socket.on('updateUserNumber', function(info){
-      self.userNumber = info.userNumber
+    socket.on('updateUserCount', function (info) {
+      self.userCount = info.userCount
     });
   }
 });
