@@ -9,94 +9,103 @@
   家乡陕西，2016年来到上海，目前从事前端行业，就职于UCloud。
   UI设计出身，目前技术栈：React、Vue、Node、微信小程序。
   从事前端开发相关工作一年半，PC网站、移动网站、微信相关（公众号 | 小程序 | 小游戏）开发、网页设计等均有实际项目经验。
-  喜欢钻研和挑战，沉迷代码无法自拔~" />
+  喜欢钻研和挑战，沉迷代码无法自拔~"/>
   <title>yi个程序猿 - 易进春的个人网站【Web前端开发】</title>
-  <link rel="shortcut icon" type="image/x-icon" href="../public/images/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="../public/images/favicon.ico"/>
   <link rel="stylesheet" href="./style/animate.css">
   <link rel="stylesheet" href="./style/style.css">
   <script src="./js/vue.min.js"></script>
 </head>
 
 <body>
-  <div id="app">
-    <div class="container__bg"></div>
-    <div class="container container__index">
-      <div class="index animated" :class="{zoomOut: !indexState}" v-if="indexShowState">
-        <div class="index__avatar" @click="handleClickAvatar">
-          <img class="img" src="../public/images/tx.jpg" alt="Avatar">
-        </div>
-        <div class="index__text">
-          <a href="javascript:;" class="index__text_item active">Home</a>&nbsp;·&nbsp;
-          <a href="http://blog.yijic.com" class="index__text_item">Blog</a>&nbsp;·&nbsp;
-          <a href="https://github.com/jaceyi" class="index__text_item">Github</a>
-        </div>
+<div id="app">
+  <div class="container__bg"></div>
+  <div class="container container__index">
+    <div class="index animated" :class="{zoomOut: !indexState}" v-if="indexShowState">
+      <div class="index__avatar" @click="handleClickAvatar">
+        <img class="img" src="../public/images/tx.jpg" alt="Avatar">
+      </div>
+      <div class="index__text">
+        <a href="javascript:;" class="index__text_item active">Home</a>&nbsp;·&nbsp;
+        <a href="http://blog.yijic.com" class="index__text_item">Blog</a>&nbsp;·&nbsp;
+        <a href="https://github.com/jaceyi" class="index__text_item">Github</a>
       </div>
     </div>
-    <div class="container container__home" v-if="homeShowState">
-      <div class="home animated zoomIn">
-        <div class="home__main" v-on:click="handleClickMainBox">
-          <header class="home__main_header">
-            <div class="home__logo">
-              <img class="img" src="../public/images/favicon.ico" alt="">
-            </div>
-            <nav class="home__nav">
-              <a href="javascript:;" class="home__nav_item active">Home</a>
-              <a href="http://blog.yijic.com" class="home__nav_item">Blog</a>
-              <a href="https://github.com/jaceyi" class="home__nav_item">Github</a>
-            </nav>
-          </header>
-          <main class="home__main_main">
-            <h1 class="home__main_title">Welcome to visit my
-              <br/>
-              <span>homepage!</span>
-            </h1>
-            <div class="home__main_padding"></div>
-            <div class="home__main_text">
-              <p>你好，我叫易进春，今年20岁。</p>
-              <p>家乡陕西，2016年来到上海，目前从事前端行业，就职于UCloud。</p>
-              <p>UI设计出身，目前技术栈：React、Vue、Node、微信小程序。</p>
-              <p>从事前端开发相关工作一年半，PC网站、移动网站、微信相关（公众号 | 小程序 | 小游戏）开发、网页设计等均有实际项目经验。</p>
-              <p>喜欢钻研和挑战，沉迷代码无法自拔~</p>
-            </div>
-          </main>
-          <footer class="home__main_footer">
-            <span title="微信：sg6498601">微信：sg6498601</span>
-            <span title="QQ：6498601">QQ：6498601</span>
-            <span title="Email：yijinchun@outlook.com">Email：yijinchun@outlook.com</span>
-            <span title="微博：yi个程序猿">微博：yi个程序猿</span>
-          </footer>
-          <div class="icon__message" v-on:click="handleClickMessageBtn">
-            <img class="img" src="../public/images/icon__message.png" alt="">
+  </div>
+  <div class="container container__home" v-if="homeShowState">
+    <div class="home animated zoomIn">
+      <div class="home__main" v-on:click="handleClickMainBox">
+        <header class="home__main_header">
+          <div class="home__logo">
+            <img class="img" src="../public/images/favicon.ico" alt="">
           </div>
+          <nav class="home__nav">
+            <a href="javascript:;" class="home__nav_item active">Home</a>
+            <a href="http://blog.yijic.com" class="home__nav_item">Blog</a>
+            <a href="https://github.com/jaceyi" class="home__nav_item">Github</a>
+          </nav>
+        </header>
+        <main class="home__main_main">
+          <h1 class="home__main_title">Welcome to visit my
+            <br/>
+            <span>homepage!</span>
+          </h1>
+          <div class="home__main_padding"></div>
+          <div class="home__main_text">
+            <p>你好，我叫易进春，今年20岁。</p>
+            <p>家乡陕西，2016年来到上海，目前从事前端行业，就职于UCloud。</p>
+            <p>UI设计出身，目前技术栈：React、Vue、Node、微信小程序。</p>
+            <p>从事前端开发相关工作一年半，PC网站、移动网站、微信相关（公众号 | 小程序 | 小游戏）开发、网页设计等均有实际项目经验。</p>
+            <p>喜欢钻研和挑战，沉迷代码无法自拔~</p>
+          </div>
+        </main>
+        <footer class="home__main_footer">
+          <span title="微信：sg6498601">微信：sg6498601</span>
+          <span title="QQ：6498601">QQ：6498601</span>
+          <span title="Email：yijinchun@outlook.com">Email：yijinchun@outlook.com</span>
+          <span title="微博：yi个程序猿">微博：yi个程序猿</span>
+        </footer>
+        <div class="icon__message" v-on:click="handleClickMessageBtn">
+          <img class="img" src="../public/images/icon__message.png" alt="">
         </div>
-        <div class="home__img" :class="{active: imgBoxShowState}">
-          <div class="chat__container">
-            <div class="chat__header" v-text="'当前在线人数：' + userCount + '人'"></div>
-            <div class="chat__context_container" ref="chatContainer">
-              <div class="chat__context" ref="chatContext">
-                <div class="chat__context_row" v-for="item in chatMessageList" :key="item.userId" :class="{active: item.active}">
-                  <div class="chat__context_item">
-                    <div class="chat__context_info"v-text="'Name：' + item.userName"></div>
-                    <div class="chat__context_text" v-text="item.message"></div>
-                  </div>
+      </div>
+      <div class="home__img" :class="{active: imgBoxShowState}">
+        <div class="chat__container">
+          <div class="chat__header" v-text="'当前在线人数：' + userCount + '人'"></div>
+          <div class="chat__context_container" ref="chatContainer">
+            <div class="chat__context" ref="chatContext">
+              <div class="chat__context_row" v-for="item in chatMessageList" :key="item.userId"
+                   :class="{active: item.active}">
+                <div class="chat__context_item">
+                  <div class="chat__context_info" v-text="'Name：' + item.userName"></div>
+                  <div class="chat__context_text" v-text="item.message"></div>
                 </div>
               </div>
             </div>
-            <div class="chat__input_box" v-if="inputShowState">
-              <input type="text" class="chat__input" v-model="chatValue" placeholder="输入聊天内容 按回车发送" v-on:keyup.13="submitChatInfo">
-              <p class="chat__input_title">当前昵称：<span v-text="userName" v-on:click="handleClickUserName"></span></p>
+          </div>
+          <div class="chat__input_box" v-if="inputShowState">
+            <div class="chat__input_row">
+              <input type="text" class="chat__input" v-model="chatValue" placeholder="输入聊天内容"
+                     v-on:keyup.13="submitChatInfo">
+              <button class="chat__btn" v-on:click="submitChatInfo">发送</button>
             </div>
-            <div class="chat__input_box" v-else>
-              <input type="text" class="chat__input" v-model="userName" placeholder="请输入昵称 按回车保存" v-on:keyup.13="saveUserInfo">
-              <p class="chat__input_title animated fadeIn" v-if="userName">请输入昵称 按回车保存</p>
+            <p class="chat__input_title">当前昵称：<span v-text="userName" v-on:click="handleClickUserName"></span></p>
+          </div>
+          <div class="chat__input_box" v-else>
+            <div class="chat__input_row">
+              <input type="text" class="chat__input" v-model="userName" placeholder="请输入昵称 按回车保存"
+                     v-on:keyup.13="saveUserInfo">
+              <button class="chat__btn" v-on:click="saveUserInfo">保存</button>
             </div>
+            <p class="chat__input_title animated fadeIn" v-if="userName">请输入昵称</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="./js/index.js"></script>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="./js/index.js"></script>
 </body>
 
 </html>
