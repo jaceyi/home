@@ -370,7 +370,7 @@ a {
     height: 80px;
   }
   .home__img {
-    width: 0%;
+    width: 0;
     position: absolute;
     right: 0;
     box-shadow: -5px 0 20px #aaa;

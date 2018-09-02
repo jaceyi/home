@@ -9,7 +9,7 @@ const app = express();
 const h = http.Server(app);
 chat(h);
 
-app.use('/', express.static('index'));
+app.use('/', express.static('home'));
 app.use('/public', express.static('public'));
 app.use('/files', express.static('files'));
 
