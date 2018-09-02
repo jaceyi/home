@@ -91,6 +91,14 @@ a {
   border-bottom-color: #777;
 }
 
+.container__home {
+  display: none;
+}
+
+.container__home.active {
+  display: flex;
+}
+
 .home {
   position: relative;
   width: 80vw;

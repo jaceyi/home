@@ -32,7 +32,7 @@
       </div>
     </div>
   </div>
-  <div class="container container__home" v-if="homeShowState">
+  <div class="container container__home" :class="{active: homeShowState}" v-if="homeShowState">
     <div class="home animated zoomIn">
       <div class="home__main" v-on:click="handleClickMainBox">
         <header class="home__main_header">
