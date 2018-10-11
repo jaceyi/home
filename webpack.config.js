@@ -1,30 +1,30 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './admin/index.js',
+  entry: './admin/src',
+  mode: 'production',
+
   output: {
-    path: path.resolve(__diname, 'admin'),
-    filename: 'dist.js'
+    path: path.resolve(__dirname, 'admin/dist'),
+    filename: 'bundle.js'
   },
+
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: 'style-loader'
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: true
-            }
-          },
-          {
-            loader: 'sass-loader'
-          }
-        ]
+        test: /\.(js)$/,
+        loader: 'babel-loader',
+        query: {
+          presets: ['react']
+        }
       }
     ]
-  }
-}
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: 'admin/src/index.html'
+    })
+  ]
+};
