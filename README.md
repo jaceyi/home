@@ -6,8 +6,12 @@
 # 安装依赖
 yarn or npm install
 
-# 启动 node 服务
+# 启动node服务
 yarn server
 
-# 启动编译admin的webpack watch检测
+# 启动admin的dev服务
+yarn start
+
+# 编译admin代码
+yarn build
 ```

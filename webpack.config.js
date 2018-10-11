@@ -3,7 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   entry: './admin/src',
-  mode: 'production',
 
   output: {
     path: path.resolve(__dirname, 'admin/dist'),
@@ -26,5 +25,14 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'admin/src/index.html'
     })
-  ]
+  ],
+
+  devServer: {
+    progress: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000'
+      }
+    }
+  }
 };

@@ -12,8 +12,15 @@ chat(http);
 app.use('/', express.static('home'));
 app.use('/public', express.static('public'));
 app.use('/files', express.static('files'));
-
 app.use('/admin', express.static('admin/dist'));
+
+app.get('/api/getUserInfo', function (req, res) {
+  res.json({
+    name: 'Jace',
+    age: 18
+  });
+  res.end()
+});
 
 app.use(function(req, res) {
   readFile('error/404.html', function (error, data) {
