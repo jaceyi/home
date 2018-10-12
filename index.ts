@@ -3,17 +3,20 @@
 import {resolve} from 'path';
 import {Server} from 'http';
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
 import chat from './src/modules/chat';
+import * as handles from './src/modules/handles';
 
 const app = express();
 const http = new Server(app);
 chat(http);
 
-app.get('/api/getUserInfo', function (req, res) {
-  res.json({
-    name: 'Jace',
-    age: 18
-  });
+// Add post body parse
+app.use(bodyParser.json());
+// 代理全部的api请求
+app.all('/api/:apiPath', function (req, res) {
+  const _handle = handles[req.params.apiPath];
+  if (_handle) _handle(req, res);
 });
 
 // 静态资源
