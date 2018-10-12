@@ -1,6 +1,5 @@
-export function getUserInfo(req, res) {
+export function login(req, res) {
   res.json({
-    name: 'Jace',
-    age: 18
+    name: 'Jace'
   });
 }
