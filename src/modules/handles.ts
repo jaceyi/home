@@ -1,5 +1,5 @@
 export function login(req, res) {
   res.json({
-    name: 'Jace'
+    name: req.body.username
   });
 }

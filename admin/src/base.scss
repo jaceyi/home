@@ -15,11 +15,24 @@
     width: 400px;
     padding: 30px;
     margin: 36vh auto 0;
-    background-color: rgba($color: #fff, $alpha: 0.3);
+    background-color: rgba($color: #fff, $alpha: 0.6);
     border-radius: 5px;
   }
 
   .login_form_button {
     width: 100%;
   }
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.container_sider_menu {
+  height: 100%;
+}
+
+.container_header {
+  background-color: #fff;
 }
