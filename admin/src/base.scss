@@ -3,3 +3,23 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  background: url("../../public/images/bg_1.jpg") no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+
+  .login_form {
+    width: 400px;
+    padding: 30px;
+    margin: 36vh auto 0;
+    background-color: rgba($color: #fff, $alpha: 0.3);
+    border-radius: 5px;
+  }
+
+  .login_form_button {
+    width: 100%;
+  }
+}

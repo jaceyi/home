@@ -1,14 +1,26 @@
 import React from 'react';
 import req from "../utils/request";
 import {Redirect} from "react-router-dom";
-import {Button, message} from 'antd';
+import {Form, Icon, Input, Button, message} from 'antd';
 
 class Login extends React.Component {
   render() {
     if (this.props.loginInfo) return <Redirect to={'/'}/>;
     return (
-      <div>
-        <Button onClick={() => this.handleClickLogin()}>Login</Button>
+      <div className={'login'}>
+        <Form className="login_form">
+          <Form.Item>
+            <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
+          </Form.Item>
+          <Form.Item>
+            <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
+          </Form.Item>
+          <Form.Item style={{margin: 0}}>
+            <Button type="primary" onClick={() => this.handleClickLogin()} className="login_form_button">
+              Log in
+            </Button>
+          </Form.Item>
+        </Form>
       </div>
     )
   }
