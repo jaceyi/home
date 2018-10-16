@@ -2,6 +2,8 @@ import React from 'react';
 import req from "../utils/request";
 import {Redirect} from "react-router-dom";
 import {Form, Icon, Input, Button, message} from 'antd';
+import {connect} from 'react-redux';
+import {SET_USER_INFO} from '../store/type';
 
 class Login extends React.Component {
   componentDidMount() {
@@ -9,7 +11,7 @@ class Login extends React.Component {
   }
 
   render() {
-    if (this.props.loginInfo) return <Redirect to={'/'}/>;
+    if (this.props.userInfo) return <Redirect to={'/'}/>;
     const iconStyle = {
       color: 'rgba(0,0,0,.25)'
     };
@@ -57,7 +59,10 @@ class Login extends React.Component {
             res => {
               const {data} = res;
               message.success(`欢迎登录：${data.name}`, 1);
-              this.props.setLoginInfo(data)
+              this.props.dispatch({
+                type: SET_USER_INFO,
+                payload: data
+              })
             }
           )
         }
@@ -66,4 +71,14 @@ class Login extends React.Component {
 }
 
 const WrappedNormalLogin = Form.create()(Login);
-export default WrappedNormalLogin;
+function mapStateToProps(state) {
+  const {
+    userInfo
+  } = state;
+
+  return {
+    userInfo
+  }
+}
+
+export default connect(mapStateToProps)(WrappedNormalLogin);

@@ -1,37 +1,38 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
-import {Layout, Menu} from 'antd';
-
-const {Header, Sider, Content} = Layout;
+import {connect} from 'react-redux';
+import {Layout} from 'antd';
+import NavMenu from './NavMenu';
+import Main from './Main';
 
 class Index extends React.Component {
   render() {
     const {
-      loginInfo
+      userInfo
     } = this.props;
 
-    if (!loginInfo) return <Redirect to={'/login'}/>;
+    if (!userInfo) return <Redirect to={'/login'}/>;
     return (
       <Layout className={'container'}>
-        <Sider className={'container_sider'}>
-          <Menu className={'container_sider_menu'}>
-            <Menu.Item key="1">
-              Menu1
-            </Menu.Item>
-            <Menu.Item key="2">
-              Menu2
-            </Menu.Item>
-          </Menu>
-        </Sider>
+        <NavMenu/>
         <Layout>
-          <Header className={'container_header'}>Hello {loginInfo.name}!</Header>
-          <Content>
-            Content
-          </Content>
+          <Layout.Header className={'container_header'}>Hello {userInfo.name}!</Layout.Header>
+          <Layout.Content>
+            <Main/>
+          </Layout.Content>
         </Layout>
       </Layout>
     )
   }
 }
 
-export default Index;
+function mapStateToProps(state) {
+  const {
+    userInfo
+  } = state;
+
+  return {
+    userInfo
+  }
+}
+export default connect(mapStateToProps)(Index);
