@@ -33,6 +33,14 @@
   height: 100%;
   background-color: #fff;
   border-right: 1px solid #eee;
+
+  .ant-menu-submenu-selected {
+    background-color: #e6f7ff;
+
+    &.ant-menu-submenu-open {
+      background-color: #fff;
+    }
+  }
 }
 
 .container_sider_header {

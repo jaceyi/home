@@ -1,5 +1,5 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom';
+import {Redirect, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Layout} from 'antd';
 import NavMenu from './NavMenu';
@@ -11,7 +11,7 @@ class Index extends React.Component {
       userInfo
     } = this.props;
 
-    if (!userInfo) return <Redirect to={'/login'}/>;
+    if (!userInfo) return <Redirect to={`/login`}/>;
     return (
       <Layout className={'container'}>
         <NavMenu/>
@@ -35,4 +35,6 @@ function mapStateToProps(state) {
     userInfo
   }
 }
-export default connect(mapStateToProps)(Index);
+
+
+export default connect(mapStateToProps)(withRouter(Index));

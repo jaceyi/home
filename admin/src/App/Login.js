@@ -1,6 +1,6 @@
 import React from 'react';
 import req from "../utils/request";
-import {Redirect} from "react-router-dom";
+import {Redirect, withRouter} from "react-router-dom";
 import {Form, Icon, Input, Button, message} from 'antd';
 import {connect} from 'react-redux';
 import {SET_USER_INFO} from '../store/type';
@@ -81,4 +81,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(WrappedNormalLogin);
+export default connect(mapStateToProps)(withRouter(WrappedNormalLogin));

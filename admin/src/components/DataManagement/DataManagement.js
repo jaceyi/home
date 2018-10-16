@@ -1,6 +1,6 @@
 import React from 'react';
 
-class DataEditing extends React.Component {
+class DataManagement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {}
@@ -8,9 +8,9 @@ class DataEditing extends React.Component {
 
   render() {
     return (
-      <div>DataEditing</div>
+      <div>DataManagement</div>
     )
   }
 }
 
-export default DataEditing;
+export default DataManagement;
