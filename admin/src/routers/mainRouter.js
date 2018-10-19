@@ -1,4 +1,5 @@
 import DataManagement from '../components/DataManagement/DataManagement';
+import FileManagement from '../components/FileManagement/FileManagement';
 
 export default [
   {
@@ -32,7 +33,7 @@ export default [
       {
         path: '/FileManagement',
         name: '文件管理',
-        component: null
+        component: FileManagement
       }
     ]
   },

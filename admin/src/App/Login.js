@@ -1,6 +1,6 @@
 import React from 'react';
-import req from "../utils/request";
-import {Redirect, withRouter} from "react-router-dom";
+import req from '../utils/request';
+import {Redirect, withRouter} from 'react-router-dom';
 import {Form, Icon, Input, Button, message} from 'antd';
 import {connect} from 'react-redux';
 import {SET_USER_INFO} from '../store/type';
@@ -19,32 +19,34 @@ class Login extends React.Component {
 
     return (
       <div className={'login'}>
-        <Form className="login_form">
+        <Form className={'login_form'}>
           <Form.Item>
             {getFieldDecorator('username', {
               rules: [{ required: true, message: 'Please input your username!' }],
               initialValue: 'Jace'
             })(
               <Input
-                prefix={<Icon type="user" style={iconStyle}/>}
-                placeholder="Username"/>
+                prefix={<Icon type={'user'} style={iconStyle}/>}
+                placeholder={'Username'}/>
             )}
           </Form.Item>
           <Form.Item>
             {getFieldDecorator('password', {
-              rules: [{ required: true, message: 'Please input your Password!' }],
+              rules: [{ required: true, message: 'Please input your password!' }],
               initialValue: '000000'
             })(
               <Input
-                prefix={<Icon type="lock" style={iconStyle}/>}
-                type="password"
-                placeholder="Password"/>
+                prefix={<Icon type={'lock'} style={iconStyle}/>}
+                type={'password'}
+                placeholder={'Password'}/>
             )}
           </Form.Item>
           <Form.Item style={{margin: 0}}>
-            <Button type="primary" onClick={() => this.handleClickLogin()} className="login_form_button">
-              Log in
-            </Button>
+            <Button
+              type={'primary'}
+              onClick={() => this.handleClickLogin()}
+              className={'login_form_button'}
+            >Log in</Button>
           </Form.Item>
         </Form>
       </div>

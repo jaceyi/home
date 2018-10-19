@@ -1,22 +1,27 @@
-/// <reference path="src/node.d.ts"/>
-
 import {resolve} from 'path';
 import {Server} from 'http';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import chat from './src/modules/chat';
 import * as handles from './src/modules/handles';
+import * as connectMultiparty from 'connect-multiparty';
 
 const app = express();
 const http = new Server(app);
 chat(http);
 
-// Add post body parse
+// 添加请求body参数解析
 app.use(bodyParser.json());
+// 添加请求form-data参数解析
+app.use(connectMultiparty());
 // 代理全部的api请求
-app.all('/api/:apiPath', function (req, res) {
+app.all('/api/:apiPath', function(req, res) {
   const _handle = handles[req.params.apiPath];
-  if (_handle) _handle(req, res);
+  if (_handle) {
+    _handle(req, res);
+  } else {
+    res.sendStatus(404);
+  }
 });
 
 // 静态资源
@@ -35,6 +40,6 @@ app.use(function(req, res) {
   });
 });
 
-http.listen(3000, function(){
+http.listen(3000, function() {
   console.log('listening on *:3000');
 });

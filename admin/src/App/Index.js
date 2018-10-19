@@ -16,8 +16,10 @@ function Index(props) {
     <Layout className={'container'}>
       <NavMenu/>
       <Layout>
-        <Layout.Header className={'container_header'}>Hello {userInfo.name}!</Layout.Header>
-        <Layout.Content>
+        <Layout.Header className={'container_header'}>
+          Hello {userInfo.name}!
+        </Layout.Header>
+        <Layout.Content className={'container_main'}>
           <Main/>
         </Layout.Content>
       </Layout>

@@ -14,6 +14,7 @@ function NavMenu(props) {
       <Menu
         className={'container_sider_menu'}
         mode={'inline'}
+        defaultOpenKeys={['1', '2']}
         selectedKeys={[props.location.pathname]}>
         {
           mainRouter.map((item, index) => {
