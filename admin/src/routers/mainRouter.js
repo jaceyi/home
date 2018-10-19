@@ -2,7 +2,7 @@ import DataManagement from '../components/DataManagement/DataManagement';
 
 export default [
   {
-    path: '/DataManagement',
+    path: '/',
     name: '资料管理',
     component: DataManagement
   },
