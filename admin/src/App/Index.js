@@ -17,7 +17,7 @@ function Index(props) {
       <NavMenu/>
       <Layout>
         <Layout.Header className={'container_header'}>
-          Hello {userInfo.name}!
+          Hello {userInfo.username}!
         </Layout.Header>
         <Layout.Content className={'container_main'}>
           <Main/>

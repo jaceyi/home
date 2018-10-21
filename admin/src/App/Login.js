@@ -60,7 +60,7 @@ class Login extends React.Component {
           .then(
             res => {
               const {data} = res;
-              message.success(`欢迎登录：${data.name}`, 1);
+              message.success(`欢迎登录：${data.username}`, 1);
               this.props.dispatch({
                 type: SET_USER_INFO,
                 payload: data
