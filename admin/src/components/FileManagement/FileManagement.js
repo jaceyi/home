@@ -100,7 +100,6 @@ class FileManagement extends React.Component {
       if (!err) {
         const formData = new FormData();
         formData.append('file', values.file.file);
-        console.log(values)
         formData.append('title', values.title);
         if (values.description) {
           formData.append('description', values.description);

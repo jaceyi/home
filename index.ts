@@ -4,7 +4,6 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import chat from './src/modules/chat';
 import * as handles from './src/modules/handles';
-import * as connectMultiparty from 'connect-multiparty';
 
 const app = express();
 const http = new Server(app);
@@ -12,8 +11,6 @@ chat(http);
 
 // 添加请求body参数解析
 app.use(bodyParser.json());
-// 添加请求form-data参数解析
-app.use(connectMultiparty());
 // 代理全部的api请求
 app.all('/api/:apiPath', function(req, res) {
   const _handle = handles[req.params.apiPath];
