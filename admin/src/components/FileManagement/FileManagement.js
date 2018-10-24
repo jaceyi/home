@@ -1,18 +1,37 @@
 import React from 'react';
-import {Button, Modal, Form, Input, Upload, message, Table} from 'antd';
+import {Button, Modal, Form, Input, Upload, message, Table, Row, Col} from 'antd';
 import rq from '../../utils/request';
 
 class FileManagement extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      uploadModalVisible: false
+      uploadModalVisible: false,
+      fileList: [],
+      staticFileList: []
     }
+  }
+
+  componentWillMount() {
+    this.componentInit();
+  }
+
+  componentInit() {
+    rq.get('getStaticFileList')
+      .then(
+        res => {
+          this.setState({
+            staticFileList: res.data.data
+          })
+        }
+      )
   }
 
   render() {
     const {
-      uploadModalVisible
+      uploadModalVisible,
+      fileList,
+      staticFileList
     } = this.state;
     const {getFieldDecorator} = this.props.form;
     const columns = [
@@ -27,8 +46,12 @@ class FileManagement extends React.Component {
       },
       {
         title: '文件',
-        dataIndex: 'file',
-        render: file => (<a href={file.path} target={'brank'}>{file.name}</a>)
+        render: file => (<a href={file.path} target={'_brank'}>{file.name}</a>)
+      },
+      {
+        title: '文件大小',
+        dataIndex: 'size',
+        render: size => `${parseInt(size / 1024)}Kb`
       },
       {
         title: '操作',
@@ -47,43 +70,39 @@ class FileManagement extends React.Component {
           <Form>
             <Form.Item label={'标题'}>
               {getFieldDecorator('title', {
-                rules: [{ required: true, message: '请输入标题！' }]
+                rules: [{required: true, message: '请输入标题！'}]
               })(
                 <Input placeholder={'请输入文件标题'}/>
               )}
             </Form.Item>
-            <Form.Item label={'备注'}>
+            <Form.Item label={'描述'}>
               {
-                getFieldDecorator('description')(<Input.TextArea placeholder={'请输入文件备注'}/>)
+                getFieldDecorator('description')(<Input.TextArea placeholder={'请输入文件描述'}/>)
               }
             </Form.Item>
             <Form.Item label={'文件'}>
               {getFieldDecorator('file', {
-                rules: [{ required: true, message: '请选择文件！' }]
+                rules: [{required: true, message: '请选择文件！'}]
               })(
-                <Upload beforeUpload={() => false} listType={'picture'} length={1}>
+                <Upload
+                  beforeUpload={() => false}
+                  listType={'picture'}
+                  fileList={fileList}
+                  onChange={v => this.handleChangeFileList(v)}>
                   <Button type={'primary'}>上传</Button>
                 </Upload>
               )}
             </Form.Item>
           </Form>
         </Modal>
-        <Button type={'primary'} onClick={() => this.handleShowUploadModal()}>上传文件</Button>
+        <Row type={'flex'} align={'middle'} justify={'space-between'}>
+          <h3 style={{margin: 0}}>文件列表</h3>
+          <Button type={'primary'} size={'large'} onClick={() => this.handleShowUploadModal()}>上传文件</Button>
+        </Row>
         <Table
           rowKey={'id'}
           className={'FileManagement_list'}
-          title={() => <h3>文件列表</h3>}
-          dataSource={[
-            {
-              id: 1,
-              title: '文件1',
-              description: '',
-              file: {
-                path: '//yijic.com/public/images/bg_main.jpg',
-                name: '背景图'
-              }
-            }
-          ]}
+          dataSource={staticFileList}
           columns={columns}/>
       </div>
     )
@@ -109,7 +128,14 @@ class FileManagement extends React.Component {
           .then(
             res => {
               message.success(res.data.msg);
-              this.handleHideUploadModal();
+              this.props.form.resetFields();
+              this.setState({
+                fileList: [],
+                uploadModalVisible: false
+              });
+              this.setState({
+                staticFileList: [res.data.data, ...this.state.staticFileList]
+              })
             }
           )
       }
@@ -119,6 +145,13 @@ class FileManagement extends React.Component {
   handleHideUploadModal() {
     this.setState({
       uploadModalVisible: false
+    })
+  }
+
+  handleChangeFileList({fileList}) {
+    const {length} = fileList;
+    this.setState({
+      fileList: length ? [fileList[length - 1]] : []
     })
   }
 

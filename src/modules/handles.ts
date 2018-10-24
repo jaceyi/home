@@ -1,11 +1,6 @@
 import * as formidable from 'formidable';
 import {checkRequiredParams} from '../utils/utils';
-
-const form = new formidable.IncomingForm({
-  uploadDir: 'files/',
-  keepExtensions: true,
-  maxFileSize: 1024 * 1024 * 20
-});
+import db from '../utils/db';
 
 export function login(req, res) {
   res.json({
@@ -13,12 +8,67 @@ export function login(req, res) {
   });
 }
 
-export function uploadStaticFile(req, res) {
-  form.parse(req, function(err, fields, files) {
-    checkRequiredParams(Object.assign(fields, files),['title', 'file'], res,function() {
+export function getStaticFileList(req, res) {
+  checkRequiredParams(req.body, [], res,function() {
+    const _sql: string = 'select * from static_file order by id desc';
+    db.query(_sql, [], function (err, result) {
+      if (err) {
+        return res.status(500).json({
+          msg: '服务器错误！',
+          err
+        })
+      }
       res.json({
-        msg: '上传成功',
-        filePath: files.file.path
+        data: result
+      })
+    })
+  })
+}
+
+export function uploadStaticFile(req, res) {
+  const form = new formidable.IncomingForm({
+    uploadDir: 'files/',
+    keepExtensions: true,
+    maxFileSize: 1024 * 1024 * 20
+  });
+  form.parse(req, function (err, fields, files) {
+    checkRequiredParams({
+      ...fields,
+      ...files
+    }, ['title', 'file'], res, function() {
+      const {
+        title,
+        description
+      } = fields;
+      const {
+        path,
+        type,
+        name,
+        size
+      } = files.file;
+
+      const _sql: string = 'insert into static_file (title, description, path, type, name, size) values (?, ?, ?, ?, ?, ?)';
+      const _data: string[] = [title, description, path, type, name, size];
+
+      db.query(_sql, _data, function(err, result) {
+        if (err) {
+          return res.status(500).json({
+            msg: '服务器错误！',
+            err
+          })
+        }
+        res.json({
+          msg: '上传成功',
+          data: {
+            id: result.insertId,
+            path,
+            title,
+            description: description || '',
+            type,
+            name,
+            size
+          }
+        });
       });
     });
   });
