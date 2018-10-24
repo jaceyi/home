@@ -6,7 +6,6 @@ yarn-debug.log*
 yarn-error.log*
 server_config.js*
 /config.ts
-/files/*
 
 # Editor directories and files
 .idea
