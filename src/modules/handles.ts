@@ -1,5 +1,5 @@
 import * as formidable from 'formidable';
-import {checkRequiredParams} from '../utils/utils';
+import {checkRequiredParams, sendServerErrorInfo} from '../utils/utils';
 import db from '../utils/db';
 
 export function login(req, res) {
@@ -13,10 +13,7 @@ export function getStaticFileList(req, res) {
     const _sql: string = 'select * from static_file order by id desc';
     db.query(_sql, [], function (err, result) {
       if (err) {
-        return res.status(500).json({
-          msg: '服务器错误！',
-          err
-        })
+        return sendServerErrorInfo(res, err)
       }
       res.json({
         data: result
@@ -52,10 +49,7 @@ export function uploadStaticFile(req, res) {
 
       db.query(_sql, _data, function(err, result) {
         if (err) {
-          return res.status(500).json({
-            msg: '服务器错误！',
-            err
-          })
+          return sendServerErrorInfo(res, err)
         }
         res.json({
           msg: '上传成功',

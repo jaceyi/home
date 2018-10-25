@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Modal, Form, Input, Upload, message, Table, Row, Col} from 'antd';
+import {Button, Modal, Form, Input, Upload, message, Table, Row} from 'antd';
 import rq from '../../utils/request';
 
 class FileManagement extends React.Component {
@@ -8,7 +8,9 @@ class FileManagement extends React.Component {
     this.state = {
       uploadModalVisible: false,
       fileList: [],
-      staticFileList: []
+      staticFileList: [],
+      editStatus: false,
+      loading: false
     }
   }
 
@@ -55,8 +57,16 @@ class FileManagement extends React.Component {
       },
       {
         title: '操作',
-        dataIndex: 'id',
-        render: id => (<Button type={'danger'} onClick={() => this.handleDeleteFile(id)}>删除</Button>)
+        render: file => (
+          <div>
+            <Button
+              style={{marginRight: 10}}
+              onClick={() => this.handleEditFile(file)}>编辑</Button>
+            <Button
+              type={'danger'}
+              onClick={() => this.handleDeleteFile(file)}>删除</Button>
+          </div>
+        )
       }
     ];
 
@@ -109,37 +119,52 @@ class FileManagement extends React.Component {
   }
 
   handleShowUploadModal() {
+    this.props.form.resetFields();
     this.setState({
-      uploadModalVisible: true
-    })
+      fileList: [],
+      uploadModalVisible: true,
+      editStatus: false
+    });
   }
 
   handleClickUploadBtn() {
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        const formData = new FormData();
-        formData.append('file', values.file.file);
-        formData.append('title', values.title);
-        if (values.description) {
-          formData.append('description', values.description);
-        }
-
-        rq.post('uploadStaticFile', formData)
-          .then(
-            res => {
-              message.success(res.data.msg);
-              this.props.form.resetFields();
-              this.setState({
-                fileList: [],
-                uploadModalVisible: false
-              });
-              this.setState({
-                staticFileList: [res.data.data, ...this.state.staticFileList]
-              })
-            }
-          )
+        this.uploadStaticFile(values);
       }
     });
+  }
+
+  uploadStaticFile({file, title, description}) {
+    const {
+      editStatus
+    } = this.state;
+    if (editStatus) {
+      if (file.id) {
+        // 有id表示file没有被重新上传
+
+      }
+    } else {
+      const formData = new FormData();
+      formData.append('file', file.file);
+      formData.append('title', title);
+      if (description) {
+        formData.append('description', description);
+      }
+
+      rq.post('uploadStaticFile', formData)
+        .then(
+          res => {
+            message.success(res.data.msg);
+            this.setState({
+              uploadModalVisible: false
+            });
+            this.setState({
+              staticFileList: [res.data.data, ...this.state.staticFileList]
+            })
+          }
+        )
+    }
   }
 
   handleHideUploadModal() {
@@ -155,8 +180,27 @@ class FileManagement extends React.Component {
     })
   }
 
-  handleDeleteFile(id) {
-    console.log(id)
+  handleEditFile({id, title, description, name, path}) {
+    this.props.form.setFieldsValue({
+      title,
+      description,
+      file: {
+        id
+      }
+    });
+    this.setState({
+      uploadModalVisible: true,
+      fileList: [{
+        uid: '-1',
+        url: path,
+        name
+      }],
+      editStatus: true
+    })
+  }
+
+  handleDeleteFile(file) {
+    console.log(file)
   }
 }
 
