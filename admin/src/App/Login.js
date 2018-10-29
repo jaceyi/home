@@ -7,7 +7,7 @@ import {SET_USER_INFO} from '../store/type';
 
 class Login extends React.Component {
   componentDidMount() {
-    this.handleClickLogin()
+    // this.handleClickLogin()
   }
 
   render() {

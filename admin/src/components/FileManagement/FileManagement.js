@@ -48,7 +48,7 @@ class FileManagement extends React.Component {
       },
       {
         title: '文件',
-        render: file => (<a href={file.path} target={'_brank'}>{file.name}</a>)
+        render: file => (<a href={`/${file.path}`} target={'_brank'}>{file.name}</a>)
       },
       {
         title: '文件大小',
@@ -196,6 +196,7 @@ class FileManagement extends React.Component {
           res => {
             message.success(res.data.msg);
             this.setState({
+              uploadModalVisible: false,
               staticFileList: [res.data.data, ...this.state.staticFileList]
             })
           }
