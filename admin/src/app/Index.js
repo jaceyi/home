@@ -5,7 +5,6 @@ import {Layout} from 'antd';
 import NavMenu from './NavMenu';
 import Main from './Main';
 
-
 function Index(props) {
   const {
     userInfo

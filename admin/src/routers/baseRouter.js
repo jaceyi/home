@@ -1,5 +1,5 @@
-import Login from '../App/Login';
-import Index from '../App/Index';
+import Login from '../app/Login';
+import Index from '../app/Index';
 
 export default [
   {
