@@ -38,12 +38,11 @@ export function addStaticFile(req, res) {
         description
       } = fields;
       const {
-        path,
         type,
         name,
         size
       } = files.file;
-
+      const path: string = `/${files.file.path}`;
       const _sql: string = 'insert into static_file (title, description, path, type, name, size) values (?, ?, ?, ?, ?, ?)';
       const _data: string[] = [title, description, path, type, name, size];
 
@@ -84,7 +83,10 @@ export function updateStaticFile(req, res) {
         title,
         description
       } = fields;
-      const file = files.file || JSON.parse(fields.file);
+      const file = (files.file && {
+        ...files.file,
+        path: `/${files.file.path}`
+      }) || JSON.parse(fields.file);
       const {
         path,
         type,
