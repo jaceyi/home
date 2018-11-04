@@ -64,7 +64,7 @@ class FileManagement extends React.Component {
               onClick={() => this.handleClickEditFileBtn(file)}>编辑</Button>
             <Button
               type={'danger'}
-              onClick={() => this.handleClickDeleteFileBtn(file.id)}>删除</Button>
+              onClick={() => this.handleClickDeleteFileBtn(file)}>删除</Button>
           </div>
         )
       }
@@ -237,7 +237,18 @@ class FileManagement extends React.Component {
     })
   }
 
-  handleClickDeleteFileBtn(id) {
+  handleClickDeleteFileBtn({name, id}) {
+    Modal.confirm({
+      title: '确认删除？',
+      content: name,
+      onOk: close => {
+        this.deleteStaticFile(id);
+        close();
+      }
+    });
+  }
+
+  deleteStaticFile(id) {
     rq.post('/deleteStaticFile', {id})
       .then(
         res => {
