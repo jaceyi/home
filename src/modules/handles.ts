@@ -29,6 +29,9 @@ export function addStaticFile(req, res) {
     maxFileSize: 1024 * 1024 * 20
   });
   form.parse(req, function (err, fields, files) {
+    if (err) {
+      return sendServerErrorInfo(res, err)
+    }
     checkRequiredParams({
       ...fields,
       ...files
@@ -74,6 +77,9 @@ export function updateStaticFile(req, res) {
     maxFileSize: 1024 * 1024 * 20
   });
   form.parse(req, function (err, fields, files) {
+    if (err) {
+      return sendServerErrorInfo(res, err)
+    }
     checkRequiredParams({
       ...fields,
       ...files

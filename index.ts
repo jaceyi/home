@@ -1,13 +1,9 @@
 import {resolve} from 'path';
-import {Server} from 'http';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import chat from './src/modules/chat';
 import * as handles from './src/modules/handles';
 
 const app = express();
-const http = new Server(app);
-chat(http);
 
 // 添加请求body参数解析
 app.use(bodyParser.json());
@@ -37,6 +33,6 @@ app.use(function(req, res) {
   });
 });
 
-http.listen(3000, function() {
+app.listen(3000, function() {
   console.log('listening on *:3000');
 });
