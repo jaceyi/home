@@ -94,10 +94,14 @@ a {
   position: relative;
   width: 80vw;
   height: 80vh;
-  display: flex;
   animation-duration: 0.5s;
   box-shadow: 0 0 50px rgba(0, 0, 0, 0.2);
   transition: all 0.3s;
+  display: none;
+}
+
+.home.active {
+  display: flex;
 }
 
 .home__main {

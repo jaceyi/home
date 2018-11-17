@@ -33,7 +33,7 @@
         </div>
       </transition>
       <transition name="fade">
-        <div class="home" v-if="homeShowState">
+        <div class="home" :class="{active: homeShowState}" v-if="homeShowState">
           <div class="home__main">
             <header class="home__main_header">
               <div class="home__logo" v-on:click="homeShowState = false">
