@@ -10,7 +10,7 @@
   UI设计出身，目前技术栈：React、Vue、Node、微信小程序。
   喜欢钻研和挑战，好好学习，天天向上~" />
   <title>yi个程序猿 - 易进春的个人网站【Web前端开发】</title>
-  <link rel="shortcut icon" type="image/x-icon" href="../public/images/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.ico" />
   <link rel="stylesheet" href="./style/style.css">
   <script src="./js/vue.min.js"></script>
 </head>
@@ -22,7 +22,7 @@
       <transition name="fade">
         <div class="index" v-if="!homeShowState">
           <div class="index__avatar" @click="homeShowState = true">
-            <img class="img" src="../public/images/tx.jpg" alt="Avatar">
+            <img class="img" src="../static/images/tx.jpg" alt="Avatar">
           </div>
           <div class="index__text">
             <a href="javascript:;" class="index__text_item active">Home</a>&nbsp;·&nbsp;
@@ -36,7 +36,7 @@
           <div class="home__main">
             <header class="home__main_header">
               <div class="home__logo" v-on:click="homeShowState = false">
-                <img class="img" src="../public/images/favicon.ico" alt="">
+                <img class="img" src="../static/images/favicon.ico" alt="">
               </div>
               <nav class="home__nav">
                 <a href="javascript:;" class="home__nav_item active">Home</a>

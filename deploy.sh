@@ -2,7 +2,7 @@ mkdir dist
 
 cp -rf error dist/error
 cp -rf home dist/home
-cp -rf public dist/public
+cp -rf static dist/static
 cp app.js dist/app.js
 cp package.json dist/package.json
 
