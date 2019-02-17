@@ -5,47 +5,9 @@
   "author": "Jace <yijinchun@outlook.com>",
   "private": true,
   "scripts": {
-    "server": "ts-node index.ts",
-    "start": "webpack-dev-server --open --mode development",
-    "build": "webpack --progress --mode production"
-  },
-  "devDependencies": {
-    "@types/node": "^10.11.7",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7",
-    "babel-plugin-import": "^1.9.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "css-loader": "^1.0.0",
-    "extract-text-webpack-plugin": "^4.0.0-beta.0",
-    "friendly-errors-webpack-plugin": "^1.7.0",
-    "html-webpack-plugin": "^4.0.0-beta.1",
-    "less": "^3.8.1",
-    "less-loader": "^4.1.0",
-    "node-sass": "^4.9.3",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "ts-node": "^7.0.0",
-    "typescript": "^3.0.1",
-    "url-loader": "^1.1.2",
-    "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.9"
+    "server": "node index.js"
   },
   "dependencies": {
-    "antd": "^3.10.1",
-    "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
-    "connect-multiparty": "^2.2.0",
-    "express": "^4.16.3",
-    "formidable": "^1.2.1",
-    "mysql": "^2.16.0",
-    "react": "^16.5.2",
-    "react-dom": "^16.4.2",
-    "react-redux": "^5.0.7",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "redux": "^4.0.1"
+    "express": "^4.16.3"
   }
 }

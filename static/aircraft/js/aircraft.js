@@ -144,7 +144,7 @@ function myPlane() {
     this._body.appendChild(this.ele);
     var _left = this._body.offsetWidth / 2 - (this.ele.offsetWidth / 2);
     this.ele.style.left = _left + "px";
-    var _top = this._body.offsetHeight - this.ele.offsetHeight - 20;
+    var _top = this._body.offsetHeight - this.ele.offsetHeight - 50;
     this.ele.style.top = _top + "px";
     var self = this;
     this.ele.addEventListener("touchstart", function (event) {
@@ -157,7 +157,7 @@ function myPlane() {
       function addTouchmove(event) {
         var o = self.pagePo(event, initDot);
         self.ele.style.left = o.x + "px";
-        self.ele.style.top = o.y + "px";
+        // self.ele.style.top = o.y + "px";
       }
 
       document.addEventListener("touchend", function () {
