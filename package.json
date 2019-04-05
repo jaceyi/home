@@ -5,7 +5,7 @@
   "author": "Jace <yijinchun@outlook.com>",
   "private": true,
   "scripts": {
-    "server": "node index.js"
+    "server": "node app.js"
   },
   "dependencies": {
     "express": "^4.16.3"

@@ -5,70 +5,93 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description" content="你好，我叫易进春，今年21岁。
-  家乡陕西，现在在上海工作，目前从事前端行业，就职于UCloud。
-  技术栈：React、Vue、Node、微信小程序。
-  喜欢钻研和挑战，好好学习，天天向上~" />
+  <meta name="keywords"  content="yijic, yijinchun, Jace, JaceYi, Jace Yi, 易进春, 易进春的博客, yi个程序猿, 前端, 前端开发, 前端博客">
+  <meta name="description" content="你好，我叫易进春。
+  家乡陕西 安康，目前在上海工作，从事前端开发。
+  喜欢打台球、游泳、吃鸡，不抽烟不蹦迪，五好青年，有缘看到我的网站，加个微信/QQ好友呗 ~
+  好好学习，天天向上。" />
   <title>yi个程序猿 - 易进春的个人网站【Web前端开发】</title>
   <link rel="shortcut icon" type="image/x-icon" href="../static/images/favicon.ico" />
   <link rel="stylesheet" href="./style/style.css">
-  <script src="./js/vue.min.js"></script>
 </head>
 
 <body>
-  <div id="app">
-    <div class="container__bg"></div>
-    <div class="container">
-      <transition name="fade">
-        <div class="index" v-if="!homeShowState">
-          <div class="index__avatar" @click="homeShowState = true">
-            <img class="img" src="../static/images/tx.jpg" alt="Avatar">
+  <div class="container__bg"></div>
+  <div class="container">
+    <div class="index">
+      <div class="index__avatar">
+        <img class="img" src="../static/images/tx.jpg" alt="Avatar">
+      </div>
+      <div class="index__text">
+        <a href="javascript:;" class="index__text_item active">Home</a>&nbsp;·&nbsp;
+        <a href="http://blog.yijic.com" class="index__text_item">Blog</a>&nbsp;·&nbsp;
+        <a href="https://github.com/jaceyi" class="index__text_item">Github</a>
+      </div>
+    </div>
+    <div class="home">
+      <div class="home__main">
+        <header class="home__header">
+          <div class="home__logo">
+            <img class="img" src="../static/images/favicon.ico" alt="">
           </div>
-          <div class="index__text">
-            <a href="javascript:;" class="index__text_item active">Home</a>&nbsp;·&nbsp;
-            <a href="http://blog.yijic.com" class="index__text_item">Blog</a>&nbsp;·&nbsp;
-            <a href="https://github.com/jaceyi" class="index__text_item">Github</a>
+          <nav class="home__nav">
+            <a href="javascript:;" class="home__nav_item active">Home</a>
+            <a href="http://blog.yijic.com" class="home__nav_item">Blog</a>
+            <a href="https://github.com/jaceyi" class="home__nav_item">Github</a>
+          </nav>
+        </header>
+        <main class="home__content">
+          <h1 class="home__content_title">
+            <span>Welcome</span><br />to visit my homepage!
+          </h1>
+          <div class="home__content_padding"></div>
+          <div class="home__content_text">
+            <p>你好，我叫易进春。</p>
+            <p>家乡陕西 安康，目前在上海工作，从事前端开发。</p>
+            <p>喜欢打台球、游泳、吃鸡，不抽烟不蹦迪，五好青年，有缘看到我的网站，加个微信/QQ好友呗 ~</p>
+            <p>好好学习，天天向上。</p>
           </div>
-        </div>
-      </transition>
-      <transition name="fade">
-        <div class="home" :class="{active: homeShowState}" v-if="homeShowState">
-          <div class="home__main">
-            <header class="home__main_header">
-              <div class="home__logo" v-on:click="homeShowState = false">
-                <img class="img" src="../static/images/favicon.ico" alt="">
-              </div>
-              <nav class="home__nav">
-                <a href="javascript:;" class="home__nav_item active">Home</a>
-                <a href="http://blog.yijic.com" class="home__nav_item">Blog</a>
-                <a href="https://github.com/jaceyi" class="home__nav_item">Github</a>
-              </nav>
-            </header>
-            <main class="home__main_main">
-              <h1 class="home__main_title">
-                <span>Welcome</span><br />to visit my homepage!
-              </h1>
-              <div class="home__main_padding"></div>
-              <div class="home__main_text">
-                <p>你好，我叫易进春，今年21岁。</p>
-                <p>家乡陕西，现在在上海工作，目前从事前端行业，就职于UCloud。</p>
-                <p>技术栈：React、Vue、Node、微信小程序。</p>
-                <p>喜欢钻研和挑战，好好学习，天天向上~</p>
-              </div>
-            </main>
-            <footer class="home__main_footer">
-              <span title="微信：sg6498601">微信：sg6498601</span>
-              <span title="QQ：6498601">QQ：6498601</span>
-              <span title="Email：yijinchun@outlook.com">Email：yijinchun@outlook.com</span>
-              <span title="微博：yi个程序猿">微博：@yi个程序猿</span>
-            </footer>
-          </div>
-          <div class="home__img"></div>
-        </div>
-      </transition>
+        </main>
+        <footer class="home__footer">
+          <span class="home__footer_item">微信：sg6498601</span>
+          <a class="home__footer_item" href="http://sighttp.qq.com/msgrd?v=1&uin=6498601" target="_blank">QQ：6498601</a>
+          <a class="home__footer_item" href="mailto:yijinchun@outlook.com" target="_blank">Email：yijinchun@outlook.com</a>
+          <a class="home__footer_item" href="https://weibo.com/yijic" target="_blank">微博：@yi个程序猿</a>
+        </footer>
+      </div>
+      <div class="home__img"></div>
     </div>
   </div>
-  <script src="./js/index.js"></script>
+  <script>
+    (function () {
+      var $index = document.querySelector('.index');
+      var $avatar = document.querySelector('.index__avatar');
+      var $home = document.querySelector('.home');
+      var $logo = document.querySelector('.home__logo');
+      var animationEndEvent = null;
+
+      $avatar.addEventListener('click', function () {
+        $home.className = 'home active fadeIn';
+        $index.className = 'index hidden';
+        animationEndEvent = function () {
+          $home.className = 'home active';
+        }
+      });
+
+      $logo.addEventListener('click', function () {
+        $home.className = 'home active fadeOut';
+        $index.className = 'index fadeIn';
+        animationEndEvent = function () {
+          $home.className = 'home';
+          $index.className = 'index';
+        }
+      });
+
+      $home.addEventListener('animationend', function () {
+        animationEndEvent && animationEndEvent();
+      });
+    })();
+  </script>
 </body>
 
 </html>
