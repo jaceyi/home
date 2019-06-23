@@ -10,15 +10,11 @@
   喜欢打台球、游泳、吃鸡，有缘看到我的网站加个好友呗 ~
   好好学习，天天向上。" />
   <title>404 - yi个程序猿 - 易进春的个人网站【Web前端开发】</title>
-  <link rel="shorcut icon" type="image/x-icon" href="/static/images/favicon.ico"/>
+  <link rel="shorcut icon" type="image/x-icon" href="/favicon.ico" />
   <style>
     * {
       margin: 0;
       padding: 0;
-    }
-
-    body {
-      background: #eee;
     }
 
     div {
@@ -27,13 +23,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(255,255,255,0.8);
+      background-color: rgba(255, 255, 255, 0.8);
     }
 
     a {
       text-align: center;
       margin-bottom: 100px;
-      text-decoration: none
+      text-decoration: none;
+      margin-top: -100px;
     }
 
     h1 {
@@ -41,22 +38,39 @@
       font-size: 42px;
       color: #333;
       margin-bottom: 10px;
+      margin-top: -120px;
     }
 
     p {
       font-size: 14px;
       color: #555;
     }
+
+    img {
+      width: 100%;
+    }
+
+    @media screen and (max-width: 700px) {
+      h1 {
+        margin-top: -60px;
+        font-size: 36px;
+      }
+
+      p {
+        font-size: 12px;
+      }
+    }
   </style>
 </head>
 
 <body>
-<div>
-  <a href="/">
-    <h1>404</h1>
-    <p>哎呀，没有找到你想要的资源呢，这里建议回首页</p>
-  </a>
-</div>
+  <div>
+    <a href="/">
+      <img src="../static/images/404.gif" alt="">
+      <h1>404</h1>
+      <p>哎呀，没有找到你想要的资源呢，点击此处返回主页。</p>
+    </a>
+  </div>
 </body>
 
 </html>

@@ -3,11 +3,8 @@ const express = require('express');
 
 const app = express();
 
-// 静态资源
-app.use('/static', express.static('static'));
-
 // 首页
-app.use('/', express.static('home'));
+app.use(express.static(__dirname));
 
 app.use(function(req, res) {
   // 检测404状态，返回404页面
