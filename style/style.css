@@ -54,13 +54,14 @@ body {
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
   display: flex;
   overflow: hidden;
+  max-height: 680px;
 }
 
 .home__main {
   background-color: rgba(255, 255, 255, 0.8);
   flex: 1 1 auto;
   height: 100%;
-  padding: 50px 72px 8vh;
+  padding: 50px;
   transition: all 0.3s;
   position: relative;
 }
@@ -80,13 +81,13 @@ body {
 
 .home__nav {
   display: flex;
-  font-size: 20px;
-  margin-top: 30px;
+  font-size: 22px;
+  padding-top: 1vh;
   transition: all 0.3s;
 }
 
 .home__nav_item {
-  margin: 0 28px;
+  margin: 0 72px;
   color: #555;
   border-bottom: 2px solid rgba(0, 0, 0, 0);
   line-height: 1.6;
@@ -100,6 +101,10 @@ body {
 
 .home__nav_item:hover {
   border-bottom-color: #554c75;
+}
+
+.home__nav_item:first-child, .home__nav_item:last-child {
+  margin: 0;
 }
 
 .home__content {
@@ -173,7 +178,7 @@ body {
   justify-content: center;
   align-items: center;
   overflow: hidden;
-  animation: backgroundMove 5s infinite alternate;
+  animation: backgroundMove 10s infinite alternate;
 }
 
 @media screen and (max-width: 1080px) {
@@ -181,19 +186,23 @@ body {
     width: 80px;
     height: 80px;
   }
+
   .index__avatar {
     width: 80px;
     height: 80px;
   }
+
   .home__img {
     width: 0;
     position: absolute;
     right: 0;
     box-shadow: -5px 0 20px #aaa;
   }
+
   .home__main {
     width: 100%;
   }
+
   .home__main_padding {
     height: 4vh;
   }
@@ -203,28 +212,35 @@ body {
   .home {
     width: 100vw;
     height: 100vh;
-    position: relative;
+    max-height: unset;
   }
+
   .home__main_header {
     align-items: center;
   }
+
   .home__logo {
     width: 42px;
   }
+
   .home__nav {
     margin-top: 10px;
+    font-size: 20px
   }
+
   .home__nav_item {
-    margin: 0 10px;
-    font-size: 16px;
+    margin: 0 32px;
   }
+
   .home__main {
-    padding: 20px;
+    padding: 30px;
     background-color: rgba(255, 255, 255, 0.8)
   }
+
   .home__main_title {
     font-size: 28px;
   }
+
   .home__main_title span {
     font-size: 48px;
   }
@@ -234,43 +250,34 @@ body {
   .home__logo {
     width: 38px;
   }
+
   .home__nav {
     margin-top: 0;
-    font-size: 16px;
   }
+
   .home__nav_item {
-    margin: 0 10px;
+    margin: 0 24px;
+    font-size: 18px;
   }
+
   .home__main {
     padding: 20px;
     background-color: rgba(255, 255, 255, 0.8)
   }
-  .home__main_main {
-    margin-top: 8vh;
-  }
-  .home__main_title {
+
+  .home__content_title {
     font-size: 26px;
   }
-  .home__main_text {
-    font-size: 12px;
+
+  .home__content_title span {
+    font-size: 50px;
   }
-  .home__main_footer {
-    font-size: 10px;
+
+  .home__content_text {
+    font-size: 13px;
   }
+
   .home__img.active {
     width: 280px;
-  }
-}
-
-@media screen and (max-height: 700px) and (min-width: 1080px) {
-  .home__main_main {
-    margin-top: 4vh;
-  }
-  .home__main_title {
-    font-size: 36px;
-    line-height: 1.4;
-  }
-  .home__main_padding {
-    height: 5vh;
   }
 }
