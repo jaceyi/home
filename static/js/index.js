@@ -1,7 +1,13 @@
 var S = {
   timer: null,
 
+  config: {
+    gap: 13,
+    pointSize: 5
+  },
+
   init: function () {
+
     S.Drawing.init('.canvas');
     var arr = [
       'Welcome',
@@ -22,12 +28,20 @@ var S = {
       render();
     }, 3000);
 
-
     S.Drawing.loop(function () {
       S.Shape.render();
     });
   }
 };
+
+function bindConfig() {
+  var width = window.innerWidth;
+  if (width < 600) {
+    S.config.gap = 5;
+    S.config.pointSize = 2;
+  }
+}
+bindConfig();
 
 S.Drawing = (function () {
   var canvas,
@@ -46,10 +60,10 @@ S.Drawing = (function () {
     init: function (el) {
       canvas = document.querySelector(el);
       context = canvas.getContext('2d');
-      this.adjustCanvas();
+      this.adjustCanvas(canvas);
 
       window.addEventListener('resize', function (e) {
-        S.Drawing.adjustCanvas();
+        S.Drawing.adjustCanvas(canvas);
       });
     },
 
@@ -60,9 +74,9 @@ S.Drawing = (function () {
       requestFrame.call(window, this.loop.bind(this));
     },
 
-    adjustCanvas: function () {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+    adjustCanvas: function (canvas) {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
     },
 
     clearFrame: function () {
@@ -183,7 +197,7 @@ S.Dot.prototype = {
         } else {
           this.move(new S.Point({
             x: this.p.x + (Math.random() * 50) - 25,
-            y: this.p.y + (Math.random() * 50) - 25,
+            y: this.p.y + (Math.random() * 50) - 25
           }));
         }
       }
@@ -216,21 +230,20 @@ S.Dot.prototype = {
 }
 
 S.ShapeBuilder = (function () {
-  var gap = 13,
-      shapeCanvas = document.createElement('canvas'),
+  var shapeCanvas = document.createElement('canvas'),
       shapeContext = shapeCanvas.getContext('2d'),
       fontSize = 500,
       fontFamily = 'Avenir, Helvetica Neue, Helvetica, Arial, sans-serif';
 
   function fit() {
+    var gap = S.config.gap;
     shapeCanvas.width = Math.floor(window.innerWidth / gap) * gap;
     shapeCanvas.height = Math.floor(window.innerHeight / gap) * gap;
-    shapeContext.fillStyle = 'red';
-    shapeContext.textBaseline = 'middle';
     shapeContext.textAlign = 'center';
   }
 
   function processCanvas() {
+    var gap = S.config.gap;
     var pixels = shapeContext.getImageData(0, 0, shapeCanvas.width, shapeCanvas.height).data;
         dots = [],
         pixels,
@@ -295,23 +308,6 @@ S.ShapeBuilder = (function () {
       shapeContext.fillText(l, shapeCanvas.width / 2, shapeCanvas.height / 2);
 
       return processCanvas();
-    },
-
-    rectangle: function (w, h) {
-      var dots = [],
-          width = gap * w,
-          height = gap * h;
-
-      for (var y = 0; y < height; y += gap) {
-        for (var x = 0; x < width; x += gap) {
-          dots.push(new S.Point({
-            x: x,
-            y: y,
-          }));
-        }
-      }
-
-      return { dots: dots, w: width, h: height };
     }
   };
 }());
@@ -327,24 +323,11 @@ S.Shape = (function () {
     var a = S.Drawing.getArea();
 
     cx = a.w / 2 - width / 2;
-    cy = a.h / 2 - height / 2;
+    cy = a.h / 5 - height / 4;
   }
 
   return {
-    shuffleIdle: function () {
-      var a = S.Drawing.getArea();
-
-      for (var d = 0; d < dots.length; d++) {
-        if (!dots[d].s) {
-          dots[d].move({
-            x: Math.random() * a.w,
-            y: Math.random() * a.h
-          });
-        }
-      }
-    },
-
-    switchShape: function (n, fast) {
+    switchShape: function (n) {
       var size,
           a = S.Drawing.getArea();
 
@@ -356,7 +339,7 @@ S.Shape = (function () {
       if (n.dots.length > dots.length) {
         size = n.dots.length - dots.length;
         for (var d = 1; d <= size; d++) {
-          dots.push(new S.Dot(a.w / 2, a.h / 2));
+          dots.push(new S.Dot(a.w / 2, a.h / 2.5));
         }
       }
 
@@ -365,27 +348,19 @@ S.Shape = (function () {
 
       while (n.dots.length > 0) {
         i = Math.floor(Math.random() * n.dots.length);
-        dots[d].e = fast ? 0.25 : (dots[d].s ? 0.14 : 0.11);
+        dots[d].e = 0.14;
 
-        if (dots[d].s) {
-          dots[d].move(new S.Point({
-            z: Math.random() * 20 + 10,
-            a: Math.random(),
-            h: 18
-          }));
-        } else {
-          dots[d].move(new S.Point({
-            z: Math.random() * 5 + 5,
-            h: fast ? 18 : 30
-          }));
-        }
+        dots[d].move(new S.Point({
+          z: Math.random() * S.config.pointSize + S.config.pointSize,
+          h: 30
+        }));
 
         dots[d].s = true;
         dots[d].move(new S.Point({
           x: n.dots[i].x + cx,
           y: n.dots[i].y + cy,
           a: 1,
-          z: 5,
+          z: S.config.pointSize,
           h: 0
         }));
 
@@ -396,7 +371,7 @@ S.Shape = (function () {
       for (var i = d; i < dots.length; i++) {
         if (dots[i].s) {
           dots[i].move(new S.Point({
-            z: Math.random() * 20 + 10,
+            z: Math.random() * S.config.pointSize + S.config.pointSize,
             a: Math.random(),
             h: 20
           }));
@@ -406,8 +381,8 @@ S.Shape = (function () {
           dots[i].move(new S.Point({
             x: Math.random() * a.w,
             y: Math.random() * a.h,
-            a: 0.3, //.4
-            z: Math.random() * 4,
+            a: 0.3,
+            z: Math.random() * S.config.pointSize,
             h: 0
           }));
         }
