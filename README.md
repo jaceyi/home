@@ -2,10 +2,18 @@
 
 > Jace's website.
 
-```
-# 安装依赖
+```shell script
 yarn
 
-# 启动node服务
 yarn server
+```
+
+## 前端项目
+
+```shell script
+cd web
+
+yarn
+
+yarn start
 ```

@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "lib": ["es2018", "dom"],
+    "sourceMap": true,
+    "jsx": "react",
+    "baseUrl": "./",
+    "paths": {
+      "@/*":["src/*"]
+    }
+  },
+  "exclude": [
+    "web/node_modules"
+  ],
+  "include": [
+    "src"
+  ]
+}
