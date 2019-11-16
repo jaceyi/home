@@ -15,12 +15,7 @@ module.exports = {
 
   plugins: [
     new CleanWebpackPlugin(),
-    new CopyPlugin([
-      {
-        from: 'static',
-        to: ''
-      }
-    ]),
+    new CopyPlugin([path.resolve(__dirname, '../static')]),
     new HtmlWebpackPlugin({
       template: './static/index.html'
     })

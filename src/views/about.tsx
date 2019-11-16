@@ -3,7 +3,7 @@ import { jsx, Styled } from 'theme-ui';
 import Divider from '../elements/divider';
 import Inner from '../elements/inner';
 import Content from '../elements/content';
-import SVG from './svg';
+import SVG from '../components/svg';
 import { UpDown, UpDownWide } from '@/styles/animations';
 
 const About = ({ offset }: { offset: number }) => (
@@ -107,10 +107,15 @@ const About = ({ offset }: { offset: number }) => (
       <Inner>
         <Styled.h2>About</Styled.h2>
         <Styled.blockquote>
-          The English language can not fully capture the depth and complexity of my thoughts. So Im incorporating Emoji into my speech to better express myself. Win ky face.
+          一个人的生活, 也可以很精致温暖。
         </Styled.blockquote>
         <Styled.p>
-          You know the way you feel when you see a picture of two otters holding hands? That s how you re gonna feel every day. My mother cried the day I was born because she knew she’d never be prettier than me. You should make me your campaign manager. I was born for politics. I have great hair and I love lying. Captain? The kids want to know where Paulie the Pigeon is. I told them he got sucked up into an airplane engine, is that all right?
+          你好，我叫易进春，家乡陕西，现在在上海工作。目前从事前端开发相关工作，技术栈：React、Vue、Node、微信小程序。
+        </Styled.p>
+        <Styled.p>
+          平时喜欢游泳（周常）、打台球、寻找刺激（欢乐谷年卡用户）。
+          画画、写字、养小草，读书、看报、风趣多。
+          好好学习，天天向上~
         </Styled.p>
       </Inner>
     </Content>

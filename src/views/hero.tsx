@@ -3,7 +3,7 @@ import { jsx, Styled } from 'theme-ui';
 import Divider from '../elements/divider';
 import Inner from '../elements/inner';
 import Content from '../elements/content';
-import SVG from './svg';
+import SVG from '../components/svg';
 import { UpDown, UpDownWide } from '@/styles/animations';
 
 const Hero = ({ offset }: { offset: number }) => (
@@ -143,10 +143,10 @@ const Hero = ({ offset }: { offset: number }) => (
     <Content sx={{ variant: 'texts.bigger' }} speed={0.4} offset={offset}>
       <Inner>
         <Styled.h1>
-          Hello, I m Jace Yi.
+          Hello, I' m Jace Yi.
         </Styled.h1>
         <Styled.p>
-          I m creating noice web experiences for the next generation of consumer-facing companies
+          Welcome to Jace's website.
         </Styled.p>
       </Inner>
     </Content>

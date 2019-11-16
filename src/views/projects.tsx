@@ -3,7 +3,7 @@ import { jsx, Styled } from 'theme-ui';
 import Divider from '../elements/divider';
 import Inner from '../elements/inner';
 import Content from '../elements/content';
-import SVG from './svg';
+import SVG from '../components/svg';
 import { UpDown, UpDownWide } from '@/styles/animations';
 import ProjectCard from '@/components/project-card';
 
@@ -16,7 +16,7 @@ const Projects = ({ offset }: { offset: number }) => (
       offset={1.1}
       factor={2}
     />
-    <Content speed={0.4} offset={offset + 0.2} factor={2}>
+    <Content speed={0.4} offset={offset + 0.2} factor={2.2}>
       <Inner>
         <div
           sx={{
@@ -27,17 +27,14 @@ const Projects = ({ offset }: { offset: number }) => (
           }}
         >
           <Styled.h2>Projects</Styled.h2>
-          <ProjectCard title="Freiheit" link="https://www.behance.net/gallery/58937147/Freiheit" bg="linear-gradient(to right, #D4145A 0%, #FBB03B 100%)">
-            This project is my entry to Adobe's #ChallengeYourPerspective contest.
+          <ProjectCard title="Jace's Blog" link="https://blog.jaceyi.com" bg="linear-gradient(to right, #D4145A 0%, #FBB03B 100%)">
+            我的博客用来记录日常生活、学习笔记和踩过的那些坑。使用 Jekyll & Github Pages 搭建。
           </ProjectCard>
-          <ProjectCard title="Harry Potter" link="https://www.behance.net/gallery/52915793/Harry-Potter" bg="linear-gradient(to right, #662D8C 0%, #ED1E79 100%)">
-            I entered the DOCMA 2017 award with this Harry Potter inspired image.
+          <ProjectCard title="Utils" link="https://util.jaceyi.com" bg="linear-gradient(to right, #8030b5 0%, #ED1E79 100%)">
+            整理了日常生活、工作中常用的一些小工具。 使用 React & TypeScript 开发。
           </ProjectCard>
-          <ProjectCard title="Tomb Raider" link="https://www.behance.net/gallery/43907099/Tomb-Raider" bg="linear-gradient(to right, #009245 0%, #FCEE21 100%)">
-            Recreation of a Tomb Raider Wallpaper (Fan Art)
-          </ProjectCard>
-          <ProjectCard title="Eagle" link="https://www.behance.net/gallery/38068151/Eagle" bg="linear-gradient(to right, #D585FF 0%, #00FFEE 100%)">
-            A fantasy image manipulation relocating the habitat of wild animals.
+          <ProjectCard title="Ball" link="https://jaceyi.com/static/ball" bg="linear-gradient(to right,#6916e4 0%,#00c6ff 100%)">
+            一个网页小游戏，操控雪球向下滚动并躲避树木。为了练习 TypeScript 开发。
           </ProjectCard>
         </div>
       </Inner>

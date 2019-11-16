@@ -16,7 +16,13 @@ const Footer = () => {
           fontWeight: 'semibold',
           display: 'block',
           mx: 'auto',
-          mb: 3
+          mb: 3,
+          outline: `none`,
+          transition: `all 1.5s`,
+          borderRadius: 2,
+          '&:hover': {
+            borderRadius: `9em`
+          }
         }}
         onClick={toggleColorMode}
         type="button"

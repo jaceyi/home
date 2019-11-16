@@ -4,9 +4,9 @@ import styled from '@emotion/styled';
 import Divider from '../elements/divider';
 import Inner from '../elements/inner';
 import Content from '../elements/content';
-import SVG from './svg';
+import SVG from '../components/svg';
 import { UpDown, UpDownWide, waveAnimation } from '@/styles/animations';
-import Footer from './footer';
+import Footer from '../components/footer';
 
 const InnerWave = styled.div`
   path {
@@ -56,7 +56,22 @@ const Contact = ({ offset }: { offset: number }) => (
           Get in touch
         </Styled.h2>
         <Styled.p>
-          Say Hi or find me on other platforms: Dribbble & Instagram
+          Say Hi or find me on other platforms: <Styled.a
+          target="_blank"
+          href="https://www.zhihu.com/people/hui-bu-qu-de-shi-guang-20"
+        >知乎</Styled.a> & <Styled.a
+          target="_blank"
+          href="https://juejin.im/user/5a3b2016f265da43231b22a7"
+        >掘金</Styled.a> & <Styled.a
+          target="_blank"
+          href="https://github.com/jaceyi"
+        >GitHub</Styled.a> & <Styled.a
+          target="_blank"
+          href="https://www.facebook.com/jaceyi123"
+        >Facebook</Styled.a> & <Styled.a
+          target="_blank"
+          href="https://twitter.com/jaceyi123"
+        >Twitter</Styled.a>
         </Styled.p>
       </Inner>
       <Footer />
