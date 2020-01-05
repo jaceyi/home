@@ -36,6 +36,9 @@ const Projects = ({ offset }: { offset: number }) => (
           <ProjectCard title="Ball" link="https://jaceyi.com/static/ball" bg="linear-gradient(to right,#6916e4 0%,#00c6ff 100%)">
             一个网页小游戏，操控雪球向下滚动并躲避树木。为了练习 TypeScript 开发。
           </ProjectCard>
+          <ProjectCard title="Other" bg="linear-gradient(to right, #1eb11c 0%, #fbff00 100%);">
+            这里不知道放什么。
+          </ProjectCard>
         </div>
       </Inner>
     </Content>
