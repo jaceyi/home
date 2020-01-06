@@ -52,26 +52,34 @@ const Contact = ({ offset }: { offset: number }) => (
     </Divider>
     <Content speed={0.4} offset={offset}>
       <Inner>
-        <Styled.h2>
-          Get in touch
-        </Styled.h2>
+        <Styled.h2>Get in touch</Styled.h2>
         <Styled.p>
-          Say Hi or find me on other platforms: <Styled.a
-          target="_blank"
-          href="https://www.zhihu.com/people/hui-bu-qu-de-shi-guang-20"
-        >知乎</Styled.a> & <Styled.a
-          target="_blank"
-          href="https://juejin.im/user/5a3b2016f265da43231b22a7"
-        >掘金</Styled.a> & <Styled.a
-          target="_blank"
-          href="https://github.com/jaceyi"
-        >GitHub</Styled.a> & <Styled.a
-          target="_blank"
-          href="https://www.facebook.com/jaceyi123"
-        >Facebook</Styled.a> & <Styled.a
-          target="_blank"
-          href="https://twitter.com/jaceyi123"
-        >Twitter</Styled.a>
+          Say Hi or find me on other platforms:{' '}
+          <Styled.a
+            target="_blank"
+            href="https://www.zhihu.com/people/hui-bu-qu-de-shi-guang-20"
+          >
+            知乎
+          </Styled.a>{' '}
+          &{' '}
+          <Styled.a
+            target="_blank"
+            href="https://juejin.im/user/5a3b2016f265da43231b22a7"
+          >
+            掘金
+          </Styled.a>{' '}
+          &{' '}
+          <Styled.a target="_blank" href="https://github.com/jaceyi">
+            GitHub
+          </Styled.a>{' '}
+          &{' '}
+          <Styled.a target="_blank" href="https://www.facebook.com/jaceyi123">
+            Facebook
+          </Styled.a>{' '}
+          &{' '}
+          <Styled.a target="_blank" href="https://twitter.com/jaceyi123">
+            Twitter
+          </Styled.a>
         </Styled.p>
       </Inner>
       <Footer />

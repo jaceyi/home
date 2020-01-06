@@ -142,12 +142,8 @@ const Hero = ({ offset }: { offset: number }) => (
     </Divider>
     <Content sx={{ variant: 'texts.bigger' }} speed={0.4} offset={offset}>
       <Inner>
-        <Styled.h1>
-          Hello, I' m Jace Yi.
-        </Styled.h1>
-        <Styled.p>
-          Welcome to Jace's website.
-        </Styled.p>
+        <Styled.h1>Hello, I' m Jace Yi.</Styled.h1>
+        <Styled.p>Welcome to Jace's website.</Styled.p>
       </Inner>
     </Content>
   </div>

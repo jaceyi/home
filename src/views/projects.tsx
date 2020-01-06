@@ -27,16 +27,34 @@ const Projects = ({ offset }: { offset: number }) => (
           }}
         >
           <Styled.h2>Projects</Styled.h2>
-          <ProjectCard title="Jace's Blog" link="https://blog.jaceyi.com" bg="linear-gradient(to right, #D4145A 0%, #FBB03B 100%)">
-            我的博客用来记录日常生活、学习笔记和踩过的那些坑。使用 Jekyll & Github Pages 搭建。
+          <ProjectCard
+            title="Jace's Blog"
+            link="https://blog.jaceyi.com"
+            bg="linear-gradient(to right, #D4145A 0%, #FBB03B 100%)"
+          >
+            我的博客用来记录日常生活、学习笔记和踩过的那些坑。使用 Jekyll &
+            Github Pages 搭建。
           </ProjectCard>
-          <ProjectCard title="Utils" link="https://util.jaceyi.com" bg="linear-gradient(to right, #8030b5 0%, #ED1E79 100%)">
-            整理了日常生活、工作中常用的一些小工具。 使用 React & TypeScript 开发。
+          <ProjectCard
+            title="Utils"
+            link="https://util.jaceyi.com"
+            bg="linear-gradient(to right, #8030b5 0%, #ED1E79 100%)"
+          >
+            整理了日常生活、工作中常用的一些小工具。 使用 React & TypeScript
+            开发。
           </ProjectCard>
-          <ProjectCard title="Ball" link="https://jaceyi.com/static/ball" bg="linear-gradient(to right,#6916e4 0%,#00c6ff 100%)">
-            一个网页小游戏，操控雪球向下滚动并躲避树木。为了练习 TypeScript 开发。
+          <ProjectCard
+            title="Ball"
+            link="https://jaceyi.com/static/ball"
+            bg="linear-gradient(to right,#6916e4 0%,#00c6ff 100%)"
+          >
+            一个网页小游戏，操控雪球向下滚动并躲避树木。为了练习 TypeScript
+            开发。
           </ProjectCard>
-          <ProjectCard title="Other" bg="linear-gradient(to right, #1eb11c 0%, #fbff00 100%);">
+          <ProjectCard
+            title="Other"
+            bg="linear-gradient(to right, #1eb11c 0%, #fbff00 100%);"
+          >
             这里不知道放什么。
           </ProjectCard>
         </div>
