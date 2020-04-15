@@ -106,9 +106,9 @@ const About = ({ offset }: { offset: number }) => (
     <Content speed={0.4} offset={offset}>
       <Inner>
         <Styled.h2>About</Styled.h2>
-        <Styled.blockquote>一个人的生活, 也可以很精致温暖。</Styled.blockquote>
+        <Styled.blockquote>一个人的生活, 也可以很精致温馨。</Styled.blockquote>
         <Styled.p>
-          你好，我叫易进春，家乡陕西，现在在上海工作。目前从事前端开发相关工作，技术栈：React、Vue、Node、微信小程序。
+          你好，我叫易进春，家乡陕西，现在在上海从事前端开发相关工作。
         </Styled.p>
         <Styled.p>
           平时喜欢游泳、打台球、打羽毛球、去欢乐谷、画画、写字。
