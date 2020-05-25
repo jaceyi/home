@@ -2,7 +2,7 @@ import { tailwind } from '@theme-ui/presets';
 
 export default {
   ...tailwind,
-  initialColorMode: `dark`,
+  initialColorMode: `light`,
   useCustomProperties: true,
   colors: {
     ...tailwind.colors,
