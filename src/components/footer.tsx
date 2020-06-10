@@ -1,9 +1,20 @@
 /** @jsx jsx */
+import { useEffect } from 'react';
 import { Footer as ThemeFooter, useColorMode, jsx } from 'theme-ui';
 
 const Footer = () => {
   const [colorMode, setColorMode] = useColorMode();
   const isDark = colorMode === 'dark';
+
+  useEffect(() => {
+    // 拿去用户系统主题
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      setColorMode('dark');
+    } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      setColorMode('light');
+    }
+  }, []);
+
   const toggleColorMode = () => {
     setColorMode(isDark ? 'light' : 'dark');
   };
