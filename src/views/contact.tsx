@@ -54,8 +54,7 @@ const Contact = ({ offset }: { offset: number }) => (
       <Inner>
         <Styled.h2>Get in touch</Styled.h2>
         <Styled.p>
-          Say Hi or find me on other platforms:
-          {' '}
+          Say Hi or find me on other platforms:{' '}
           <Styled.a
             target="_blank"
             href="https://juejin.im/user/5a3b2016f265da43231b22a7"
@@ -76,14 +75,13 @@ const Contact = ({ offset }: { offset: number }) => (
           </Styled.a>
         </Styled.p>
         <Styled.p>
-          Email: <Styled.a href="mailto:yijinchun@outlook.com">yijinchun@outlook.com</Styled.a>
+          Email:{' '}
+          <Styled.a href="mailto:yijinchun@outlook.com">
+            yijinchun@outlook.com
+          </Styled.a>
         </Styled.p>
-        <Styled.p>
-          WeChat: sg6498601
-        </Styled.p>
-        <Styled.p>
-          QQ: 6498601
-        </Styled.p>
+        <Styled.p>WeChat: jaceyi</Styled.p>
+        <Styled.p>QQ: 6498601</Styled.p>
       </Inner>
       <Footer />
     </Content>

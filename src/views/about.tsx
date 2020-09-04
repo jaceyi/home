@@ -113,9 +113,7 @@ const About = ({ offset }: { offset: number }) => (
         <Styled.p>
           平时喜欢游泳、打台球、打羽毛球、画画、去欢乐谷坐过山车，有兴趣相投的朋友加个联系方式有空一起玩呀~。
         </Styled.p>
-        <Styled.p>
-          好好学习，天天向上~
-        </Styled.p>
+        <Styled.p>好好学习，天天向上~</Styled.p>
       </Inner>
     </Content>
   </div>
