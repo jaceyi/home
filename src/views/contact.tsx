@@ -66,11 +66,7 @@ const Contact = ({ offset }: { offset: number }) => (
             GitHub
           </Styled.a>{' '}
           &{' '}
-          <Styled.a target="_blank" href="https://www.facebook.com/jaceyi123">
-            Facebook
-          </Styled.a>{' '}
-          &{' '}
-          <Styled.a target="_blank" href="https://twitter.com/jaceyi123">
+          <Styled.a target="_blank" href="https://twitter.com/jaceyi0123">
             Twitter
           </Styled.a>
         </Styled.p>
