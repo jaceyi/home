@@ -1,4 +1,5 @@
-const merge = require('webpack-merge');
+const path = require('path');
+const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
@@ -9,11 +10,13 @@ module.exports = merge(common, {
   devServer: {
     inline: true,
     historyApiFallback: true,
-    contentBase: './static',
+    contentBase: path.resolve(__dirname, '../public'),
+    hot: true,
+    disableHostCheck: true,
     overlay: {
       warnings: true,
       errors: true
     },
-    port: 5050
+    port: 3000
   }
 });
