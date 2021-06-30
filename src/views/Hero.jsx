@@ -1,14 +1,11 @@
 /** @jsx jsx */
 import { jsx, css } from '@emotion/react';
+import Background from '../components/Background';
 
 function Hero() {
   return (
-    <div
-      css={css`
-        background: url('/static/images/bg1.jpg') no-repeat left center;
-        background-size: cover;
-      `}
-    >
+    <div>
+      <Background url="/static/images/bg1.jpg" />
       <div
         css={css`
           overflow: hidden;
