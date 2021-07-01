@@ -16,56 +16,51 @@ function App() {
     if ((num > 0 && current >= 2) || (num < 0 && current <= 0)) return;
     index.current += num;
   };
-  const bind = useGesture(
-    {
-      onDrag: ({
-        active,
-        direction: [, yDir],
-        movement: [, y],
-        distance,
-        cancel
-      }) => {
-        const { clientHeight } = document.documentElement;
-        if (active && distance > clientHeight / 10) {
-          addIndex(yDir > 0 ? -1 : 1);
-          cancel();
-        }
-        const currentY = 0 - index.current * clientHeight;
-        api.start({
-          y: !lock.current && active ? y + currentY : currentY
-        });
-      },
-      onWheel: ({
-        active,
-        direction: [, yDir],
-        movement: [, y],
-        distance,
-        wheeling
-      }) => {
-        const { clientHeight } = document.documentElement;
-        if (lock.current) {
-          if (!wheeling) {
-            lock.current = false;
-          }
-          return;
-        }
-        if (distance > clientHeight / 10) {
-          addIndex(yDir > 0 ? 1 : -1);
-          lock.current = true;
-        }
-
-        const currentY = 0 - index.current * clientHeight;
-
-        api.start({
-          y: !lock.current && active ? -y + currentY : currentY,
-          immediate: !wheeling
-        });
+  const bind = useGesture({
+    onDrag: ({
+      active,
+      direction: [, yDir],
+      movement: [, y],
+      distance,
+      cancel
+    }) => {
+      const { clientHeight } = document.documentElement;
+      if (active && distance > clientHeight / 10) {
+        addIndex(yDir > 0 ? -1 : 1);
+        cancel();
       }
+      const currentY = 0 - index.current * clientHeight;
+      api.start({
+        y: !lock.current && active ? y + currentY : currentY
+      });
     },
-    {
-      axis: 'y'
+    onWheel: ({
+      active,
+      direction: [, yDir],
+      movement: [, y],
+      distance,
+      wheeling
+    }) => {
+      const { clientHeight } = document.documentElement;
+      if (lock.current) {
+        if (!wheeling) {
+          lock.current = false;
+        }
+        return;
+      }
+      if (distance > clientHeight / 10) {
+        addIndex(yDir > 0 ? 1 : -1);
+        lock.current = true;
+      }
+
+      const currentY = 0 - index.current * clientHeight;
+
+      api.start({
+        y: !lock.current && active ? -y + currentY : currentY,
+        immediate: !wheeling
+      });
     }
-  );
+  });
 
   return (
     <div
