@@ -65,6 +65,7 @@ const Contact = () => {
             <ClassNames>
               {({ css, cx }) => (
                 <a
+                  rel="noreferrer"
                   className={cx(
                     'item',
                     css`
@@ -84,6 +85,7 @@ const Contact = () => {
             </ClassNames>
             &
             <a
+              rel="noreferrer"
               className="item"
               target="_blank"
               href="https://github.com/jaceyi"
