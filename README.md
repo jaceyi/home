@@ -9,9 +9,9 @@
 ```bash
 yarn
 
-// dev
+// watch build
 yarn start
 
-// prod
-yarn build
+// dev server
+yarn server
 ```
