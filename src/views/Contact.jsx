@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <div>
       <Background
-        url="http://r0wdfo6w8.hd-bkt.clouddn.com/bg3.jpg"
+        url="https://dns.jaceyi.com/static/images//bg3.jpg"
         brightness={0.8}
       />
       <div

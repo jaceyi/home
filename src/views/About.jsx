@@ -6,7 +6,7 @@ const About = () => {
   return (
     <div>
       <Background
-        url="http://r0wdfo6w8.hd-bkt.clouddn.com/bg2.jpg"
+        url="https://dns.jaceyi.com/static/images//bg2.jpg"
         brightness={0.9}
       />
       <div
