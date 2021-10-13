@@ -5,7 +5,10 @@ import Background from '../components/Background';
 const About = () => {
   return (
     <div>
-      <Background url="/static/images/bg2.jpg" brightness={0.9} />
+      <Background
+        url="http://r0wdfo6w8.hd-bkt.clouddn.com/bg2.jpg"
+        brightness={0.9}
+      />
       <div
         css={css`
           overflow: hidden;

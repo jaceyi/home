@@ -5,7 +5,10 @@ import Background from '../components/Background';
 const Contact = () => {
   return (
     <div>
-      <Background url="/static/images/bg3.jpg" brightness={0.8} />
+      <Background
+        url="http://r0wdfo6w8.hd-bkt.clouddn.com/bg3.jpg"
+        brightness={0.8}
+      />
       <div
         css={css`
           overflow: hidden;
