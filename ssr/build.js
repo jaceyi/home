@@ -5,6 +5,7 @@ import fs from 'fs';
 import path from 'path';
 import ejs from 'ejs';
 
+// 纯 HTML 无任何 JS 逻辑
 const html = renderToString(<App />);
 
 ejs.renderFile(
