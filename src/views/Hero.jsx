@@ -5,7 +5,10 @@ import Background from '../components/Background';
 function Hero() {
   return (
     <div>
-      <Background url="https://dns.jaceyi.com/static/images/bg1.jpg" />
+      <Background
+        color="#db907d"
+        url="https://dns.jaceyi.com/static/images/bg1.jpg"
+      />
       <div
         css={css`
           overflow: hidden;

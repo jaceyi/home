@@ -6,6 +6,7 @@ const Contact = () => {
   return (
     <div>
       <Background
+        color="#1b1c1f"
         url="https://dns.jaceyi.com/static/images/bg3.jpg"
         brightness={0.8}
       />
