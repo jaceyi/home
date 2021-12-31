@@ -7,7 +7,7 @@ const Contact = () => {
     <div>
       <Background
         color="#1b1c1f"
-        url="https://dns.jaceyi.com/static/images/bg3.jpg"
+        url="/static/images/bg3.jpg"
         brightness={0.8}
       />
       <div
@@ -148,10 +148,7 @@ const Contact = () => {
             >
               <span>jaceyi</span>
               <div className="wx-qr-code">
-                <img
-                  src="https://dns.jaceyi.com/static/images/wx-qr-code.jpg"
-                  alt="微信二维码"
-                />
+                <img src="/static/images/wx-qr-code.jpg" alt="微信二维码" />
               </div>
             </a>
           </div>

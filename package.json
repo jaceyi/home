@@ -2,7 +2,7 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "start": "onchange 'src/**/*.{js,jsx}' -- yarn build",
+    "start": "onchange 'src/**/*.{js,jsx,ejs}' -- yarn build",
     "server": "node app.js",
     "build": "node ssr",
     "prettier": "prettier --write 'src/**/*.{js,jsx,scss,less,css}'",
