@@ -26,7 +26,7 @@ function Hero() {
 
             @media screen and (max-width: 1000px) {
               & {
-                font-size: 3.2rem;
+                font-size: 14vw;
                 line-height: 1.6;
                 margin-top: 12vh;
               }
@@ -42,6 +42,12 @@ function Hero() {
             margin-top: 3vh;
 
             @media screen and (max-width: 1000px) {
+              & {
+                font-size: 3.2vw;
+              }
+            }
+
+            @media screen and (max-width: 380px) {
               & {
                 font-size: 1rem;
               }

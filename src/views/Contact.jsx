@@ -23,7 +23,7 @@ const Contact = () => {
           }
         `}
       >
-        <h1
+        <h2
           css={css`
             margin-top: 24vh;
             font-family: inherit;
@@ -34,7 +34,7 @@ const Contact = () => {
 
             @media screen and (max-width: 1000px) {
               & {
-                font-size: 2.2rem;
+                font-size: 12vw;
                 line-height: 1.6;
                 margin-top: 12vh;
               }
@@ -42,7 +42,7 @@ const Contact = () => {
           `}
         >
           Get in touch
-        </h1>
+        </h2>
         <div
           css={css`
             color: #fff;
@@ -59,6 +59,12 @@ const Contact = () => {
             }
 
             @media screen and (max-width: 1000px) {
+              & {
+                font-size: 3vw;
+              }
+            }
+
+            @media screen and (max-width: 380px) {
               & {
                 font-size: 1rem;
               }
@@ -94,8 +100,8 @@ const Contact = () => {
           </div>
           <div>
             Email:
-            <a className="item" href="mailto:yijinchun@outlook.com">
-              yijinchun@outlook.com
+            <a className="item" href="mailto:jaceyi@qq.com">
+              jaceyi@qq.com
             </a>
           </div>
           <div>
@@ -125,7 +131,25 @@ const Contact = () => {
                   }
                 }
 
-                @media screen and (max-width: 380px) {
+                @media screen and (max-width: 450px) {
+                  .wx-qr-code {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    justify-content: center;
+                    align-items: center;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.2);
+                    pointer-events: none;
+
+                    img {
+                      width: 260px;
+                    }
+                  }
+                }
+
+                @media screen and (max-height: 720px) {
                   .wx-qr-code {
                     position: fixed;
                     top: 0;

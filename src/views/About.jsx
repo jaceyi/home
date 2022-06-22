@@ -28,10 +28,7 @@ const About = () => {
 
             @media screen and (max-width: 1000px) {
               & {
-                font-size: 3.2rem;
-                line-height: 1.6;
-                margin-top: 14vh;
-                margin-bottom: 10vh;
+                font-size: 12vw;
               }
             }
           `}
@@ -42,9 +39,14 @@ const About = () => {
           css={css`
             color: #fff;
             line-height: 2;
-            font-size: 1.4rem;
 
             @media screen and (max-width: 1000px) {
+              & {
+                font-size: 3vw;
+              }
+            }
+
+            @media screen and (max-width: 380px) {
               & {
                 font-size: 1rem;
               }
