@@ -61,10 +61,31 @@
 </head>
 
 <body>
+  <audio class="coc" autoplay loop src="./coc.ogg"></audio>
   <div class="text">
     <p>十三喜欢露露 ~</p>
     <p>么么哒 ~ <span class="mua">mua! (*╯3╰) </span></p>
   </div>
+  <script>
+    var coc = document.querySelector('.coc');
+    document.body.onclick = function () {
+      coc.play()
+    }
+    var touch = false;
+    var timer;
+    document.body.addEventListener('touchstart', function (e) {
+      touch = true;
+      window.clearTimeout(timer)
+      timer = setTimeout(() => {
+        if (touch) {
+          coc.pause()
+        }
+      }, 1000);
+    })
+    document.body.ontouchend = function () {
+      touch = false;
+    }
+  </script>
 </body>
 
 </html>
