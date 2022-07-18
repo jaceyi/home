@@ -39,6 +39,7 @@ const About = () => {
           css={css`
             color: #fff;
             line-height: 2;
+            font-size: 1.5rem;
 
             @media screen and (max-width: 1000px) {
               & {

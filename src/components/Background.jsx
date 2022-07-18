@@ -14,12 +14,7 @@ const Background = ({ url, brightness = 1, color }) => {
         background-size: cover;
         filter: brightness(${brightness});
         z-index: -1;
-
-        @media screen and (min-width: 500px) {
-          & {
-            background-attachment: fixed;
-          }
-        }
+        background-attachment: fixed;
       `}
     />
   );
