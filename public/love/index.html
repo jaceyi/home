@@ -68,7 +68,7 @@
 
     .progress {
       height: 3px;
-      width: 0;
+      width: 1%;
       transition: all 0.3s;
       background-color: rgba(255, 255, 255, 0.3);
     }
@@ -81,6 +81,13 @@
       width: 100%;
       text-align: center;
     }
+
+    .audio-box {
+      display: flex;
+      justify-content: center;
+      opacity: 0.2;
+      padding-top: 2vh;
+    }
   </style>
 </head>
 
@@ -88,7 +95,9 @@
   <div class="progress-box">
     <div class="progress"></div>
   </div>
-  <audio class="coc" autoplay preload="auto" loop src="./coc.ogg?v=1"></audio>
+  <div class="audio-box">
+    <audio controls class="coc" autoplay preload="auto" loop src="./coc.ogg?v=1"></audio>
+  </div>
   <div class="text">
     <p>十三喜欢露露 ~</p>
     <p>么么哒 ~ <span class="mua">mua! (*╯3╰) </span></p>
@@ -99,6 +108,7 @@
     var progresEle = document.querySelector('.progress');
     cocEle.addEventListener('progress', function () {
       var buffered = cocEle.buffered;
+      if (!buffered) return;
       var progres = 100 * buffered.end(0) / cocEle.duration;
       progresEle.style.width = progres + '%'
       if (progres === 100) {
