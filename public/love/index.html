@@ -27,6 +27,7 @@
       background: url("./love.png") center no-repeat;
       background-size: cover;
       overflow: hidden;
+      user-select: none;
     }
 
     .text {
@@ -40,7 +41,7 @@
     }
 
     .mua {
-      animation: mua 1.5s infinite;
+      animation: mua 1s infinite;
       display: inline-block;
     }
 
@@ -49,7 +50,7 @@
         transform: translate(0, 0);
       }
 
-      45% {
+      50% {
         transform: translate(6px, -2px);
       }
 
@@ -57,34 +58,68 @@
         transform: translate(0, 0);
       }
     }
+
+    .progress-box {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+    }
+
+    .progress {
+      height: 3px;
+      width: 0;
+      transition: all 0.3s;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .tip {
+      color: rgba(255, 255, 255, 0.3);
+      font-size: 12px;
+      position: fixed;
+      bottom: 2vh;
+      width: 100%;
+      text-align: center;
+    }
   </style>
 </head>
 
 <body>
-  <audio class="coc" autoplay loop src="./coc.ogg"></audio>
+  <div class="progress-box">
+    <div class="progress"></div>
+  </div>
+  <audio class="coc" autoplay preload="auto" loop src="./coc.ogg?v=1"></audio>
   <div class="text">
     <p>十三喜欢露露 ~</p>
     <p>么么哒 ~ <span class="mua">mua! (*╯3╰) </span></p>
   </div>
+  <div class="tip">背景音乐已准备好，单击屏幕播放，双击暂停 ~</div>
   <script>
-    var coc = document.querySelector('.coc');
-    document.body.onclick = function () {
-      coc.play()
-    }
-    var touch = false;
-    var timer;
-    document.body.addEventListener('touchstart', function (e) {
-      touch = true;
-      window.clearTimeout(timer)
-      timer = setTimeout(() => {
-        if (touch) {
-          coc.pause()
-        }
-      }, 1000);
+    var cocEle = document.querySelector('.coc');
+    var progresEle = document.querySelector('.progress');
+    cocEle.addEventListener('progress', function () {
+      var buffered = cocEle.buffered;
+      var progres = 100 * buffered.end(0) / cocEle.duration;
+      progresEle.style.width = progres + '%'
+      if (progres === 100) {
+        setTimeout(() => {
+          progresEle.style.height = 0;
+        }, 300)
+      }
     })
-    document.body.ontouchend = function () {
-      touch = false;
-    }
+    cocEle.addEventListener('canplay', function () {
+      document.querySelector('.tip').style.display = 'block'
+    })
+    var prevTime;
+    document.body.addEventListener('touchend', function () {
+      var currentTime = new Date().getTime();
+      if (prevTime && currentTime - prevTime < 300) {
+        cocEle.pause()
+      } else {
+        cocEle.play()
+      }
+      prevTime = currentTime;
+    })
   </script>
 </body>
 
